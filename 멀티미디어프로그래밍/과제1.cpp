@@ -19,10 +19,9 @@ int main() {
 	//img3(src);
 	//img4(src);
 	//img5(src);
-	//img6(src);
+	img6(src);
 
 	cvWaitKey();
-
 }
 
 void img1(IplImage* src)
@@ -100,7 +99,6 @@ void img4(IplImage* src)
 		for (int x = 0; x < w; x++) {
 			double nx = double(x) / (w - 1) * 2 - 1;
 			double ny = double(y) / (h - 1) * 2 - 1;
-			printf("nx:%.2f, ny:%.2f\n", nx, ny);
 			if (nx * nx + ny * ny > 1) {
 				cvSet2D(dst, y, x, getGray(src, y, x));
 			}
@@ -118,8 +116,21 @@ void img5(IplImage* src)
 	CvSize size = cvGetSize(src);
 	int h = size.height;
 	int w = size.width;
-
 	IplImage* dst = cvCreateImage(size, 8, 3);
+
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
+			double nx = double(x) / (w - 1) * 2 - 1;
+			double ny = double(y) / (h - 1) * 2 - 1;
+			if (int(sqrt(nx * nx + ny * ny)*10)%2==1) {
+				cvSet2D(dst, y, x, cvScalar(0,0,0));
+			}
+			else{
+				cvSet2D(dst, y, x, cvGet2D(src, y, x));
+			}
+		}
+	}
+
 	cvShowImage("img5", dst);
 }
 
@@ -128,8 +139,30 @@ void img6(IplImage* src)
 	CvSize size = cvGetSize(src);
 	int h = size.height;
 	int w = size.width;
-
 	IplImage* dst = cvCreateImage(size, 8, 3);
+
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
+			double nx = double(x) / (w - 1)*10;
+			double ny = double(y) / (h - 1)*10;
+			if (int(ny)%2==0) {
+				if (int(nx) % 2 == 0) {
+					cvSet2D(dst, y, x, cvScalar(0, 0, 0));
+				}
+				else if (int(nx) % 2 == 1) {
+					cvSet2D(dst, y, x, cvGet2D(src, y, x));
+				}
+			}
+			else if(int(ny)%2==1){
+				if (int(nx) % 2 == 0) {
+					cvSet2D(dst, y, x, cvGet2D(src, y, x));
+				}
+				else if (int(nx) % 2 == 1) {
+					cvSet2D(dst, y, x, cvScalar(0,0,0));
+				}
+			}
+		}
+	}
 	cvShowImage("img6", dst);
 }
 
