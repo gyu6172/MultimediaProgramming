@@ -14,11 +14,11 @@ int main() {
 		return -1;
 	}
 
-	//img1(src);
-	//img2(src);
-	//img3(src);
-	//img4(src);
-	//img5(src);
+	img1(src);
+	img2(src);
+	img3(src);
+	img4(src);
+	img5(src);
 	img6(src);
 
 	cvWaitKey();
@@ -120,9 +120,9 @@ void img5(IplImage* src)
 
 	for (int y = 0; y < h; y++) {
 		for (int x = 0; x < w; x++) {
-			double nx = double(x) / (w - 1) * 2 - 1;
-			double ny = double(y) / (h - 1) * 2 - 1;
-			if (int(sqrt(nx * nx + ny * ny)*10)%2==1) {
+			double nx = double(x) / (w - 1) * 20 - 10;
+			double ny = double(y) / (h - 1) * 20 - 10;
+			if (int(sqrt(nx * nx + ny * ny))%2==1) {
 				cvSet2D(dst, y, x, cvScalar(0,0,0));
 			}
 			else{
