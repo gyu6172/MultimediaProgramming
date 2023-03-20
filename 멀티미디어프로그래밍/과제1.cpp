@@ -76,7 +76,7 @@ void img3(IplImage* src)
 		for (int x = 0; x < w; x++) {
 			double nx = double(x)/(w-1)*2-1;
 			double ny = double(y)/(h-1)*2-1;
-			if((-1<nx+ny && nx+ny<1) && (-1<ny-nx && ny-nx<1)){
+			if(-1<nx+ny && nx+ny<1 && -1<ny-nx && ny-nx<1){
 				cvSet2D(dst, y, x, cvGet2D(src,y,x));
 			}
 			else{
