@@ -78,5 +78,8 @@
     <ClCompile Include="0323.cpp">
       <Filter>소스 파일\0323</Filter>
     </ClCompile>
+    <ClCompile Include="과제2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
