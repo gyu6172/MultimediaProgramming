@@ -1,12 +1,20 @@
 #include <opencv2/opencv.hpp>
+typedef struct ImgInfo {
+	int** arr;
+	int* rows;
+	int* cols;
+}ImgInfo;
 void drawImgGraphVertical(int arr[], CvSize size, const char* str);
 void drawImgGraphHorizontal(int arr[], CvSize size, const char* str);
+void printImgInfo(ImgInfo info);
+int** getImgInfo(IplImage *img);
 int* getImgInfoVertical(IplImage* img, char c);
 int* getImgInfoHorizontal(IplImage* img, char c);
 int findBoundaryVertical(IplImage* img, int startY, int dy);
 int findBoundaryHorizontal(IplImage* img, int startX, int dx);
 void drawVerticalLine(IplImage* img, CvScalar color, int y);
 void drawHorizontalLine(IplImage* img, CvScalar color, int x);
+int calculateArrDiff(int *arr1, int *arr2, int size);
 
 CvScalar BLUE = cvScalar(255, 0, 0);
 CvScalar GREEN = cvScalar(0, 255, 0);
@@ -19,10 +27,7 @@ CvScalar BLACK = cvScalar(0, 0, 0);
 #define VERTICALAVGLIMIT 50
 #define SIZE 1000
 
-typedef struct ImgInfo {
-	int *rows;
-	int *cols;
-}ImgInfo;
+
 
 int main() {
 	//이미지 입력
@@ -30,7 +35,6 @@ int main() {
 	//char str[100];
 	//scanf("%s",str);
 	//IplImage *src = cvLoadImage(str);
-
 	IplImage* src = cvLoadImage("C:\\tmp\\pg1.jpg");
 	CvSize size = cvGetSize(src);
 
@@ -76,6 +80,9 @@ int main() {
 			cvSet2D(rImg, y, x, rc);
 		}
 	}
+	bImgInfo.arr = getImgInfo(bImg);
+	gImgInfo.arr = getImgInfo(gImg);
+	rImgInfo.arr = getImgInfo(rImg);
 
 	bImgInfo.cols = getImgInfoVertical(bImg, 'b');
 	rImgInfo.cols = getImgInfoVertical(gImg, 'g');
@@ -85,15 +92,58 @@ int main() {
 	rImgInfo.rows = getImgInfoHorizontal(gImg, 'g');
 	gImgInfo.rows = getImgInfoHorizontal(rImg, 'r');
 	
-	drawImgGraphVertical(bImgInfo.cols, imgSize, "BlueVerticalGraph");
-	drawImgGraphVertical(gImgInfo.cols, imgSize, "GreenVerticalGraph");
-	drawImgGraphVertical(rImgInfo.cols, imgSize, "RedVerticalGraph");
-	
-	drawImgGraphHorizontal(bImgInfo.rows, imgSize, "BlueHorizontalGraph");
-	drawImgGraphHorizontal(gImgInfo.rows, imgSize, "GreenHorizontalGraph");
-	drawImgGraphHorizontal(rImgInfo.rows, imgSize, "RedHorizontalGraph");
+	//drawImgGraphVertical(bImgInfo.cols, imgSize, "BlueVerticalGraph");
+	//drawImgGraphVertical(gImgInfo.cols, imgSize, "GreenVerticalGraph");
+	//drawImgGraphVertical(rImgInfo.cols, imgSize, "RedVerticalGraph");
+	//
+	//drawImgGraphHorizontal(bImgInfo.rows, imgSize, "BlueHorizontalGraph");
+	//drawImgGraphHorizontal(gImgInfo.rows, imgSize, "GreenHorizontalGraph");
+	//drawImgGraphHorizontal(rImgInfo.rows, imgSize, "RedHorizontalGraph");
 
+	int diffBG=2147483647;
+	int diffBGposY=0;
 
+	int diffBR = 2147483647;
+	int diffBRposY = 0;
+	for (int y = 0; y < imgSize.height; y++) {
+		int nowdiffBG = calculateArrDiff(bImgInfo.arr[imgSize.height/2], gImgInfo.arr[y], imgSize.height);
+		if (diffBG > nowdiffBG) {
+			diffBG = nowdiffBG;
+			diffBGposY = y;
+		}
+
+		int nowdiffBR = calculateArrDiff(bImgInfo.arr[imgSize.height / 2], rImgInfo.arr[y], imgSize.height);
+		if (diffBR > nowdiffBR) {
+			diffBR = nowdiffBR;
+			diffBRposY = y;
+		}
+		printf("%d행 : BLUE |<-%d->| GREEN |<-%d->| RED\n", y, nowdiffBG, nowdiffBR);
+	}
+
+	//int diffBG=2147483647;
+	//int diffBGposY=0;
+
+	//int diffBR=2147483647;
+	//int diffBRposY=0;
+
+	//for (int y = 0; y < imgSize.height; y++) {
+	//	printf("%d행 : %d |<-%d->| %d |<-%d->| %d\n",y, bImgInfo.cols[imgSize.height/2], abs(bImgInfo.cols[imgSize.height / 2] - gImgInfo.cols[y]), gImgInfo.cols[y], abs(bImgInfo.cols[imgSize.height / 2] - rImgInfo.cols[y]), rImgInfo.cols[y]);
+	//	if (abs(bImgInfo.cols[imgSize.height / 2] - gImgInfo.cols[y]) < diffBG) {
+	//		diffBG = abs(bImgInfo.cols[imgSize.height / 2] - gImgInfo.cols[y]);
+	//		diffBGposY = y;
+	//	}
+	//	if (abs(bImgInfo.cols[imgSize.height / 2] - rImgInfo.cols[y]) < diffBR) {
+	//		diffBR = abs(bImgInfo.cols[imgSize.height / 2] - rImgInfo.cols[y]);
+	//		diffBRposY = y;
+	//	}
+	//}
+	 
+	 
+	drawVerticalLine(bImg, BLUE, imgSize.height/2);
+	drawVerticalLine(gImg, GREEN, diffBGposY);
+	drawVerticalLine(rImg, RED, diffBRposY);
+
+	printf("BGposY:%d\nBRposY:%d\n",diffBGposY,diffBRposY);
 
 	//dst
 	for (int y = 0; y < imgSize.height; y++) {
@@ -154,6 +204,36 @@ void drawImgGraphHorizontal(int arr[], CvSize size, const char* str)
 
 }
 
+void printImgInfo(ImgInfo info)
+{
+	int i,j;
+	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡarrㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	for (i = 0; i < 10; i++) {
+		for (j = 0; j < 10; j++) {
+			printf("%4d",info.arr[i][j]);
+		}
+		printf("\n");
+	}
+	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+}
+
+int** getImgInfo(IplImage* img)
+{
+	int h=cvGetSize(img).height;
+	int w=cvGetSize(img).width;
+	int **arr = (int**)malloc(sizeof(int*)*h);
+	int i,j;
+	for (i = 0; i < h; i++) {
+		arr[i] = (int*)malloc(sizeof(int)*w);
+	}
+	for (i = 0; i < h; i++) {
+		for (j = 0; j < w; j++) {
+			arr[i][j] = cvGet2D(img,i,j).val[0];
+		}
+	}
+	return arr;
+}
+
 int* getImgInfoVertical(IplImage* img, char c)
 {
 	int *arr = (int*)malloc(sizeof(int)*SIZE);
@@ -169,7 +249,7 @@ int* getImgInfoVertical(IplImage* img, char c)
 		}
 		variance = sqrt(variance);
 		//printf("%d행 %c:%.2f\n", y, c, variance);
-		arr[y]=(int)avg;
+		arr[y]=(int)variance;
 	}
 
 	return arr;
@@ -190,7 +270,7 @@ int* getImgInfoHorizontal(IplImage* img, char c)
 		}
 		variance = sqrt(variance);
 		//printf("%d열 %c:%.2f\n", x, c, variance);
-		arr[x]=(int)avg;
+		arr[x]=(int)variance;
 	}
 	return arr;
 }
@@ -274,4 +354,13 @@ void drawHorizontalLine(IplImage* img, CvScalar color, int x)
 	for (int y = 0; y < cvGetSize(img).height; y++) {
 		cvSet2D(img, y, x, color);
 	}
+}
+
+int calculateArrDiff(int* arr1, int* arr2, int size)
+{
+	int diffSum=0;
+	for (int i = 0; i < size; i++) {
+		diffSum += abs(arr1[i]-arr2[i]);
+	}
+	return diffSum;
 }
