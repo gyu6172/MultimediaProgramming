@@ -38,7 +38,7 @@ int main() {
 	//char str[100];
 	//scanf("%s",str);
 	//IplImage *src = cvLoadImage(str);
-	IplImage* src = cvLoadImage("C:\\tmp\\pg4.jpg");
+	IplImage* src = cvLoadImage("C:\\tmp\\pg2.jpg");
 	CvSize size = cvGetSize(src);
 
 	int topBoundary, bottomBoundary;
@@ -79,36 +79,23 @@ int main() {
 			cvSet2D(rImg, y, x, rc);
 		}
 	}
-	ImgInfo bImgInfo;
-	ImgInfo gImgInfo;
-	ImgInfo rImgInfo;
-	bImgInfo.arr = getImgInfo(bImg);
-	gImgInfo.arr = getImgInfo(gImg);
-	rImgInfo.arr = getImgInfo(rImg);
 
-	int filter[FILTERSIZE][FILTERSIZE];
-	int middlex=imgSize.width/2;
-	int middley=imgSize.height/2;
-
-	for (int i = 0; i < FILTERSIZE; i++) {
-		for (int j = 0; j < FILTERSIZE; j++) {
-			filter[i][j] = bImgInfo.arr[middley+i][middlex+j];
-		}
-	}
-
-	int d=10;
 	float minDiffBG=FLT_MAX;
 	float minDiffBR=FLT_MAX;
 	int uBG, uBR, vBG, vBR;
 
-	printf("middleX:%d\nmiddleY:%d\n",middlex,middley);
-	for (int v = -d; v <= d; v++) {
-		for (int u = -d; u <= d; u++) {
+	int h = imgSize.height;
+	int w = imgSize.width;
+	int dh = imgSize.height/3;
+	int dw = imgSize.width/3;
+
+	for (int v = -10; v <= 10; v++) {
+		for (int u = -10; u <= 10; u++) {
 			float sumBG=0.0;
 			float sumBR=0.0;
 			int cnt=0;
-			for (int y = imgSize.height/4; y < imgSize.height/4*3; y++) {
-				for (int x = imgSize.width/4; x < imgSize.width/4*3; x++) {
+			for (int y = h/4; y < h/4*3; y++) {
+				for (int x = w/4; x < w/4*3; x++) {
 					if (x + u<0 || x + u>imgSize.width - 1) continue;
 					if (y + v<0 || y + v>imgSize.height - 1) continue;
 					sumBG += getDistance(cvGet2D(bImg, y, x), cvGet2D(gImg, y+v, x+u));
@@ -116,45 +103,20 @@ int main() {
 					cnt++;
 				}
 			}
-			float avgBG = sumBG / cnt;
-			float avgBR = sumBR / cnt;
-			if (avgBG < minDiffBG) {
-				minDiffBG = avgBG;
+			if (sumBG/cnt < minDiffBG) {
+				minDiffBG = sumBG/cnt;
 				uBG = u;
 				vBG = v;
 				printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBG);
 			}
-			if (avgBR < minDiffBR) {
-				minDiffBR = avgBR;
+			if (sumBR/cnt < minDiffBR) {
+				minDiffBR = sumBR/cnt;
 				uBR = u;
 				vBR = v;
 				printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBR);
 			}
 		}
 	}
-
-	//int bgfiltering = calculateDiffFilter(gImgInfo.arr, filter, middley + v, middlex + u);
-	//if (minDiffBG > bgfiltering) {
-	//	minDiffBG = bgfiltering;
-	//	uBG = u;
-	//	vBG = v;
-	//	printf("BG %d차이, u:%d, v:%d\n", minDiffBG, u, v);
-	//}
-	//int brfiltering = calculateDiffFilter(gImgInfo.arr, filter, middley + v, middlex + u);
-	//if (minDiffBR > brfiltering) {
-	//	minDiffBR = brfiltering;
-	//	uBR = u;
-	//	vBR = v;
-	//	printf("BR %d차이, u:%d, v:%d\n", minDiffBR, u, v);
-	//}
-
-	drawVerticalLine(bImg, BLUE, middley);
-	drawVerticalLine(gImg, GREEN, middley+vBG);
-	drawVerticalLine(rImg, RED, middley+vBR);
-
-	drawHorizontalLine(bImg, BLUE, middlex);
-	drawHorizontalLine(gImg, GREEN, middlex+uBG);
-	drawHorizontalLine(rImg, RED, middlex+uBR);
 
 	//dst
 	for (int y = 0; y < imgSize.height; y++) {
@@ -401,8 +363,6 @@ int* getArr(int** imgArr, int x, int size)
 
 float getDistance(CvScalar a, CvScalar b) {
 	float sum = 0.0;
-	for (int k = 0; k < 3; k++) {
-		sum += pow(a.val[k] - b.val[k], 2);
-	}
+	sum += abs(a.val[0] - b.val[0]);
 	return sum;
 }
