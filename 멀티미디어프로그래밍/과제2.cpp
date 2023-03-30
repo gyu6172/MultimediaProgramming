@@ -14,7 +14,8 @@ int findBoundaryVertical(IplImage* img, int startY, int dy);
 int findBoundaryHorizontal(IplImage* img, int startX, int dx);
 void drawVerticalLine(IplImage* img, CvScalar color, int y);
 void drawHorizontalLine(IplImage* img, CvScalar color, int x);
-int calculateArrDiff(int *arr1, int *arr2, int size);
+int calculateArrDiff(int arr1[], int arr2[], int size);
+int* getArr(int **imgArr, int x, int size);
 
 CvScalar BLUE = cvScalar(255, 0, 0);
 CvScalar GREEN = cvScalar(0, 255, 0);
@@ -35,29 +36,26 @@ int main() {
 	//char str[100];
 	//scanf("%s",str);
 	//IplImage *src = cvLoadImage(str);
-	IplImage* src = cvLoadImage("C:\\tmp\\pg1.jpg");
+	IplImage* src = cvLoadImage("C:\\tmp\\pg3.jpg");
 	CvSize size = cvGetSize(src);
 
 	int topBoundary, bottomBoundary;
 	topBoundary = findBoundaryVertical(src, 2, 1);
 	bottomBoundary = findBoundaryVertical(src, size.height - 2, -1);
 
-	CvSize imgSize = size;
 	CvSize newSrcSize=size;
 
 	newSrcSize.height = bottomBoundary;
 	newSrcSize.height -= topBoundary;
 
+	CvSize imgSize;
+	imgSize.width = size.width;
 	imgSize.height = newSrcSize.height / 3;
 	
 	IplImage* bImg = cvCreateImage(imgSize, 8, 3);
 	IplImage* gImg = cvCreateImage(imgSize, 8, 3);
 	IplImage* rImg = cvCreateImage(imgSize, 8, 3);
 	IplImage* dst = cvCreateImage(imgSize, 8, 3);
-
-	ImgInfo bImgInfo;
-	ImgInfo gImgInfo;
-	ImgInfo rImgInfo;
 
 	IplImage* newSrc = cvCreateImage(newSrcSize, 8, 3);
 	for (int y = topBoundary; y < bottomBoundary; y++) {
@@ -68,7 +66,6 @@ int main() {
 		}
 	}
 
-	//구버전
 	for (int y = 0; y < imgSize.height; y++) {
 		for (int x = 0; x < imgSize.width; x++) {
 			CvScalar bc = cvGet2D(newSrc, y, x);
@@ -80,71 +77,69 @@ int main() {
 			cvSet2D(rImg, y, x, rc);
 		}
 	}
+	ImgInfo bImgInfo;
+	ImgInfo gImgInfo;
+	ImgInfo rImgInfo;
 	bImgInfo.arr = getImgInfo(bImg);
 	gImgInfo.arr = getImgInfo(gImg);
 	rImgInfo.arr = getImgInfo(rImg);
 
-	bImgInfo.cols = getImgInfoVertical(bImg, 'b');
-	rImgInfo.cols = getImgInfoVertical(gImg, 'g');
-	gImgInfo.cols = getImgInfoVertical(rImg, 'r');
 
-	bImgInfo.rows = getImgInfoHorizontal(bImg, 'b');
-	rImgInfo.rows = getImgInfoHorizontal(gImg, 'g');
-	gImgInfo.rows = getImgInfoHorizontal(rImg, 'r');
-	
-	//drawImgGraphVertical(bImgInfo.cols, imgSize, "BlueVerticalGraph");
-	//drawImgGraphVertical(gImgInfo.cols, imgSize, "GreenVerticalGraph");
-	//drawImgGraphVertical(rImgInfo.cols, imgSize, "RedVerticalGraph");
-	//
-	//drawImgGraphHorizontal(bImgInfo.rows, imgSize, "BlueHorizontalGraph");
-	//drawImgGraphHorizontal(gImgInfo.rows, imgSize, "GreenHorizontalGraph");
-	//drawImgGraphHorizontal(rImgInfo.rows, imgSize, "RedHorizontalGraph");
+	int maxDiffY_BG = 2147483647;
+	int maxDiffYPos_BG=0;
 
-	int diffBG=2147483647;
-	int diffBGposY=0;
-
-	int diffBR = 2147483647;
-	int diffBRposY = 0;
+	int maxDiffY_BR = 2147483647;
+	int maxDiffYPos_BR=0;
 	for (int y = 0; y < imgSize.height; y++) {
-		int nowdiffBG = calculateArrDiff(bImgInfo.arr[500], gImgInfo.arr[y], imgSize.width);
-		if (diffBG > nowdiffBG) {
-			diffBG = nowdiffBG;
-			diffBGposY = y;
+		int nowdiffBGY = calculateArrDiff(bImgInfo.arr[imgSize.height / 2], gImgInfo.arr[y], imgSize.width);
+		if (maxDiffY_BG > nowdiffBGY) {
+			maxDiffY_BG = nowdiffBGY;
+			maxDiffYPos_BG = y;
+			printf("%d번 행 BG 차이:%d\n", y, maxDiffY_BG);
 		}
 
-		int nowdiffBR = calculateArrDiff(bImgInfo.arr[500], rImgInfo.arr[y], imgSize.width);
-		if (diffBR > nowdiffBR) {
-			diffBR = nowdiffBR;
-			diffBRposY = y;
+		int nowdiffBRY = calculateArrDiff(bImgInfo.arr[imgSize.height / 2], rImgInfo.arr[y], imgSize.width);
+		if (maxDiffY_BR > nowdiffBRY) {
+			maxDiffY_BR = nowdiffBRY;
+			maxDiffYPos_BR = y;
+			printf("%d번 행 BG 차이:%d\n", y, maxDiffY_BG);
 		}
-		printf("%d행 : BLUE |<-%d->| GREEN |<-%d->| RED\n", y, nowdiffBG, nowdiffBR);
 	}
+	drawVerticalLine(bImg, BLUE, imgSize.height / 2);
+	drawVerticalLine(gImg, GREEN, maxDiffYPos_BG);
+	drawVerticalLine(rImg, RED, maxDiffYPos_BR);
+	printf("BG차이 최대 %d행, BR차이 최대 %d행\n",maxDiffYPos_BG, maxDiffYPos_BR);
 
 
-	//int diffBG=2147483647;
-	//int diffBGposY=0;
 
-	//int diffBR=2147483647;
-	//int diffBRposY=0;
+	int maxDiffX_BG = INT_MAX;
+	int maxDiffXPos_BG = 0;
 
-	//for (int y = 0; y < imgSize.height; y++) {
-	//	printf("%d행 : %d |<-%d->| %d |<-%d->| %d\n",y, bImgInfo.cols[imgSize.height/2], abs(bImgInfo.cols[imgSize.height / 2] - gImgInfo.cols[y]), gImgInfo.cols[y], abs(bImgInfo.cols[imgSize.height / 2] - rImgInfo.cols[y]), rImgInfo.cols[y]);
-	//	if (abs(bImgInfo.cols[imgSize.height / 2] - gImgInfo.cols[y]) < diffBG) {
-	//		diffBG = abs(bImgInfo.cols[imgSize.height / 2] - gImgInfo.cols[y]);
-	//		diffBGposY = y;
-	//	}
-	//	if (abs(bImgInfo.cols[imgSize.height / 2] - rImgInfo.cols[y]) < diffBR) {
-	//		diffBR = abs(bImgInfo.cols[imgSize.height / 2] - rImgInfo.cols[y]);
-	//		diffBRposY = y;
-	//	}
-	//}
-	 
-	 
-	drawVerticalLine(bImg, BLUE, 500);
-	drawVerticalLine(gImg, GREEN, diffBGposY);
-	drawVerticalLine(rImg, RED, diffBRposY);
+	int maxDiffX_BR = INT_MAX;
+	int maxDiffXPos_BR = 0;
+	for (int x = 0; x < imgSize.width; x++) {
+		int sumBG=0;
+		int sumBR=0;
+		for (int y = 0; y < imgSize.height; y++) {
+			sumBG += abs(bImgInfo.arr[y][imgSize.width/2]-gImgInfo.arr[y][x]);
+			sumBR += abs(bImgInfo.arr[y][imgSize.width / 2]-rImgInfo.arr[y][x]);
+		}
+		if (maxDiffX_BG > sumBG) {
+			maxDiffX_BG = sumBG;
+			maxDiffXPos_BG = x;
+			printf("%d번 열 BG 차이:%d\n",x,maxDiffX_BG);
+		}
 
-	printf("BGposY:%d\nBRposY:%d\n",diffBGposY,diffBRposY);
+		if (maxDiffX_BR > sumBR) {
+			maxDiffX_BR = sumBR;
+			maxDiffXPos_BR = x;
+			printf("%d번 열 BR 차이:%d\n", x, maxDiffX_BR);
+		}
+	}
+	drawHorizontalLine(bImg, BLUE, imgSize.width / 2);
+	drawHorizontalLine(gImg, GREEN, maxDiffXPos_BG);
+	drawHorizontalLine(rImg, RED, maxDiffXPos_BR);
+
 
 	//dst
 	for (int y = 0; y < imgSize.height; y++) {
@@ -291,7 +286,6 @@ int findBoundaryVertical(IplImage* img, int startY, int dy)
 		nextAvg /= cvGetSize(img).width - 1;
 
 		if (abs(avg - nextAvg) > VERTICALAVGLIMIT) {
-			printf("%d번행 차이 : %f\n", y, abs(avg-nextAvg));
 			return y;
 		}
 
@@ -357,11 +351,20 @@ void drawHorizontalLine(IplImage* img, CvScalar color, int x)
 	}
 }
 
-int calculateArrDiff(int* arr1, int* arr2, int size)
+int calculateArrDiff(int arr1[], int arr2[], int size)
 {
 	int diffSum=0;
 	for (int i = 0; i < size; i++) {
 		diffSum += abs(arr1[i]-arr2[i]);
 	}
 	return diffSum;
+}
+
+int* getArr(int** imgArr, int x, int size)
+{
+	int *xArr = (int*)malloc(sizeof(int)*size);
+	for (int y = 0; y < size; y++) {
+		xArr[y] = imgArr[y][x];
+	}
+	return xArr;
 }
