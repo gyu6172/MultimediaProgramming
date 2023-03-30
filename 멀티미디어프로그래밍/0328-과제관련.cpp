@@ -47,7 +47,6 @@ int main() {
 
 
 
-
 	cvShowImage("src1", src1);
 	cvShowImage("src2", src2);
 	cvShowImage("dst", dst);

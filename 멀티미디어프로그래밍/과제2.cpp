@@ -106,19 +106,20 @@ int main() {
 	int diffBR = 2147483647;
 	int diffBRposY = 0;
 	for (int y = 0; y < imgSize.height; y++) {
-		int nowdiffBG = calculateArrDiff(bImgInfo.arr[imgSize.height/2], gImgInfo.arr[y], imgSize.height);
+		int nowdiffBG = calculateArrDiff(bImgInfo.arr[500], gImgInfo.arr[y], imgSize.width);
 		if (diffBG > nowdiffBG) {
 			diffBG = nowdiffBG;
 			diffBGposY = y;
 		}
 
-		int nowdiffBR = calculateArrDiff(bImgInfo.arr[imgSize.height / 2], rImgInfo.arr[y], imgSize.height);
+		int nowdiffBR = calculateArrDiff(bImgInfo.arr[500], rImgInfo.arr[y], imgSize.width);
 		if (diffBR > nowdiffBR) {
 			diffBR = nowdiffBR;
 			diffBRposY = y;
 		}
 		printf("%dวเ : BLUE |<-%d->| GREEN |<-%d->| RED\n", y, nowdiffBG, nowdiffBR);
 	}
+
 
 	//int diffBG=2147483647;
 	//int diffBGposY=0;
@@ -139,7 +140,7 @@ int main() {
 	//}
 	 
 	 
-	drawVerticalLine(bImg, BLUE, imgSize.height/2);
+	drawVerticalLine(bImg, BLUE, 500);
 	drawVerticalLine(gImg, GREEN, diffBGposY);
 	drawVerticalLine(rImg, RED, diffBRposY);
 
