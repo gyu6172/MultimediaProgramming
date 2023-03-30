@@ -31,6 +31,9 @@
     <Filter Include="소스 파일\0328">
       <UniqueIdentifier>{e75e67b2-fb39-47a8-90db-a68ca177071c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0330">
+      <UniqueIdentifier>{7193f356-10b9-42ac-95dc-afeb4a40fa38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="0328-과제관련.cpp">
       <Filter>소스 파일\0328</Filter>
+    </ClCompile>
+    <ClCompile Include="0330.cpp">
+      <Filter>소스 파일\0330</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
