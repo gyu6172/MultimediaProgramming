@@ -39,7 +39,7 @@ int main() {
 	//char str[100];
 	//scanf("%s",str);
 	//IplImage *src = cvLoadImage(str);
-	IplImage* src = cvLoadImage("C:\\tmp\\pg1.jpg");
+	IplImage* src = cvLoadImage("C:\\tmp\\pg4.jpg");
 	CvSize size = cvGetSize(src);
 
 	CvSize imgSize;
@@ -66,34 +66,34 @@ int main() {
 		}
 	}
 
-	CvSize templSize;
-	templSize.height = h/3;
-	templSize.width = w/3;
-	IplImage *templ = cvCreateImage(templSize, 8, 3);
-	for (int y = 0; y < templSize.height; y++) {
-		for (int x = 0; x < templSize.width; x++) {
-			cvSet2D(templ, y, x, cvGet2D(bImg, y+templSize.height, x+templSize.width));
-		}
-	}
-	IplImage *resultG = cvCreateImage(cvSize(w-templSize.width+1, h-templSize.height+1), IPL_DEPTH_32F, 1);
-	IplImage *resultR = cvCreateImage(cvSize(w-templSize.width+1, h-templSize.height+1), IPL_DEPTH_32F, 1);
-	cvMatchTemplate(gImg, templ, resultG ,CV_TM_CCOEFF_NORMED);
-	cvMatchTemplate(rImg, templ, resultR ,CV_TM_CCOEFF_NORMED);
+	//CvSize templSize;
+	//templSize.height = h/3;
+	//templSize.width = w/3;
+	//IplImage *templ = cvCreateImage(templSize, 8, 3);
+	//for (int y = 0; y < templSize.height; y++) {
+	//	for (int x = 0; x < templSize.width; x++) {
+	//		cvSet2D(templ, y, x, cvGet2D(bImg, y+templSize.height, x+templSize.width));
+	//	}
+	//}
+	//IplImage *resultG = cvCreateImage(cvSize(w-templSize.width+1, h-templSize.height+1), IPL_DEPTH_32F, 1);
+	//IplImage *resultR = cvCreateImage(cvSize(w-templSize.width+1, h-templSize.height+1), IPL_DEPTH_32F, 1);
+	//cvMatchTemplate(gImg, templ, resultG ,CV_TM_CCOEFF_NORMED);
+	//cvMatchTemplate(rImg, templ, resultR ,CV_TM_CCOEFF_NORMED);
 
-	double ming,maxg, minr, maxr;
-	CvPoint pb, pg, pr;
-	cvMinMaxLoc(resultG, &ming, &maxg, NULL, &pg);
-	cvMinMaxLoc(resultR, &ming, &maxg, NULL, &pr);
-	cvRectangle(gImg, pg, cvPoint(pg.x + templSize.width, pg.y + templSize.height), CV_RGB(0, 255, 0), 2);
-	cvRectangle(rImg, pr, cvPoint(pr.x + templSize.width, pr.y + templSize.height), CV_RGB(255, 0, 0), 2);
-	pb.x = templSize.width;
-	pb.y = templSize.height;
+	//double ming,maxg, minr, maxr;
+	//CvPoint pb, pg, pr;
+	//cvMinMaxLoc(resultG, &ming, &maxg, NULL, &pg);
+	//cvMinMaxLoc(resultR, &ming, &maxg, NULL, &pr);
+	//cvRectangle(gImg, pg, cvPoint(pg.x + templSize.width, pg.y + templSize.height), CV_RGB(0, 255, 0), 2);
+	//cvRectangle(rImg, pr, cvPoint(pr.x + templSize.width, pr.y + templSize.height), CV_RGB(255, 0, 0), 2);
+	//pb.x = templSize.width;
+	//pb.y = templSize.height;
 
-	printf("B : (%d, %d)\n", pb.x, pb.y);
-	printf("G : (%d, %d)\n", pg.x, pg.y);
-	printf("R : (%d, %d)\n", pr.x, pr.y);
+	//printf("B : (%d, %d)\n", pb.x, pb.y);
+	//printf("G : (%d, %d)\n", pg.x, pg.y);
+	//printf("R : (%d, %d)\n", pr.x, pr.y);
 
-	cvShowImage("templ",templ);
+	//cvShowImage("templ",templ);
 
 
 
@@ -178,22 +178,43 @@ int main() {
 	//}
 
 
-	////2차원배열생성
-	//float** bImgArr = (float**)malloc(sizeof(float*) * h);
-	//float** gImgArr = (float**)malloc(sizeof(float*) * h);
-	//float** rImgArr = (float**)malloc(sizeof(float*) * h);
-	//for (int i = 0; i < h; i++) {
-	//	bImgArr[i] = (float*)malloc(sizeof(float) * w);
-	//	gImgArr[i] = (float*)malloc(sizeof(float) * w);
-	//	rImgArr[i] = (float*)malloc(sizeof(float) * w);
-	//}
-	//for (int i = 0; i < h; i++) {
-	//	for (int j = 0; j < w; j++) {
-	//		bImgArr[i][j] = (cvGet2D(bImg, i, j).val[0]);
-	//		gImgArr[i][j] = (cvGet2D(gImg, i, j).val[0]);
-	//		rImgArr[i][j] = (cvGet2D(rImg, i, j).val[0]);
-	//	}
-	//}
+	//2차원배열생성
+	float** bImgArr = (float**)malloc(sizeof(float*) * h);
+	float** gImgArr = (float**)malloc(sizeof(float*) * h);
+	float** rImgArr = (float**)malloc(sizeof(float*) * h);
+	for (int i = 0; i < h; i++) {
+		bImgArr[i] = (float*)malloc(sizeof(float) * w);
+		gImgArr[i] = (float*)malloc(sizeof(float) * w);
+		rImgArr[i] = (float*)malloc(sizeof(float) * w);
+	}
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; j < w; j++) {
+			bImgArr[i][j] = (cvGet2D(bImg, i, j).val[0]);
+			gImgArr[i][j] = (cvGet2D(gImg, i, j).val[0]);
+			rImgArr[i][j] = (cvGet2D(rImg, i, j).val[0]);
+		}
+	}
+
+	float mdbg=FLT_MAX, mdbr=FLT_MAX;
+	int bgy, bry;
+	for (int y = 0; y < h; y++) {
+		float dbg=0.0, dbr=0.0;
+		for (int x = 0; x < w; x++) {
+			dbg += abs(bImgArr[h/2][x]-gImgArr[y][x]);
+			dbr += abs(bImgArr[h/2][x]-rImgArr[y][x]);
+		}
+		if (mdbg > dbg) {
+			mdbg = dbg;
+			bgy = y;
+		}
+		if (mdbr > dbr) {
+			mdbr = dbr;
+			bry = y;
+		}
+	}
+	drawVerticalLine(bImg, BLUE, h/2);
+	drawVerticalLine(gImg, GREEN, bgy);
+	drawVerticalLine(rImg, RED, bry);
 
 	//float *bDiffArr = (float*)malloc(sizeof(float) * w);
 	//float *gDiffArr = (float*)malloc(sizeof(float) * w);

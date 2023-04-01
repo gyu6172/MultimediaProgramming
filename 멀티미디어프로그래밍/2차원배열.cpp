@@ -3,6 +3,9 @@
 //이미지를 입력으로 받아, y좌표가 startY에서 시작해서 dy만큼 증가하면서 이미지의 경계를 찾는 함수
 int findBoundaryVertical(IplImage* img, int startY, int dy);
 
+//두 CvScalar값 사이의 차이를 리턴하는 함수
+float getDistance(CvScalar f, CvScalar g);
+
 int main() {
 	//이미지 경로 입력
 	printf("Input File Name : ");
@@ -15,26 +18,9 @@ int main() {
 	//src의 크기를 저장하는 변수
 	CvSize size = cvGetSize(src);
 
-	//src 이미지는 액자처럼 된 틀 안에 그려져 있는데, 그 틀의 위쪽 경계와 아래쪽 경계의 y좌표를 저장할 변수
-	int topBoundary, bottomBoundary;
-	//이미지의 위쪽부터 아래쪽으로 탐색하면서 처음 만나는 경계선의 y좌표를 리턴함.
-	topBoundary = findBoundaryVertical(src, 2, 1);
-	//이미지의 아래쪽부터 위쪽으로 탐색하면서 처음 만나는 경계선의 y좌표를 리턴함.
-	bottomBoundary = findBoundaryVertical(src, size.height - 2, -1);
-
-	//위쪽 경계선보다 위에 있는 부분과, 아래쪽 경계선보다 아래에 있는 부분은 필요없는 정보이므로 삭제해줄 것이다.
-
-	//삭제 후, 새로운 이미지의 크기를 저장할 변수
-	CvSize newSrcSize = size;
-
-	//원래 이미지의 높이에 아래쪽 경계선의 y좌표를 저장한 뒤, 위쪽 경계선의 y좌표를 빼면 새로운 이미지의 높이가 나옴.
-	newSrcSize.height = bottomBoundary;
-	newSrcSize.height -= topBoundary;
-
-	//원래 이미지에서 3등분 된 각 이미지의 크기를 저장하는 변수
 	CvSize imgSize;
 	imgSize.width = size.width;
-	imgSize.height = newSrcSize.height / 3;
+	imgSize.height = size.height / 3;
 
 	int h = imgSize.height;
 	int w = imgSize.width;
@@ -51,23 +37,12 @@ int main() {
 	//최종 출력할 결과 이미지 dst 선언
 	IplImage* dst = cvCreateImage(imgSize, 8, 3);
 
-	//필요없는 정보가 삭제된 이미지가 저장될 newSrc
-	IplImage* newSrc = cvCreateImage(newSrcSize, 8, 3);
-	//newSrc에 위쪽 경계선부터 아래쪽 경계선까지의 이미지만 저장해준다.
-	for (int y = topBoundary; y < bottomBoundary; y++) {
-		for (int x = 0; x < newSrcSize.width; x++) {
-			CvScalar color = cvGet2D(src, y, x);
-
-			cvSet2D(newSrc, y - topBoundary, x, color);
-		}
-	}
-
-	//newSrc를 3등분하여 bImg, gImg, rImg에 저장함.
+	//src를 3등분하여 bImg, gImg, rImg에 저장함.
 	for (int y = 0; y < h; y++) {
 		for (int x = 0; x < w; x++) {
-			CvScalar bc = cvGet2D(newSrc, y, x);
-			CvScalar gc = cvGet2D(newSrc, y + newSrcSize.height / 3, x);
-			CvScalar rc = cvGet2D(newSrc, y + newSrcSize.height / 3 * 2, x);
+			CvScalar bc = cvGet2D(src, y, x);
+			CvScalar gc = cvGet2D(src, y + size.height / 3, x);
+			CvScalar rc = cvGet2D(src, y + size.height / 3 * 2, x);
 
 			cvSet2D(bImg, y, x, bc);
 			cvSet2D(gImg, y, x, gc);
@@ -105,8 +80,8 @@ int main() {
 
 	//이미지를 위치가 맞게 정렬
 	//u와 v를 -20~20까지 돌리면서 밝기값의 차이가 가장 적을 때를 찾는다.
-	for (int v = -20; v <= 20; v++) {
-		for (int u = -20; u <= 20; u++) {
+	for (int v = -30; v <= 30; v++) {
+		for (int u = -30; u <= 30; u++) {
 			//밝기 차이의 합
 			float sumBG = 0.0;
 			float sumBR = 0.0;
@@ -165,15 +140,6 @@ int main() {
 	cvShowImage("src", src);
 	cvShowImage("dst", dst);
 
-	//동적할당 받은 2차원 배열 할당 해제하기
-	for (int y = 0; y < h; y++) {
-		free(bImgArr[y]);
-		free(gImgArr[y]);
-		free(rImgArr[y]);
-	}
-	free(bImgArr);
-	free(gImgArr);
-	free(rImgArr);
 
 	cvWaitKey();
 
@@ -209,4 +175,10 @@ int findBoundaryVertical(IplImage* img, int startY, int dy)
 			return y;
 		}
 	}
+}
+
+//두 CvScalar변수의 값차이를 리턴하는 함수
+//입력으로 들어오는 CvScalar 변수의 RGB값은 모두 같다고 가정한다.
+float getDistance(CvScalar a, CvScalar b) {
+	return abs(a.val[0] - b.val[0]);
 }

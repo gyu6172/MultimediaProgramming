@@ -102,13 +102,10 @@
     <ClCompile Include="과제2.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\과제2_22011831_김형규\2차원배열&amp;newSrc(최종).cpp">
+    <ClCompile Include="2차원배열&amp;newSrc(최종).cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\과제2_22011831_김형규\newSrc주석버전.cpp">
-      <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\과제2_22011831_김형규\교수님코드 주석버전.cpp">
+    <ClCompile Include="2차원배열.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
   </ItemGroup>
