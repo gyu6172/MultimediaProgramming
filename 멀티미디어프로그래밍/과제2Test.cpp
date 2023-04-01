@@ -84,7 +84,15 @@ int main() {
 		}
 	}
 
-	//2차원배열생성
+	CvSize newSize = imgSize;
+	IplImage* newB = cvCreateImage(newSize, 8, 3);
+	IplImage* newG = cvCreateImage(newSize, 8, 3);
+	IplImage* newR = cvCreateImage(newSize, 8, 3);
+	cvSmooth(bImg, newB, CV_GAUSSIAN, 31);
+	cvSmooth(gImg, newG, CV_GAUSSIAN, 31);
+	cvSmooth(rImg, newR, CV_GAUSSIAN, 31);
+
+
 	float** bImgArr = (float**)malloc(sizeof(float*) * h);
 	float** gImgArr = (float**)malloc(sizeof(float*) * h);
 	float** rImgArr = (float**)malloc(sizeof(float*) * h);
@@ -95,58 +103,211 @@ int main() {
 	}
 	for (int i = 0; i < h; i++) {
 		for (int j = 0; j < w; j++) {
-			bImgArr[i][j] = (cvGet2D(bImg, i, j).val[0]);
-			gImgArr[i][j] = (cvGet2D(gImg, i, j).val[0]);
-			rImgArr[i][j] = (cvGet2D(rImg, i, j).val[0]);
+			bImgArr[i][j] = (cvGet2D(newB, i, j).val[0]);
+			gImgArr[i][j] = (cvGet2D(newG, i, j).val[0]);
+			rImgArr[i][j] = (cvGet2D(newR, i, j).val[0]);
 		}
 	}
 
-	float minDiffBG = FLT_MAX;
-	float minDiffBR = FLT_MAX;
-	int uBG, uBR, vBG, vBR;
 
-	int dh = imgSize.height / 3;
-	int dw = imgSize.width / 3;
+	//float bsum=0.0, gsum=0.0, rsum=0.0;
+	//for (int y = 0; y < h; y++) {
+	//	for (int x = 0; x < w; x++) {
+	//		bsum += bImgArr[y][x];
+	//		gsum += gImgArr[y][x];
+	//		rsum += rImgArr[y][x];
+	//	}
+	//}
+	//bsum /= w*h;
+	//gsum /= w*h;
+	//rsum /= w*h;
+	//for (int y = 0; y < h; y++) {
+	//	for (int x = 0; x < w; x++) {
+	//		if (bImgArr[y][x] < bsum) {
+	//			bImgArr[y][x] = 0;
+	//		}
+	//		if (gImgArr[y][x] < gsum) {
+	//			gImgArr[y][x] = 0;
+	//		}
+	//		if (rImgArr[y][x] < rsum) {
+	//			rImgArr[y][x] = 0;
+	//		}
+	//	}
+	//}
+	//for (int y = 0; y < h; y++) {
+	//	for (int x = 0; x < w; x++) {
+	//		int b=bImgArr[y][x];
+	//		int g=gImgArr[y][x];
+	//		int r=rImgArr[y][x];
+	//		cvSet2D(newB, y, x, cvScalar(b,b,b));
+	//		cvSet2D(newG, y, x, cvScalar(g,g,g));
+	//		cvSet2D(newR, y, x, cvScalar(r,r,r));
+	//	}
+	//}
 
-	for (int v = -10; v <= 10; v++) {
-		for (int u = -10; u <= 10; u++) {
-			float sumBG = 0.0;
-			float sumBR = 0.0;
-			int cnt = 0;
-			for (int y = h / 4; y < h / 4 * 3; y++) {
-				for (int x = w / 4; x < w / 4 * 3; x++) {
-					if (x + u<0 || x + u>imgSize.width - 1) continue;
-					if (y + v<0 || y + v>imgSize.height - 1) continue;
-					sumBG += abs(bImgArr[y][x] - gImgArr[y + v][x + u]);
-					sumBR += abs(bImgArr[y][x] - rImgArr[y + v][x + u]);
-					cnt++;
-				}
-			}
-			if (sumBG / cnt < minDiffBG) {
-				minDiffBG = sumBG / cnt;
-				uBG = u;
-				vBG = v;
-				printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBG);
-			}
-			if (sumBR / cnt < minDiffBR) {
-				minDiffBR = sumBR / cnt;
-				uBR = u;
-				vBR = v;
-				printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBR);
-			}
-		}
-	}
+	////newB의 표준편차 
+	//float bSum = 0.0;
+	//for (int x = 0; x < w; x++) {
+	//	bSum += bImgArr[h / 2][x];
+	//}
+	//float bAvg = bSum / w;
+	//float bVar = 0.0;
+	//for (int x = 0; x < w; x++) {
+	//	bVar += pow(bImgArr[h / 2][x] - bAvg, 2);
+	//}
+	//bVar = sqrt(bVar);
+
+	//float minVarbg = FLT_MAX, minVarbr = FLT_MAX;
+	//int minbgy, minbry;
+	//for (int y = 0; y < h; y++) {
+	//	float gSum = 0.0;
+	//	float rSum = 0.0;
+	//	for (int x = 0; x < w; x++) {
+	//		gSum += gImgArr[y][x];
+	//		rSum += rImgArr[y][x];
+	//	}
+	//	float gAvg = gSum / w;
+	//	float rAvg = rSum / w;
+	//	float gVar = 0.0;
+	//	float rVar = 0.0;
+	//	for (int x = 0; x < w; x++) {
+	//		gVar += pow(gImgArr[y][x] - gAvg, 2);
+	//		rVar += pow(rImgArr[y][x] - rAvg, 2);
+	//	}
+	//	gVar = sqrt(gVar);
+	//	rVar = sqrt(rVar);
+	//	if (abs(bVar - gVar) < minVarbg) {
+	//		minVarbg = abs(bVar - gVar);
+	//		minbgy = y;
+	//		printf("%d행 %f차이\n", minbgy, minVarbg);
+	//	}
+	//	if (abs(bVar - rVar) < minVarbr) {
+	//		minVarbr = abs(bVar - rVar);
+	//		minbry = y;
+	//		printf("%d행 %f차이\n", minbry, minVarbr);
+	//	}
+	//}
+
+
+	////2차원배열생성
+	//float** bImgArr = (float**)malloc(sizeof(float*) * h);
+	//float** gImgArr = (float**)malloc(sizeof(float*) * h);
+	//float** rImgArr = (float**)malloc(sizeof(float*) * h);
+	//for (int i = 0; i < h; i++) {
+	//	bImgArr[i] = (float*)malloc(sizeof(float) * w);
+	//	gImgArr[i] = (float*)malloc(sizeof(float) * w);
+	//	rImgArr[i] = (float*)malloc(sizeof(float) * w);
+	//}
+	//for (int i = 0; i < h; i++) {
+	//	for (int j = 0; j < w; j++) {
+	//		bImgArr[i][j] = (cvGet2D(bImg, i, j).val[0]);
+	//		gImgArr[i][j] = (cvGet2D(gImg, i, j).val[0]);
+	//		rImgArr[i][j] = (cvGet2D(rImg, i, j).val[0]);
+	//	}
+	//}
+
+	//float *bDiffArr = (float*)malloc(sizeof(float) * w);
+	//float *gDiffArr = (float*)malloc(sizeof(float) * w);
+	//float *rDiffArr = (float*)malloc(sizeof(float) * w);
+	//int C = 400;
+	//for (int x = 0; x < w-1; x++) {
+	//	bDiffArr[x] = bImgArr[C][x]-bImgArr[C][x+1];
+	//	printf("%.2f ",bDiffArr[x]);
+	//}
+	//printf("\n");
+	//float minDiffbg=FLT_MAX;
+	//float minDiffbr=FLT_MAX;
+	//int bgy=0;
+	//int bry=0;
+
+	//for (int y = 0; y < h; y++) {
+	//	for (int x = 0; x < w - 1; x++) {
+	//		gDiffArr[x] = gImgArr[y][x] - gImgArr[y][x + 1];
+	//		rDiffArr[x] = rImgArr[y][x] - rImgArr[y][x + 1];
+	//	}
+	//	int cnt=0;
+	//	float diffBG=0.0;
+	//	float diffBR=0.0;
+	//	for (int x = 0; x < w - 1; x++) {
+	//		diffBG += pow((bDiffArr[x]-gDiffArr[x]),2);
+	//		diffBR += pow((bDiffArr[x]-rDiffArr[x]),2);
+	//		cnt++;
+	//	}
+	//	if (diffBG/cnt < minDiffbg) {
+	//		minDiffbg = diffBG/cnt;
+	//		bgy = y;
+	//		printf("BG:%d행 %.2f차이\n" ,bgy ,minDiffbg);
+	//	}
+	//	if (diffBR/cnt < minDiffbr) {
+	//		minDiffbr = diffBR/cnt;
+	//		bry = y;
+	//		printf("BR:%d행 %.2f차이\n", bry, minDiffbr);
+	//	}
+	//}
+	//drawVerticalLine(bImg, BLUE, C);
+	//drawVerticalLine(gImg, GREEN, bgy);
+	//drawVerticalLine(rImg, RED, bry);
+
+	//float minDiffBG = FLT_MAX;
+	//float minDiffBR = FLT_MAX;
+	//int uBG, uBR, vBG, vBR;
+
+	//int dh = imgSize.height / 3;
+	//int dw = imgSize.width / 3;
+
+	//for (int v = -10; v <= 10; v++) {
+	//	for (int u = -10; u <= 10; u++) {
+	//		float sumBG = 0.0;
+	//		float sumBR = 0.0;
+	//		int cnt = 0;
+	//		for (int y = h / 4; y < h / 4 * 3; y++) {
+	//			for (int x = w / 4; x < w / 4 * 3; x++) {
+	//				if (x + u<0 || x + u>imgSize.width - 1) continue;
+	//				if (y + v<0 || y + v>imgSize.height - 1) continue;
+	//				sumBG += abs(bImgArr[y][x] - gImgArr[y + v][x + u]);
+	//				sumBR += abs(bImgArr[y][x] - rImgArr[y + v][x + u]);
+	//				cnt++;
+	//			}
+	//		}
+	//		if (sumBG / cnt < minDiffBG) {
+	//			minDiffBG = sumBG / cnt;
+	//			uBG = u;
+	//			vBG = v;
+	//			printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBG);
+	//		}
+	//		if (sumBR / cnt < minDiffBR) {
+	//			minDiffBR = sumBR / cnt;
+	//			uBR = u;
+	//			vBR = v;
+	//			printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBR);
+	//		}
+	//	}
+	//}
+
+	////dst
+	//for (int y = 0; y < imgSize.height; y++) {
+	//	for (int x = 0; x < imgSize.width; x++) {
+	//		if (x + uBG<0 || x + uBG>imgSize.width - 1) continue;
+	//		if (y + vBG<0 || y + vBG>imgSize.height - 1) continue;
+	//		if (x + uBR<0 || x + uBR>imgSize.width - 1) continue;
+	//		if (y + vBR<0 || y + vBR>imgSize.height - 1) continue;
+	//		CvScalar b = cvGet2D(bImg, y, x);
+	//		CvScalar g = cvGet2D(gImg, y + vBG, x + uBG);
+	//		CvScalar r = cvGet2D(rImg, y + vBR, x + uBR);
+	//		CvScalar color;
+	//		color.val[0] = b.val[0];
+	//		color.val[1] = g.val[0];
+	//		color.val[2] = r.val[0];
+	//		cvSet2D(dst, y, x, color);
+	//	}
+	//}
 
 	//dst
 	for (int y = 0; y < imgSize.height; y++) {
 		for (int x = 0; x < imgSize.width; x++) {
-			if (x + uBG<0 || x + uBG>imgSize.width - 1) continue;
-			if (y + vBG<0 || y + vBG>imgSize.height - 1) continue;
-			if (x + uBR<0 || x + uBR>imgSize.width - 1) continue;
-			if (y + vBR<0 || y + vBR>imgSize.height - 1) continue;
 			CvScalar b = cvGet2D(bImg, y, x);
-			CvScalar g = cvGet2D(gImg, y + vBG, x + uBG);
-			CvScalar r = cvGet2D(rImg, y + vBR, x + uBR);
+			CvScalar g = cvGet2D(gImg, y, x);
+			CvScalar r = cvGet2D(rImg, y, x);
 			CvScalar color;
 			color.val[0] = b.val[0];
 			color.val[1] = g.val[0];
@@ -156,11 +317,12 @@ int main() {
 	}
 
 
-
 	cvShowImage("bImg", bImg);
 	cvShowImage("gImg", gImg);
 	cvShowImage("rImg", rImg);
-
+	cvShowImage("B", newB);
+	cvShowImage("G", newG);
+	cvShowImage("R", newR);
 	cvShowImage("dst", dst);
 	//cvShowImage("src", src);
 
