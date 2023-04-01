@@ -98,8 +98,8 @@ int main() {
 	//bImg의 (x, y)위치에 있는 점은 rImg의 (x+diffBR.x, y+diffBR.y)위치에 있는 점과 대응된다.
 
 	//dst에 그리기
-	for (int y = 0; y < imgSize.height; y++) {
-		for (int x = 0; x < imgSize.width; x++) {
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
 			//만약 좌표가 이미지 밖이라면 연산을 진행하지 않음.
 			if(0>x+diffBG.x || x+diffBG.x>w-1) continue;
 			if(0>x+diffBR.x || x+diffBR.x>w-1) continue;
