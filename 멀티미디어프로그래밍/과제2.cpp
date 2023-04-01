@@ -73,8 +73,8 @@ int main() {
 	cvMatchTemplate(gImg, templ, resultG, CV_TM_CCOEFF_NORMED);
 	cvMatchTemplate(rImg, templ, resultR, CV_TM_CCOEFF_NORMED);
 
-	//결과 이미지에서 최고정확도와 최저정확도를 계산하여 저장할 변수
-	double ming, maxg, minr, maxr;
+	//결과 이미지에서 최고정확도를 계산하여 저장할 변수
+	double maxg, maxr;
 
 	//정확도가 최고일때의 사각형 왼쪽 위 좌표를 저장할 변수
 	//각각 bImg, gImg, rImg의 좌표를 저장함.
@@ -85,8 +85,8 @@ int main() {
 	pb.y = templSize.height;
 
 	//결과 이미지에서 정확도가 가장 높을 때의 사각형 왼쪽 위 좌표를 저장함.
-	cvMinMaxLoc(resultG, &ming, &maxg, NULL, &pg);
-	cvMinMaxLoc(resultR, &ming, &maxg, NULL, &pr);
+	cvMinMaxLoc(resultG, NULL, &maxg, NULL, &pg);
+	cvMinMaxLoc(resultR, NULL, &maxg, NULL, &pr);
 
 	//bImg와 gImg의 좌표의 차이, bImg와 rImg의 좌표의 차이를 저장할 변수
 	CvPoint diffBG, diffBR;
