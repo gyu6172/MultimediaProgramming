@@ -1,82 +1,46 @@
 #include <opencv2/opencv.hpp>
-//홀수여야함. 짝수면 에러뜰수도
-#define FILTERSIZE 10
-#define HORIZONTALVARIANCELIMIT 250
-#define VERTICALVARIANCELIMIT 350
-#define VERTICALAVGLIMIT 50
-#define SIZE 1000
-
-CvScalar BLUE = cvScalar(255, 0, 0);
-CvScalar GREEN = cvScalar(0, 255, 0);
-CvScalar RED = cvScalar(0, 0, 255);
-CvScalar WHITE = cvScalar(255, 255, 255);
-CvScalar BLACK = cvScalar(0, 0, 0);
-
-typedef struct ImgInfo {
-	int** arr;
-	int* rows;
-	int* cols;
-}ImgInfo;
-void drawImgGraphVertical(int arr[], CvSize size, const char* str);
-void drawImgGraphHorizontal(int arr[], CvSize size, const char* str);
-void printImgInfo(ImgInfo info);
-int** getImgInfo(IplImage* img);
-int* getImgInfoVertical(IplImage* img, char c);
-int* getImgInfoHorizontal(IplImage* img, char c);
-int findBoundaryVertical(IplImage* img, int startY, int dy);
-int findBoundaryHorizontal(IplImage* img, int startX, int dx);
-void drawVerticalLine(IplImage* img, CvScalar color, int y);
-void drawHorizontalLine(IplImage* img, CvScalar color, int x);
-int calculateArrDiff(int arr1[], int arr2[], int size);
-int calculateDiffFilter(int** imgInfo, int filter[][FILTERSIZE], int starty, int startx);
-int* getArr(int** imgArr, int x, int size);
-float getDistance(CvScalar f, CvScalar g);
 
 int main() {
 
-	//이미지 입력
-	//printf("Input File Name : ");
-	//char str[100];
-	//scanf("%s",str);
-	//IplImage *src = cvLoadImage(str);
-	IplImage* src = cvLoadImage("C:\\tmp\\pg3.jpg");
+	//이미지 경로 입력
+	printf("Input File Name : ");
+	char str[100];
+	scanf("%s",str);
+
+	//입력된 경로에 있는 이미지를 불러옴.
+	IplImage *src = cvLoadImage(str);
+
+	//src의 크기를 저장하는 변수
 	CvSize size = cvGetSize(src);
 
-	int topBoundary, bottomBoundary;
-	topBoundary = findBoundaryVertical(src, 2, 1);
-	bottomBoundary = findBoundaryVertical(src, size.height - 2, -1);
 
-	CvSize newSrcSize = size;
-
-	newSrcSize.height = bottomBoundary;
-	newSrcSize.height -= topBoundary;
-
+	//원래 이미지에서 3등분 된 각 이미지의 크기를 저장하는 변수
 	CvSize imgSize;
 	imgSize.width = size.width;
-	imgSize.height = newSrcSize.height / 3;
+	imgSize.height = size.height / 3;
 
+	//h에 이미지의 높이저장, w에 이미지의 너비저장
 	int h = imgSize.height;
 	int w = imgSize.width;
 
+	//B색상의 정보가 포함된 이미지 bImg 선언
 	IplImage* bImg = cvCreateImage(imgSize, 8, 3);
+
+	//G색상의 정보가 포함된 이미지 gImg 선언
 	IplImage* gImg = cvCreateImage(imgSize, 8, 3);
+
+	//R색상의 정보가 포함된 이미지 rImg 선언
 	IplImage* rImg = cvCreateImage(imgSize, 8, 3);
+
+	//최종 출력할 결과 이미지 dst 선언
 	IplImage* dst = cvCreateImage(imgSize, 8, 3);
 
-	IplImage* newSrc = cvCreateImage(newSrcSize, 8, 3);
-	for (int y = topBoundary; y < bottomBoundary; y++) {
-		for (int x = 0; x < newSrcSize.width; x++) {
-			CvScalar color = cvGet2D(src, y, x);
-
-			cvSet2D(newSrc, y - topBoundary, x, color);
-		}
-	}
-
-	for (int y = 0; y < imgSize.height; y++) {
-		for (int x = 0; x < imgSize.width; x++) {
-			CvScalar bc = cvGet2D(newSrc, y, x);
-			CvScalar gc = cvGet2D(newSrc, y + newSrcSize.height / 3, x);
-			CvScalar rc = cvGet2D(newSrc, y + newSrcSize.height / 3 * 2, x);
+	//newSrc를 3등분하여 bImg, gImg, rImg에 저장함.
+	for (int y = 0; y < h; y++) {
+		for (int x = 0; x < w; x++) {
+			CvScalar bc = cvGet2D(src, y, x);
+			CvScalar gc = cvGet2D(src, y + size.height / 3, x);
+			CvScalar rc = cvGet2D(src, y + size.height / 3 * 2, x);
 
 			cvSet2D(bImg, y, x, bc);
 			cvSet2D(gImg, y, x, gc);
@@ -84,69 +48,70 @@ int main() {
 		}
 	}
 
-	//2차원배열생성
-	float** bImgArr = (float**)malloc(sizeof(float*) * h);
-	float** gImgArr = (float**)malloc(sizeof(float*) * h);
-	float** rImgArr = (float**)malloc(sizeof(float*) * h);
-	for (int i = 0; i < h; i++) {
-		bImgArr[i] = (float*)malloc(sizeof(float) * w);
-		gImgArr[i] = (float*)malloc(sizeof(float) * w);
-		rImgArr[i] = (float*)malloc(sizeof(float) * w);
-	}
-	for (int i = 0; i < h; i++) {
-		for (int j = 0; j < w; j++) {
-			bImgArr[i][j] = (cvGet2D(bImg, i, j).val[0]);
-			gImgArr[i][j] = (cvGet2D(gImg, i, j).val[0]);
-			rImgArr[i][j] = (cvGet2D(rImg, i, j).val[0]);
+	//템플릿의 사이즈는 원래 이미지의 1/3
+	CvSize templSize;
+	templSize.height = h / 3;
+	templSize.width = w / 3;
+
+	//템플릿 이미지 생성
+	IplImage* templ = cvCreateImage(templSize, 8, 3);
+
+	//bImg에서 템플릿이미지를 뽑아낸다.
+	for (int y = 0; y < templSize.height; y++) {
+		for (int x = 0; x < templSize.width; x++) {
+			cvSet2D(templ, y, x, cvGet2D(bImg, y + templSize.height, x + templSize.width));
 		}
 	}
 
-	float minDiffBG = FLT_MAX;
-	float minDiffBR = FLT_MAX;
-	int uBG, uBR, vBG, vBR;
+	//연산 결과를 저장하는 이미지 생성
+	//이미지의 높이,너비는 (원래이미지의 높이,너비) - (템플릿이미지의 높이,너비) + 1
+	IplImage* resultG = cvCreateImage(cvSize(w - templSize.width + 1, h - templSize.height + 1), IPL_DEPTH_32F, 1);
+	IplImage* resultR = cvCreateImage(cvSize(w - templSize.width + 1, h - templSize.height + 1), IPL_DEPTH_32F, 1);
 
-	int dh = imgSize.height / 3;
-	int dw = imgSize.width / 3;
+	//MatchTemplate 연산 수행.
+	//cvMatchTemplate(원본이미지, 템플릿이미지, 결과이미지, 연산 방법);
+	cvMatchTemplate(gImg, templ, resultG, CV_TM_CCOEFF_NORMED);
+	cvMatchTemplate(rImg, templ, resultR, CV_TM_CCOEFF_NORMED);
 
-	for (int v = -10; v <= 10; v++) {
-		for (int u = -10; u <= 10; u++) {
-			float sumBG = 0.0;
-			float sumBR = 0.0;
-			int cnt = 0;
-			for (int y = h / 4; y < h / 4 * 3; y++) {
-				for (int x = w / 4; x < w / 4 * 3; x++) {
-					if (x + u<0 || x + u>imgSize.width - 1) continue;
-					if (y + v<0 || y + v>imgSize.height - 1) continue;
-					sumBG += abs(bImgArr[y][x] - gImgArr[y + v][x + u]);
-					sumBR += abs(bImgArr[y][x] - rImgArr[y + v][x + u]);
-					cnt++;
-				}
-			}
-			if (sumBG / cnt < minDiffBG) {
-				minDiffBG = sumBG / cnt;
-				uBG = u;
-				vBG = v;
-				printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBG);
-			}
-			if (sumBR / cnt < minDiffBR) {
-				minDiffBR = sumBR / cnt;
-				uBR = u;
-				vBR = v;
-				printf("u=%d, v=%d, avg_error = %f\n", u, v, minDiffBR);
-			}
-		}
-	}
+	//결과 이미지에서 최고정확도와 최저정확도를 계산하여 저장할 변수
+	double ming, maxg, minr, maxr;
 
-	//dst
+	//정확도가 최고일때의 사각형 왼쪽 위 좌표를 저장할 변수
+	//각각 bImg, gImg, rImg의 좌표를 저장함.
+	CvPoint pb, pg, pr;
+	
+	//bImg가 원본이므로 템플릿이미지가 원본에서 어디있는지 저장함.
+	pb.x = templSize.width;
+	pb.y = templSize.height;
+
+	//결과 이미지에서 정확도가 가장 높을 때의 사각형 왼쪽 위 좌표를 저장함.
+	cvMinMaxLoc(resultG, &ming, &maxg, NULL, &pg);
+	cvMinMaxLoc(resultR, &ming, &maxg, NULL, &pr);
+
+	//bImg와 gImg의 좌표의 차이, bImg와 rImg의 좌표의 차이를 저장할 변수
+	CvPoint diffBG, diffBR;
+	diffBG.x = pg.x - pb.x;
+	diffBG.y = pg.y - pb.y;
+	diffBR.x = pr.x - pb.x;
+	diffBR.y = pr.y - pb.y;
+	//bImg의 (x, y)위치에 있는 점은 gImg의 (x+diffBG.x, y+diffBG.y)위치에 있는 점과 대응된다.
+	//bImg의 (x, y)위치에 있는 점은 rImg의 (x+diffBR.x, y+diffBR.y)위치에 있는 점과 대응된다.
+
+	//dst에 그리기
 	for (int y = 0; y < imgSize.height; y++) {
 		for (int x = 0; x < imgSize.width; x++) {
-			if (x + uBG<0 || x + uBG>imgSize.width - 1) continue;
-			if (y + vBG<0 || y + vBG>imgSize.height - 1) continue;
-			if (x + uBR<0 || x + uBR>imgSize.width - 1) continue;
-			if (y + vBR<0 || y + vBR>imgSize.height - 1) continue;
+			//만약 좌표가 이미지 밖이라면 연산을 진행하지 않음.
+			if(0>x+diffBG.x || x+diffBG.x>w-1) continue;
+			if(0>x+diffBR.x || x+diffBR.x>w-1) continue;
+			if(0>y+diffBG.y || y+diffBG.y>h-1) continue;
+			if(0>y+diffBR.y || y+diffBR.y>h-1) continue;
+
+			//각 점에서의 픽셀값을 뽑아냄.
 			CvScalar b = cvGet2D(bImg, y, x);
-			CvScalar g = cvGet2D(gImg, y + vBG, x + uBG);
-			CvScalar r = cvGet2D(rImg, y + vBR, x + uBR);
+			CvScalar g = cvGet2D(gImg, y+diffBG.y, x+diffBG.x);
+			CvScalar r = cvGet2D(rImg, y+diffBR.y, x+diffBR.x);
+
+			//dst에 BGR값을 대입하여 저장.
 			CvScalar color;
 			color.val[0] = b.val[0];
 			color.val[1] = g.val[0];
@@ -155,236 +120,12 @@ int main() {
 		}
 	}
 
-
-
-	cvShowImage("bImg", bImg);
-	cvShowImage("gImg", gImg);
-	cvShowImage("rImg", rImg);
-
+	//src와 dst 띄우기
+	cvShowImage("src", src);
 	cvShowImage("dst", dst);
-	//cvShowImage("src", src);
-
 
 	cvWaitKey();
 
-
+	return 0;
 }
 
-void drawImgGraphVertical(int arr[], CvSize size, const char* str)
-{
-	IplImage* graph = cvCreateImage(size, 8, 3);
-	for (int y = 0; y < size.height; y++) {
-		for (int x = 0; x < size.width; x++) {
-			cvSet2D(graph, y, x, WHITE);
-		}
-	}
-	for (int y = 0; y < size.height; y++) {
-		for (int x = 0; x < arr[y]; x++) {
-			cvSet2D(graph, y, x, BLACK);
-		}
-	}
-	cvShowImage(str, graph);
-
-}
-void drawImgGraphHorizontal(int arr[], CvSize size, const char* str)
-{
-	IplImage* graph = cvCreateImage(size, 8, 3);
-	for (int y = 0; y < size.height; y++) {
-		for (int x = 0; x < size.width; x++) {
-			cvSet2D(graph, y, x, WHITE);
-		}
-	}
-	for (int x = 0; x < size.width; x++) {
-		for (int y = 0; y < arr[x]; y++) {
-			cvSet2D(graph, y, x, BLACK);
-		}
-	}
-	cvShowImage(str, graph);
-
-}
-
-void printImgInfo(ImgInfo info)
-{
-	int i, j;
-	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡarrㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-	for (i = 0; i < 10; i++) {
-		for (j = 0; j < 10; j++) {
-			printf("%4d", info.arr[i][j]);
-		}
-		printf("\n");
-	}
-	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-}
-
-int** getImgInfo(IplImage* img)
-{
-	int h = cvGetSize(img).height;
-	int w = cvGetSize(img).width;
-	int** arr = (int**)malloc(sizeof(int*) * h);
-	int i, j;
-	for (i = 0; i < h; i++) {
-		arr[i] = (int*)malloc(sizeof(int) * w);
-	}
-	for (i = 0; i < h; i++) {
-		for (j = 0; j < w; j++) {
-			arr[i][j] = cvGet2D(img, i, j).val[0];
-		}
-	}
-	return arr;
-}
-
-int* getImgInfoVertical(IplImage* img, char c)
-{
-	int* arr = (int*)malloc(sizeof(int) * SIZE);
-	for (int y = 0; y < cvGetSize(img).height; y++) {
-		double avg = 0.0;
-		for (int x = 0; x < cvGetSize(img).width; x++) {
-			avg += cvGet2D(img, y, x).val[0];
-		}
-		avg /= cvGetSize(img).width - 1;
-		double variance = 0.0;
-		for (int x = 0; x < cvGetSize(img).width; x++) {
-			variance += pow(avg - cvGet2D(img, y, x).val[0], 2);
-		}
-		variance = sqrt(variance);
-		//printf("%d행 %c:%.2f\n", y, c, variance);
-		arr[y] = (int)variance;
-	}
-
-	return arr;
-}
-
-int* getImgInfoHorizontal(IplImage* img, char c)
-{
-	int* arr = (int*)malloc(sizeof(int) * SIZE);
-	for (int x = 0; x < cvGetSize(img).width; x++) {
-		double avg = 0.0;
-		for (int y = 0; y < cvGetSize(img).height; y++) {
-			avg += cvGet2D(img, y, x).val[0];
-		}
-		avg /= cvGetSize(img).width - 1;
-		double variance = 0.0;
-		for (int y = 0; y < cvGetSize(img).height; y++) {
-			variance += pow(avg - cvGet2D(img, y, x).val[0], 2);
-		}
-		variance = sqrt(variance);
-		//printf("%d열 %c:%.2f\n", x, c, variance);
-		arr[x] = (int)variance;
-	}
-	return arr;
-}
-
-int findBoundaryVertical(IplImage* img, int startY, int dy)
-{
-	int maxdiff = 0;
-	int maxDiffY = 0;
-	for (int y = startY; y < cvGetSize(img).height - 1; y += dy) {
-		double avg = 0.0;
-		double nextAvg = 0.0;
-		for (int x = 0; x < cvGetSize(img).width; x++) {
-			avg += cvGet2D(img, y, x).val[0];
-			nextAvg += cvGet2D(img, y + dy, x).val[0];
-		}
-		avg /= cvGetSize(img).width - 1;
-		nextAvg /= cvGetSize(img).width - 1;
-
-		if (abs(avg - nextAvg) > VERTICALAVGLIMIT) {
-			return y;
-		}
-
-		//double variance = 0.0;
-		//double nextVariance = 0.0;
-		//for (int x = 0; x < cvGetSize(img).width; x++) {
-		//	variance += pow(avg - cvGet2D(img, y, x).val[0], 2);
-		//	nextVariance += pow(nextAvg - cvGet2D(img, y + dy, x).val[0], 2);
-		//}
-		//variance = sqrt(variance);
-		//nextVariance = sqrt(nextVariance);
-		//if (abs(variance - nextVariance) > VERTICALVARIANCELIMIT) {
-		//	maxdiff = abs(variance - nextVariance);
-		//	maxDiffY = y;
-		//	printf("%d번행 차이 : %d\n", maxDiffY, maxdiff);
-		//	return maxDiffY;
-		//}
-	}
-}
-
-int findBoundaryHorizontal(IplImage* img, int startX, int dx)
-{
-	int maxdiff = 0;
-	int maxDiffX = 0;
-	for (int x = startX; x > 0; x += dx) {
-		double avg = 0.0;
-		double nextAvg = 0.0;
-		for (int y = 0; y < cvGetSize(img).height; y++) {
-			avg += cvGet2D(img, y, x).val[0];
-			nextAvg += cvGet2D(img, y, x + dx).val[0];
-		}
-		avg /= cvGetSize(img).height - 1;
-		nextAvg /= cvGetSize(img).height - 1;
-
-		double variance = 0.0;
-		double nextVariance = 0.0;
-		for (int y = 0; y < cvGetSize(img).height; y++) {
-			variance += pow(avg - cvGet2D(img, y, x).val[0], 2);
-			nextVariance += pow(nextAvg - cvGet2D(img, y, x + dx).val[0], 2);
-		}
-		variance = sqrt(variance);
-		nextVariance = sqrt(nextVariance);
-		if (abs(variance - nextVariance) > HORIZONTALVARIANCELIMIT) {
-			maxdiff = abs(variance - nextVariance);
-			maxDiffX = x;
-			printf("%d번열 차이 : %d\n", maxDiffX, maxdiff);
-			return maxDiffX;
-		}
-	}
-}
-
-void drawVerticalLine(IplImage* img, CvScalar color, int y)
-{
-	for (int x = 0; x < cvGetSize(img).width; x++) {
-		cvSet2D(img, y, x, color);
-	}
-}
-
-void drawHorizontalLine(IplImage* img, CvScalar color, int x)
-{
-	for (int y = 0; y < cvGetSize(img).height; y++) {
-		cvSet2D(img, y, x, color);
-	}
-}
-
-int calculateArrDiff(int arr1[], int arr2[], int size)
-{
-	int diffSum = 0;
-	for (int i = 0; i < size; i++) {
-		diffSum += abs(arr1[i] - arr2[i]);
-	}
-	return diffSum;
-}
-
-int calculateDiffFilter(int** imgInfo, int filter[][FILTERSIZE], int starty, int startx)
-{
-	int sum = 0;
-	for (int y = 0; y < FILTERSIZE; y++) {
-		for (int x = 0; x < FILTERSIZE; x++) {
-			sum += abs(imgInfo[starty + y][startx + x] - filter[y][x]);
-		}
-	}
-	return sum;
-}
-
-int* getArr(int** imgArr, int x, int size)
-{
-	int* xArr = (int*)malloc(sizeof(int) * size);
-	for (int y = 0; y < size; y++) {
-		xArr[y] = imgArr[y][x];
-	}
-	return xArr;
-}
-
-float getDistance(CvScalar a, CvScalar b) {
-	float sum = 0.0;
-	sum += abs(a.val[0] - b.val[0]);
-	return sum;
-}
