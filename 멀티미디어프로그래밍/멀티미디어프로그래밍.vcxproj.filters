@@ -111,5 +111,11 @@
     <ClCompile Include="2차원배열.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
+    <ClCompile Include="0404-실습1.cpp">
+      <Filter>소스 파일\0404</Filter>
+    </ClCompile>
+    <ClCompile Include="0404-실습2.cpp">
+      <Filter>소스 파일\0404</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
