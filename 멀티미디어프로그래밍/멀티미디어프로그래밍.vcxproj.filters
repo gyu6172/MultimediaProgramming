@@ -37,6 +37,9 @@
     <Filter Include="소스 파일\과제2">
       <UniqueIdentifier>{bbcb3dee-9484-4f32-be13-2d5102084193}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0404">
+      <UniqueIdentifier>{2bab9823-fc5f-4301-8b1a-c06c0b51583f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
