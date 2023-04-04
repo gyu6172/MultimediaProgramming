@@ -195,26 +195,31 @@ int main() {
 		}
 	}
 
-	float mdbg=FLT_MAX, mdbr=FLT_MAX;
-	int bgy, bry;
-	for (int y = 0; y < h; y++) {
-		float dbg=0.0, dbr=0.0;
-		for (int x = 0; x < w; x++) {
-			dbg += abs(bImgArr[h/2][x]-gImgArr[y][x]);
-			dbr += abs(bImgArr[h/2][x]-rImgArr[y][x]);
-		}
-		if (mdbg > dbg) {
-			mdbg = dbg;
-			bgy = y;
-		}
-		if (mdbr > dbr) {
-			mdbr = dbr;
-			bry = y;
+	float templ[5][5];
+	for (int y = 0; y < 5; y++) {
+		for (int x = 0; x < 5; x++) {
+			templ[y][x] = bImgArr[y+h/2][x+w/2];
 		}
 	}
-	drawVerticalLine(bImg, BLUE, h/2);
-	drawVerticalLine(gImg, GREEN, bgy);
-	drawVerticalLine(rImg, RED, bry);
+	float mind=FLT_MAX;
+	CvPoint p;
+	for (int y = 0; y < h - 5; y++) {
+		for (int x = 0; x < w - 5; w++) {
+			float sum=0.0;
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					sum += abs(templ[i][j]-bImgArr[y+i][x+j]);
+				}
+			}
+			if (sum < mind) {
+				mind = sum;
+				p.x = x;
+				p.y = y;
+				printf("%d, %d\n", p.x, p.y);
+			}
+		}
+	}
+
 
 	//float *bDiffArr = (float*)malloc(sizeof(float) * w);
 	//float *gDiffArr = (float*)malloc(sizeof(float) * w);

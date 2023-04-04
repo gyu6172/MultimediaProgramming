@@ -99,10 +99,10 @@
     <ClCompile Include="과제2Test.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
-    <ClCompile Include="과제2.cpp">
+    <ClCompile Include="과제2-템플릿매칭.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
-    <ClCompile Include="2차원배열&amp;newSrc(최종).cpp">
+    <ClCompile Include="과제2-공백제거.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
     <ClCompile Include="2차원배열.cpp">
