@@ -40,6 +40,9 @@
     <Filter Include="소스 파일\0404">
       <UniqueIdentifier>{2bab9823-fc5f-4301-8b1a-c06c0b51583f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0406">
+      <UniqueIdentifier>{6f6e9204-cdc4-4183-a77b-e149cc4594de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -116,6 +119,12 @@
     </ClCompile>
     <ClCompile Include="0404-실습2.cpp">
       <Filter>소스 파일\0404</Filter>
+    </ClCompile>
+    <ClCompile Include="0406-실습1.cpp">
+      <Filter>소스 파일\0406</Filter>
+    </ClCompile>
+    <ClCompile Include="0406-Bilateral.cpp">
+      <Filter>소스 파일\0406</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
