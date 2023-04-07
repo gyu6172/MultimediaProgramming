@@ -126,5 +126,8 @@
     <ClCompile Include="0406-Bilateral.cpp">
       <Filter>소스 파일\0406</Filter>
     </ClCompile>
+    <ClCompile Include="과제3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
