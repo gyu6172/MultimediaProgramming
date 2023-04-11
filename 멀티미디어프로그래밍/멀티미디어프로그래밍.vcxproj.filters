@@ -43,6 +43,9 @@
     <Filter Include="소스 파일\0406">
       <UniqueIdentifier>{6f6e9204-cdc4-4183-a77b-e149cc4594de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0411">
+      <UniqueIdentifier>{37f84918-1899-4e38-ac72-a56defaa253b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -128,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="과제3.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="0411-경계법.cpp">
+      <Filter>소스 파일\0411</Filter>
+    </ClCompile>
+    <ClCompile Include="0411-패턴법.cpp">
+      <Filter>소스 파일\0411</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
