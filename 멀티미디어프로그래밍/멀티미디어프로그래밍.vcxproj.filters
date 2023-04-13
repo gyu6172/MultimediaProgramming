@@ -46,6 +46,9 @@
     <Filter Include="소스 파일\0411">
       <UniqueIdentifier>{37f84918-1899-4e38-ac72-a56defaa253b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0413">
+      <UniqueIdentifier>{c73f86c0-5a2a-456c-9f92-f0b90562c103}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -137,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="0411-패턴법.cpp">
       <Filter>소스 파일\0411</Filter>
+    </ClCompile>
+    <ClCompile Include="0413.cpp">
+      <Filter>소스 파일\0413</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
