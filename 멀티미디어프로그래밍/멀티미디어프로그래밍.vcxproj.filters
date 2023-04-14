@@ -49,6 +49,9 @@
     <Filter Include="소스 파일\0413">
       <UniqueIdentifier>{c73f86c0-5a2a-456c-9f92-f0b90562c103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\중간고사연습">
+      <UniqueIdentifier>{f1f250c7-97c9-41a7-a3d9-285d4316d90a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="0413.cpp">
       <Filter>소스 파일\0413</Filter>
+    </ClCompile>
+    <ClCompile Include="예제1.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
