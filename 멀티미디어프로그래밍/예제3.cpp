@@ -1,24 +1,24 @@
 #include <opencv2/opencv.hpp>
-void sample10(IplImage* src);
-void sample11(IplImage* src);
-void sample12(IplImage* src);
-void sample13(IplImage* src);
-void sample14(IplImage* src);
+void sample15(IplImage* src);
+void sample16(IplImage* src);
+void sample17(IplImage* src);
+void sample18(IplImage* src);
+void sample19(IplImage* src);
 int main() {
 	IplImage* src = cvLoadImage("C:\\tmp\\lena.png");
 
 	cvShowImage("src", src);
-	sample10(src);
-	sample11(src);
-	sample12(src);
-	sample13(src);
-	sample14(src);
+	sample15(src);
+	sample16(src);
+	sample17(src);
+	sample18(src);
+	sample19(src);
 	cvWaitKey();
 
 	return 0;
 }
 
-void sample10(IplImage* src)
+void sample15(IplImage* src)
 {
 	CvSize size = cvGetSize(src);
 	IplImage* dst = cvCreateImage(size, 8, 3);
@@ -43,7 +43,7 @@ void sample10(IplImage* src)
 	cvShowImage("sample10", dst);
 }
 
-void sample11(IplImage* src)
+void sample16(IplImage* src)
 {
 	CvSize size = cvGetSize(src);
 	IplImage* dst = cvCreateImage(size, 8, 3);
@@ -76,7 +76,7 @@ void sample11(IplImage* src)
 	cvShowImage("sample11", dst);
 }
 
-void sample12(IplImage* src)
+void sample17(IplImage* src)
 {
 	CvSize size = cvGetSize(src);
 	IplImage* dst = cvCreateImage(size, 8, 3);
@@ -100,7 +100,7 @@ void sample12(IplImage* src)
 	cvShowImage("sample12", dst);
 }
 
-void sample13(IplImage* src)
+void sample18(IplImage* src)
 {
 	CvSize size = cvGetSize(src);
 	IplImage* dst = cvCreateImage(size, 8, 3);
@@ -119,7 +119,7 @@ void sample13(IplImage* src)
 	cvShowImage("sample13", dst);
 }
 
-void sample14(IplImage* src)
+void sample19(IplImage* src)
 {
 	CvSize size = cvGetSize(src);
 	IplImage* dst = cvCreateImage(size, 8, 3);
