@@ -52,6 +52,9 @@
     <Filter Include="소스 파일\중간고사연습">
       <UniqueIdentifier>{f1f250c7-97c9-41a7-a3d9-285d4316d90a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0418-과제풀이">
+      <UniqueIdentifier>{8005f9dd-8d13-47fb-8e82-517fe3e94770}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -160,6 +163,15 @@
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
     <ClCompile Include="예제5.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간고사연습.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="cf연습.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="이미지 하프토닝 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
   </ItemGroup>

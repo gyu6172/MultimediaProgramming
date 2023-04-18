@@ -19,7 +19,7 @@ int main() {
 
 	CvScalar pal[] = {	cvScalar(0,0,0), 
 						cvScalar(255,255,255), 
-						//cvScalar(128,128,128),
+						cvScalar(128,128,128),
 						//cvScalar(50,50,50),
 						//cvScalar(100,100,100),
 						//cvScalar(200,200,200),
@@ -30,7 +30,7 @@ int main() {
 						cvScalar(0,255,255),
 						cvScalar(255,0,255),
 					};
-	int numPal = 9;
+	int numPal = 3;
 	for (int y = 0; y < size.height; y++) {
 		for (int x = 0; x < size.width; x++) {
 			CvScalar f = cvGet2D(src,y,x);
