@@ -73,8 +73,7 @@ void patterningImage(IplImage* src, int patternArr[], int size)
 	int width = cvGetSize(src).width;
 
 	IplImage* patternImg = cvCreateImage(cvGetSize(src), 8, 3);
-	IplImage* black = cvCreateImage(cvGetSize(src), 8, 3);
-	cvSet(black, cvScalar(0,0,0));
+	cvSet(patternImg, cvScalar(0,0,0));
 
 	for (int y = 0; y < height-2; y+=3) {
 		for (int x = 0; x < width-2; x+=3) {
@@ -82,15 +81,15 @@ void patterningImage(IplImage* src, int patternArr[], int size)
 
 			for (int k = 0; k < 3; k++) {
 				//0 <= paintCnt <=10
-				int paintCnt = int((f.val[k]/255.0f)*(size+1));
-				if (paintCnt == 10) {
+				int paintCnt = (f.val[k]/255.0f)*(size+1);
+				if (paintCnt > 9) {
 					paintCnt = 9;
 				}
 				for (int idx = 0; idx < paintCnt; idx++) {
 					int nx = x+patternArr[idx]%3;
 					int ny = x+patternArr[idx]/3;
 
-					CvScalar g = cvGet2D(black,ny,nx);
+					CvScalar g = cvGet2D(patternImg,ny,nx);
 					g.val[k] = 255;
 
 					cvSet2D(patternImg, ny, nx, g);
