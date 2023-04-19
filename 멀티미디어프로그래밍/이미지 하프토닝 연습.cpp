@@ -12,18 +12,19 @@ void patterningImage(IplImage *src, int patternArr[], int arrSize);
 void ditheringImage(IplImage *src, CvScalar threshArr[], int size);
 
 int main() {
-	IplImage *src = cvLoadImage("C:\\tmp\\세종대학교.jpg");
+	IplImage *src = cvLoadImage("C:\\tmp\\lena.png");
 	CvSize size = cvGetSize(src);
 
 	IplImage *ditheringImg = cvCreateImage(size, 8, 3);
 
-
+	cvShowImage("src", src);
 
 	CvScalar thresholding[5] = { cvScalar(0,0,0),
-							cvScalar(64,64,64),
+							cvScalar(255,255,255),
 							cvScalar(128,128,128),
+							cvScalar(64,64,64),
 							cvScalar(192,192,192),
-							cvScalar(255,255,255) };
+							};
 	int threshCnt = 5;
 	thresholdingImage(src, thresholding, threshCnt);
 
@@ -32,8 +33,7 @@ int main() {
 	int patternSize = 9;
 	patterningImage(src, pattern, patternSize);
 
-
-	cvShowImage("src", src);
+	ditheringImage(src, thresholding, 5);
 
 	cvWaitKey();
 }
@@ -130,9 +130,44 @@ void ditheringImage(IplImage* src, CvScalar threshArr[], int size)
 			}
 
 			g = threshArr[minDiffIdx];
-
 			cvSet2D(ditherImg, y, x, g);
+
+			//d : f와 g의 밝기값의 차이를 저장하는 변수
+			CvScalar d = cvScalar(0,0,0);
+			for (int k = 0; k < 3; k++) {
+				d.val[k] = f.val[k] - g.val[k];
+			}
+
+			if (x + 1 < width) {
+				CvScalar h = cvGet2D(src, y, x+1);
+				for (int k = 0; k < 3; k++) {
+					h.val[k] += d.val[k]/16*7;
+				}
+				cvSet2D(src, y, x+1, h);
+			}
+			if (x - 1 > 0 && y+1<height) {
+				CvScalar h = cvGet2D(src, y+1, x - 1);
+				for (int k = 0; k < 3; k++) {
+					h.val[k] += d.val[k] / 16 * 3;
+				}
+				cvSet2D(src, y + 1, x - 1, h);
+			}
+			if (y + 1 < height) {
+				CvScalar h = cvGet2D(src, y+1, x);
+				for (int k = 0; k < 3; k++) {
+					h.val[k] += d.val[k] / 16 * 5;
+				}
+				cvSet2D(src, y + 1, x, h);
+			}
+			if (x + 1 < width && y + 1 < height) {
+				CvScalar h = cvGet2D(src, y+1, x + 1);
+				for (int k = 0; k < 3; k++) {
+					h.val[k] += d.val[k] / 16 * 1;
+				}
+				cvSet2D(src, y + 1, x + 1, h);
+			}
+
 		}
 	}
-	cvShowImage("thresh", ditherImg);
+	cvShowImage("dithering", ditherImg);
 }
