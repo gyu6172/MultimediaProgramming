@@ -55,6 +55,9 @@
     <Filter Include="소스 파일\0418-과제풀이">
       <UniqueIdentifier>{8005f9dd-8d13-47fb-8e82-517fe3e94770}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0427">
+      <UniqueIdentifier>{652f4d80-59a8-48c9-a8a4-084e88652989}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -182,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="이미지 필터링 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="0427-마우스이벤트.cpp">
+      <Filter>소스 파일\0427</Filter>
+    </ClCompile>
+    <ClCompile Include="0427-실습1.cpp">
+      <Filter>소스 파일\0427</Filter>
+    </ClCompile>
+    <ClCompile Include="0427-실습2.cpp">
+      <Filter>소스 파일\0427</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
