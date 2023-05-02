@@ -55,8 +55,14 @@
     <Filter Include="소스 파일\0418-과제풀이">
       <UniqueIdentifier>{8005f9dd-8d13-47fb-8e82-517fe3e94770}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0427">
+    <Filter Include="소스 파일\과제4">
+      <UniqueIdentifier>{957c421c-2073-4e30-a26d-61da3a1d11fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0427-Mouse Callback">
       <UniqueIdentifier>{652f4d80-59a8-48c9-a8a4-084e88652989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0502-Image Warping">
+      <UniqueIdentifier>{049c721d-b10d-4db5-93e4-1c182f6997ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -187,16 +193,19 @@
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
     <ClCompile Include="0427-마우스이벤트.cpp">
-      <Filter>소스 파일\0427</Filter>
+      <Filter>소스 파일\0427-Mouse Callback</Filter>
     </ClCompile>
     <ClCompile Include="0427-실습1.cpp">
-      <Filter>소스 파일\0427</Filter>
+      <Filter>소스 파일\0427-Mouse Callback</Filter>
     </ClCompile>
     <ClCompile Include="0427-실습2.cpp">
-      <Filter>소스 파일\0427</Filter>
+      <Filter>소스 파일\0427-Mouse Callback</Filter>
     </ClCompile>
     <ClCompile Include="그림판.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="0502.cpp">
+      <Filter>소스 파일\0502-Image Warping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
