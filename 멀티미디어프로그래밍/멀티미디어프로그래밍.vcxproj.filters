@@ -64,6 +64,9 @@
     <Filter Include="소스 파일\0502-Image Warping">
       <UniqueIdentifier>{049c721d-b10d-4db5-93e4-1c182f6997ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0504-Image Warping">
+      <UniqueIdentifier>{2afab986-c782-426e-a06c-e893c18f2778}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -209,6 +212,9 @@
     </ClCompile>
     <ClCompile Include="과제4.cpp">
       <Filter>소스 파일\과제4</Filter>
+    </ClCompile>
+    <ClCompile Include="0504-행렬.cpp">
+      <Filter>소스 파일\0504-Image Warping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
