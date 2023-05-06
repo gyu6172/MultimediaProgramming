@@ -43,23 +43,26 @@ int main() {
 	IplImage* canvas = cvCreateImage(imgSize, 8, 3);
 
 	cvSet(canvas, cvScalar(255,255,255));
-	cvSmooth(srcImg, refImg, CV_GAUSSIAN, 11);
 
 	int w = imgSize.width;
 	int h = imgSize.height;
 
+	//원의 반지름
+	int r=32;
+
 	Grid jitteredGrid;
-	jitteredGrid.width = 40;
-	jitteredGrid.height = 40;
+	jitteredGrid.width = r;
+	jitteredGrid.height = r;
 	jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width)+1;
 	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height)+1;
 
-	cvShowImage("ref", refImg);
+	//cvShowImage("ref", refImg);
 
-	int r=32;
 	while (r > 1) {
 		Circle *circleArr = (Circle*)malloc(sizeof(Circle)*(jitteredGrid.colsCnt*jitteredGrid.rowsCnt));
 		int circleCnt = 0;
+
+		cvSmooth(srcImg, refImg, CV_GAUSSIAN, r-1);
 
 		for (int y = 0; y < h; y += jitteredGrid.height) {
 			for (int x = 0; x < w; x += jitteredGrid.width) {
@@ -108,7 +111,7 @@ int main() {
 		jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width) + 1;
 		jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height) + 1;
 		cvShowImage("canvas", canvas);
-		cvWaitKey(1000);
+		cvWaitKey();
 	}
 
 	cvWaitKey();
