@@ -41,24 +41,21 @@ int main() {
 	int h = imgSize.height;
 
 	Grid jitterdGrid;
-	jitterdGrid.width = 64;
-	jitterdGrid.height = 64;
+	jitterdGrid.width = 32;
+	jitterdGrid.height = 32;
 	jitterdGrid.colsCnt = (imgSize.width) / (jitterdGrid.width);
 	jitterdGrid.rowsCnt = (imgSize.height) / (jitterdGrid.height);
 
-	cvShowImage("ref",refImg);
-	cvShowImage("canvas",canvas);
-
 	for (int y = 0; y < h; y+=jitterdGrid.height) {
 		for (int x = 0; x < w; x+=jitterdGrid.width) {
-			
+			printf("x:%d, y:%d\n",x,y);
 			float max_diff = 0;
 			CvPoint max_diff_pos = {0,0};
 			CvScalar max_diff_color = cvScalar(255,255,255);
 
 			for (int v = y; v < y + jitterdGrid.height; v++) {
-				for (int u = x; u < x + jitterdGrid.width; x++) {
-					if(u>w-1 || v>h-1)	continue;
+				for (int u = x; u < x + jitterdGrid.width; u++) {
+					if (u > w - 1 || v > h - 1)	continue;
 
 					CvScalar refColor = cvGet2D(refImg, v, u);
 					CvScalar canvasColor = cvGet2D(canvas, v, u);
@@ -69,12 +66,13 @@ int main() {
 						max_diff_pos.x = u;
 						max_diff_pos.y = v;
 						max_diff_color = refColor;
-						printf("diff:%.2f, x:%d, y:%d\n",max_diff, u, v);
+						printf("diff:%.2f, x:%d, y:%d\n", max_diff, u, v);
 					}
+					
 				}
 			}
 
-			Circle c = {64, max_diff_color, max_diff_pos};
+			Circle c = {jitterdGrid.height, max_diff_color, max_diff_pos};
 			drawCircle(canvas, c);
 		}
 	}
