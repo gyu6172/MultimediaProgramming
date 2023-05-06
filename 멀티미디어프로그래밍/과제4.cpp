@@ -27,7 +27,7 @@ float getDifference(CvScalar f, CvScalar g) {
 	}
 	return sum;
 }
-void shuffleArr(Circle circleArr[], int size) {
+void shuffleArr(Circle *circleArr, int size) {
 	for (int i = 0; i < size; i++) {
 		int ran = rand()%size;
 		Circle tmp = circleArr[i];
@@ -48,28 +48,27 @@ int main() {
 	int w = imgSize.width;
 	int h = imgSize.height;
 
-	Grid jitterdGrid;
-	jitterdGrid.width = 40;
-	jitterdGrid.height = 40;
-	jitterdGrid.colsCnt = (imgSize.width) / (jitterdGrid.width);
-	jitterdGrid.rowsCnt = (imgSize.height) / (jitterdGrid.height);
+	Grid jitteredGrid;
+	jitteredGrid.width = 40;
+	jitteredGrid.height = 40;
+	jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width)+1;
+	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height)+1;
 
 	cvShowImage("ref", refImg);
 
 	int r=32;
-	while (r > 2) {
-		//Circle *circleArr = (Circle*)malloc(sizeof(Circle)*(jitterdGrid.colsCnt*jitterdGrid.rowsCnt));
-		Circle circleArr[20000];
+	while (r > 1) {
+		Circle *circleArr = (Circle*)malloc(sizeof(Circle)*(jitteredGrid.colsCnt*jitteredGrid.rowsCnt));
 		int circleCnt = 0;
 
-		for (int y = 0; y < h; y += jitterdGrid.height) {
-			for (int x = 0; x < w; x += jitterdGrid.width) {
+		for (int y = 0; y < h; y += jitteredGrid.height) {
+			for (int x = 0; x < w; x += jitteredGrid.width) {
 				float max_diff = 0;
 				CvPoint max_diff_pos = { 0,0 };
 				CvScalar max_diff_color = cvScalar(255, 255, 255);
 
-				for (int v = y; v < y + jitterdGrid.height; v++) {
-					for (int u = x; u < x + jitterdGrid.width; u++) {
+				for (int v = y; v < y + jitteredGrid.height; v++) {
+					for (int u = x; u < x + jitteredGrid.width; u++) {
 						if (u > w - 1 || v > h - 1)	continue;
 
 						CvScalar refColor = cvGet2D(refImg, v, u);
@@ -86,23 +85,28 @@ int main() {
 					}
 				}
 
-				Circle c = { r, max_diff_color, max_diff_pos };
+				Circle c;
+				c.radius = r;
+				c.color = max_diff_color;
+				c.point = max_diff_pos;
 				circleArr[circleCnt++] = c;
 			}
 		}
+
 
 		printf("circleCnt : %d\n", circleCnt);
 		shuffleArr(circleArr, circleCnt);
 		for (int i = 0; i < circleCnt; i++) {
 			drawCircle(canvas, circleArr[i]);
 		}
+		free(circleArr);
+
 
 		r/=2;
-		jitterdGrid.width /= 2;
-		jitterdGrid.height /= 2;
-		jitterdGrid.colsCnt = (imgSize.width) / (jitterdGrid.width);
-		jitterdGrid.rowsCnt = (imgSize.height) / (jitterdGrid.height);
-		//free(circleArr);
+		jitteredGrid.width /= 2;
+		jitteredGrid.height /= 2;
+		jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width) + 1;
+		jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height) + 1;
 		cvShowImage("canvas", canvas);
 		cvWaitKey(1000);
 	}
