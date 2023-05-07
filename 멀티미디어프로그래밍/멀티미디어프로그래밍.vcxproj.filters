@@ -210,11 +210,14 @@
     <ClCompile Include="0502.cpp">
       <Filter>소스 파일\0502-Image Warping</Filter>
     </ClCompile>
-    <ClCompile Include="과제4.cpp">
+    <ClCompile Include="과제4-Circle.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
     <ClCompile Include="0504-행렬.cpp">
       <Filter>소스 파일\0504-Image Warping</Filter>
+    </ClCompile>
+    <ClCompile Include="과제4-Stroke.cpp">
+      <Filter>소스 파일\과제4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
