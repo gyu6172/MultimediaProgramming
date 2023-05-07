@@ -5,15 +5,10 @@
 typedef struct Stroke {
 	int radius;
 	CvScalar color;
-	CvPoint startPoint;
-	CvPoint route[];
-}Stroke;
-typedef struct Circle {
-	int radius;
-	CvScalar color;
-	CvPoint point;
-	float diff;
-}Circle;
+	CvPoint start_point;
+	CvPoint route[10000];
+	int points_cnt;
+};
 typedef struct Grid {
 	int colsCnt;	//격자판의 가로 개수
 	int rowsCnt;	//격자판의 세로 개수
@@ -21,8 +16,14 @@ typedef struct Grid {
 	int height;		//격자 하나의 세로 길이(높이)
 };
 
-void drawCircle(IplImage* img, Circle circle) {
-	cvCircle(img, circle.point, circle.radius, circle.color, -1);
+void drawSplineStroke(IplImage* img, Stroke stroke) {
+	CvPoint st = stroke.start_point;
+	CvPoint ed;
+	for (int i = 0; i < stroke.points_cnt; i++) {
+		ed = stroke.route[i];
+		cvLine(img, st, ed, stroke.color, stroke.radius);
+		st = ed;
+	}
 }
 float getDifference(CvScalar f, CvScalar g) {
 	float sum = 0.0;
@@ -31,13 +32,16 @@ float getDifference(CvScalar f, CvScalar g) {
 	}
 	return sum;
 }
-void shuffleArr(Circle* circleArr, int size) {
+void shuffleArr(Stroke* stroke_arr, int size) {
 	for (int i = 0; i < size; i++) {
 		int ran = rand() % size;
-		Circle tmp = circleArr[i];
-		circleArr[i] = circleArr[ran];
-		circleArr[ran] = tmp;
+		Stroke tmp = stroke_arr[i];
+		stroke_arr[i] = stroke_arr[ran];
+		stroke_arr[ran] = tmp;
 	}
+}
+float mag(CvPoint p) {
+	return sqrt(p.x * p.x + p.y * p.y);
 }
 
 int main() {
@@ -51,7 +55,7 @@ int main() {
 	int w = imgSize.width;
 	int h = imgSize.height;
 
-	//원의 반지름
+	//선의 반지름
 	int r = R;
 
 	Grid jitteredGrid;
@@ -61,15 +65,15 @@ int main() {
 	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height) + 1;
 
 	while (r >= 1) {
-		Circle* circleArr = (Circle*)malloc(sizeof(Circle) * (jitteredGrid.colsCnt * jitteredGrid.rowsCnt));
-		float* diffArr = (float*)malloc(sizeof(float) * (jitteredGrid.colsCnt * jitteredGrid.rowsCnt));
-		int circleCnt = 0;
+		Stroke* stroke_arr = (Stroke*)malloc(sizeof(Stroke) * (jitteredGrid.colsCnt * jitteredGrid.rowsCnt));
+		int stroke_cnt = 0;
 
 		cvSmooth(srcImg, refImg, CV_GAUSSIAN, r - 1);
 
 		for (int y = 0; y < h; y += jitteredGrid.height) {
 			for (int x = 0; x < w; x += jitteredGrid.width) {
 				float max_diff = 0;
+				float diff_avg = 0.0;
 				CvPoint max_diff_pos = { 0,0 };
 				CvScalar max_diff_color = cvScalar(255, 255, 255);
 
@@ -79,27 +83,10 @@ int main() {
 						if (u - 1 < 0 || u + 1 > w - 1) continue;
 						if (v - 1 < 0 || v + 1 > h - 1) continue;
 
-						/*CvScalar refColor[5];
-						refColor[0] = cvGet2D(refImg, v-1, u);
-						refColor[1] = cvGet2D(refImg, v, u-1);
-						refColor[2] = cvGet2D(refImg, v, u);
-						refColor[3] = cvGet2D(refImg, v, u+1);
-						refColor[4] = cvGet2D(refImg, v+1, u);*/
 						CvScalar refColor = cvGet2D(refImg, v, u);
 
-						/*CvScalar canvasColor[5];
-						canvasColor[0] = cvGet2D(canvas, v - 1, u);
-						canvasColor[1] = cvGet2D(canvas, v, u - 1);
-						canvasColor[2] = cvGet2D(canvas, v, u);
-						canvasColor[3] = cvGet2D(canvas, v, u + 1);
-						canvasColor[4] = cvGet2D(canvas, v + 1, u);*/
 						CvScalar canvasColor = cvGet2D(canvas, v, u);
 
-						/*float diff = 0.0;
-						for (int k = 0; k < 5; k++) {
-							diff += getDifference(refColor[0], canvasColor[0]);
-						}
-						diff/=5;*/
 						float diff = getDifference(refColor, canvasColor);
 						if (diff > max_diff) {
 							max_diff = diff;
@@ -107,35 +94,89 @@ int main() {
 							max_diff_pos.y = v;
 							max_diff_color = refColor;
 						}
-
+						diff_avg += diff;
 					}
 				}
 
-				Circle c;
-				c.radius = r;
-				c.color = max_diff_color;
-				c.point = max_diff_pos;
-				c.diff = max_diff;
-				diffArr[circleCnt] = max_diff;
-				circleArr[circleCnt++] = c;
+				diff_avg = diff_avg / (jitteredGrid.width * jitteredGrid.height);
+				//printf("(%d, %d) err=%.2f\n", x,y,diff_avg);
+				if (diff_avg > T) {
+					Stroke s;
+					s.radius = r;
+					s.color = max_diff_color;
+					s.start_point = max_diff_pos;
+					s.points_cnt=0;
+
+					CvPoint current_point = s.start_point;
+					float dx=0, dy=0, last_dx=0, last_dy=0;
+					while (true) {
+
+						CvScalar top, left, mid, right, bot;
+						top = cvGet2D(refImg, current_point.y - 1, current_point.x);
+						left = cvGet2D(refImg, current_point.y, current_point.x - 1);
+						mid = cvGet2D(refImg, current_point.y, current_point.x);
+						right = cvGet2D(refImg, current_point.y, current_point.x + 1);
+						bot = cvGet2D(refImg, current_point.y + 1, current_point.x);
+
+						CvPoint g = cvPoint(0,0);
+						for (int k = 0; k < 3; k++) {
+							g.x += right.val[k] - left.val[k];
+							g.y += bot.val[k] - top.val[k];
+						}
+
+						dx = g.y;
+						dy = -g.x;
+						dx = dx / sqrt(dx*dx + dy*dy);
+						dy = dy / sqrt(dx*dx + dy*dy);
+
+						//if (/*만약 붓이 확 꺾인다면*/last_d.x * d.x + last_d.y * d.y < 0) {
+						//	d.x *= -1;
+						//	d.y *= -1;
+						//}
+						CvPoint new_point;
+
+						new_point.x = current_point.x + s.radius*dx;
+						new_point.y = current_point.y + s.radius*dy;
+
+						if (new_point.x < 0) {
+							new_point.x = 0;
+							break;
+						}
+						else if (new_point.x > w - 1) {
+							new_point.x = w-1;
+							break;
+						}
+						else if (new_point.y < 0) {
+							new_point.y = 0;
+							break;
+						}
+						else if (new_point.y > h - 1) {
+							new_point.y = h - 1;
+							break;
+						}
+						else if (s.points_cnt > 10) {
+							break;
+						}
+
+						s.route[s.points_cnt++] = new_point;
+
+						last_dx = dx;
+						last_dy = dy;
+
+						current_point = new_point;
+						
+					}
+
+					stroke_arr[stroke_cnt++] = s;
+				}
 			}
 		}
 
-		float avg = 0.0, sum = 0.0;
-		for (int i = 0; i < circleCnt; i++) {
-			sum += diffArr[i];
+		shuffleArr(stroke_arr, stroke_cnt);
+		for (int i = 0; i < stroke_cnt; i++) {
+			drawSplineStroke(canvas, stroke_arr[i]);
 		}
-		avg = sum / circleCnt;
-		printf("circleCnt=%d, avgErr=%.2f\n", circleCnt, avg);
-		shuffleArr(circleArr, circleCnt);
-		for (int i = 0; i < circleCnt; i++) {
-			//printf("(%d, %d) : err=%.2f\n",circleArr[i].point.x, circleArr[i].point.y, circleArr[i].diff);
-			if (circleArr[i].diff > T) {
-				drawCircle(canvas, circleArr[i]);
-			}
-		}
-		free(circleArr);
-		free(diffArr);
+		free(stroke_arr);
 
 		r /= 2;
 		jitteredGrid.width /= 2;
