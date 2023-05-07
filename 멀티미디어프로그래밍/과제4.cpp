@@ -1,4 +1,7 @@
 #include <opencv2/opencv.hpp>
+#define R 32
+#define L 32
+#define T 2700
 typedef struct Stroke {
 	int radius;
 	CvScalar color;
@@ -49,17 +52,17 @@ int main() {
 	int h = imgSize.height;
 
 	//원의 반지름
-	int r=32;
+	int r=R;
 
 	Grid jitteredGrid;
-	jitteredGrid.width = r;
-	jitteredGrid.height = r;
+	jitteredGrid.width = L;
+	jitteredGrid.height = L;
 	jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width)+1;
 	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height)+1;
 
 	//cvShowImage("ref", refImg);
 
-	while (r > 1) {
+	while (r >= 2) {
 		Circle *circleArr = (Circle*)malloc(sizeof(Circle)*(jitteredGrid.colsCnt*jitteredGrid.rowsCnt));
 		float *diffArr = (float*)malloc(sizeof(float)*(jitteredGrid.colsCnt*jitteredGrid.rowsCnt));
 		int circleCnt = 0;
@@ -78,30 +81,33 @@ int main() {
 						if(u-1<0||u+1>w-1) continue;
 						if(v-1<0||v+1>h-1) continue;
 
-						CvScalar refColor[5];
+						/*CvScalar refColor[5];
 						refColor[0] = cvGet2D(refImg, v-1, u);
 						refColor[1] = cvGet2D(refImg, v, u-1);
 						refColor[2] = cvGet2D(refImg, v, u);
 						refColor[3] = cvGet2D(refImg, v, u+1);
-						refColor[4] = cvGet2D(refImg, v+1, u);
+						refColor[4] = cvGet2D(refImg, v+1, u);*/
+						CvScalar refColor = cvGet2D(refImg, v,u);
 
-						CvScalar canvasColor[5];
+						/*CvScalar canvasColor[5];
 						canvasColor[0] = cvGet2D(canvas, v - 1, u);
 						canvasColor[1] = cvGet2D(canvas, v, u - 1);
 						canvasColor[2] = cvGet2D(canvas, v, u);
 						canvasColor[3] = cvGet2D(canvas, v, u + 1);
-						canvasColor[4] = cvGet2D(canvas, v + 1, u);
+						canvasColor[4] = cvGet2D(canvas, v + 1, u);*/
+						CvScalar canvasColor = cvGet2D(canvas,v,u);
 
-						float diff = 0.0;
+						/*float diff = 0.0;
 						for (int k = 0; k < 5; k++) {
 							diff += getDifference(refColor[0], canvasColor[0]);
 						}
-						diff/=5;
+						diff/=5;*/
+						float diff = getDifference(refColor, canvasColor);
 						if (diff > max_diff) {
 							max_diff = diff;
 							max_diff_pos.x = u;
 							max_diff_pos.y = v;
-							max_diff_color = refColor[2];
+							max_diff_color = refColor;
 						}
 
 					}
@@ -125,9 +131,10 @@ int main() {
 		printf("circleCnt=%d, avgErr=%.2f\n", circleCnt, avg);
 		shuffleArr(circleArr, circleCnt);
 		for (int i = 0; i < circleCnt; i++) {
-			if (avg < circleArr[i].diff) {
+			//printf("(%d, %d) : err=%.2f\n",circleArr[i].point.x, circleArr[i].point.y, circleArr[i].diff);
+			if (circleArr[i].diff > T) {
+				drawCircle(canvas, circleArr[i]);
 			}
-			drawCircle(canvas, circleArr[i]);
 		}
 		free(circleArr);
 		free(diffArr);
