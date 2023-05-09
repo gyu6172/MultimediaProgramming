@@ -6,7 +6,7 @@ typedef struct Stroke {
 	int radius;
 	CvScalar color;
 	CvPoint start_point;
-	CvPoint route[10000];
+	CvPoint *route;
 	int points_cnt;
 };
 typedef struct Grid {
@@ -102,6 +102,7 @@ int main() {
 				//printf("(%d, %d) err=%.2f\n", x,y,diff_avg);
 				if (diff_avg > T) {
 					Stroke s;
+					s.route = (CvPoint*)malloc(sizeof(CvPoint)*(jitteredGrid.colsCnt*jitteredGrid.rowsCnt));
 					s.radius = r;
 					s.color = max_diff_color;
 					s.start_point = max_diff_pos;
@@ -137,26 +138,8 @@ int main() {
 
 						new_point.x = current_point.x + s.radius*dx;
 						new_point.y = current_point.y + s.radius*dy;
+						cvSet2D(canvas, new_point.y, new_point.x, cvScalar(0,0,0));
 
-						if (new_point.x < 0) {
-							new_point.x = 0;
-							break;
-						}
-						else if (new_point.x > w - 1) {
-							new_point.x = w-1;
-							break;
-						}
-						else if (new_point.y < 0) {
-							new_point.y = 0;
-							break;
-						}
-						else if (new_point.y > h - 1) {
-							new_point.y = h - 1;
-							break;
-						}
-						else if (s.points_cnt > 10) {
-							break;
-						}
 
 						s.route[s.points_cnt++] = new_point;
 
