@@ -67,6 +67,9 @@
     <Filter Include="소스 파일\0504-Image Warping">
       <UniqueIdentifier>{2afab986-c782-426e-a06c-e893c18f2778}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0509-Affine Transform">
+      <UniqueIdentifier>{192cc7af-143e-4a4e-9673-9f9a2fe252fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -218,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="과제4-Stroke.cpp">
       <Filter>소스 파일\과제4</Filter>
+    </ClCompile>
+    <ClCompile Include="0509.cpp">
+      <Filter>소스 파일\0509-Affine Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
