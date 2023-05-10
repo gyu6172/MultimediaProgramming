@@ -22,6 +22,7 @@ void drawSplineStroke(IplImage* img, Stroke stroke) {
 	for (int i = 0; i < stroke.points_cnt; i++) {
 		ed = stroke.route[i];
 		cvLine(img, st, ed, stroke.color, stroke.radius);
+		printf("(%d, %d)에서 (%d, %d)로 그림\n",st.x,st.y, ed.x,ed.y);
 		st = ed;
 	}
 }
@@ -64,6 +65,19 @@ int main() {
 	jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width) + 1;
 	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height) + 1;
 
+	//Stroke s;
+	//s.color = cvScalar(0,0,0);	
+	//s.radius = 2;
+	//s.points_cnt = 3;
+	//s.start_point = cvPoint(10,10);
+	//s.route = (CvPoint*)malloc(sizeof(CvPoint)*s.points_cnt);
+	//(s.route)[0] = cvPoint(400,10);
+	//(s.route)[1] = cvPoint(40,60);
+	//(s.route)[2] = cvPoint(100,200);
+	//drawSplineStroke(canvas, s);
+	//cvShowImage("c",canvas);
+	//cvWaitKey();
+
 	while (r >= 1) {
 		Stroke* stroke_arr = (Stroke*)malloc(sizeof(Stroke) * (jitteredGrid.colsCnt * jitteredGrid.rowsCnt));
 		int stroke_cnt = 0;
@@ -80,8 +94,7 @@ int main() {
 				for (int v = y; v < y + jitteredGrid.height; v++) {
 					for (int u = x; u < x + jitteredGrid.width; u++) {
 						if (u > w - 1 || v > h - 1)	continue;
-						if (u - 1 < 0 || u + 1 > w - 1) continue;
-						if (v - 1 < 0 || v + 1 > h - 1) continue;
+						if (u < 0 || v < 0) continue;
 
 						CvScalar refColor = cvGet2D(refImg, v, u);
 
@@ -101,8 +114,12 @@ int main() {
 				diff_avg = diff_avg / (jitteredGrid.width * jitteredGrid.height);
 				//printf("(%d, %d) err=%.2f\n", x,y,diff_avg);
 				if (diff_avg > T) {
+
+					int max_stroke_length = 10;
+					int is_out = 0;
+
 					Stroke s;
-					s.route = (CvPoint*)malloc(sizeof(CvPoint)*(jitteredGrid.colsCnt*jitteredGrid.rowsCnt));
+					s.route = (CvPoint*)malloc(sizeof(CvPoint)*max_stroke_length);
 					s.radius = r;
 					s.color = max_diff_color;
 					s.start_point = max_diff_pos;
@@ -111,35 +128,58 @@ int main() {
 					CvPoint current_point = s.start_point;
 					float dx=0, dy=0, last_dx=0, last_dy=0;
 					while (true) {
+						
 
 						CvScalar top, left, mid, right, bot;
 						top = cvGet2D(refImg, current_point.y - 1, current_point.x);
 						left = cvGet2D(refImg, current_point.y, current_point.x - 1);
-						mid = cvGet2D(refImg, current_point.y, current_point.x);
+						//mid = cvGet2D(refImg, current_point.y, current_point.x);
 						right = cvGet2D(refImg, current_point.y, current_point.x + 1);
 						bot = cvGet2D(refImg, current_point.y + 1, current_point.x);
 
-						CvPoint g = cvPoint(0,0);
+						float gx = 0, gy = 0;
 						for (int k = 0; k < 3; k++) {
-							g.x += right.val[k] - left.val[k];
-							g.y += bot.val[k] - top.val[k];
+							gx += right.val[k] - left.val[k];
+							gy += bot.val[k] - top.val[k];
 						}
 
-						dx = g.y;
-						dy = -g.x;
+						if(gx==0 && gy==0) break;
+
+						dx = gy;
+						dy = -gx;
+
+						//d : 단위벡터?
 						dx = dx / sqrt(dx*dx + dy*dy);
 						dy = dy / sqrt(dx*dx + dy*dy);
 
-						//if (/*만약 붓이 확 꺾인다면*/last_d.x * d.x + last_d.y * d.y < 0) {
-						//	d.x *= -1;
-						//	d.y *= -1;
-						//}
+						if (/*만약 붓이 확 꺾인다면*/last_dx * dx + last_dy * dy < 0) {
+							dx *= -1;
+							dy *= -1;
+						}
+
 						CvPoint new_point;
 
 						new_point.x = current_point.x + s.radius*dx;
 						new_point.y = current_point.y + s.radius*dy;
-						cvSet2D(canvas, new_point.y, new_point.x, cvScalar(0,0,0));
+						if(current_point.x < 0) {
+							current_point.x = 0;
+							is_out=1;
+						}
+						if(current_point.y < 0) {
+							current_point.y = 0;
+							is_out = 1;
 
+						}
+						if(current_point.x > w-1) {
+							current_point.x = w-1;
+							is_out = 1;
+
+						}
+						if(current_point.y > h-1) {
+							current_point.y = h-1;
+							is_out = 1;
+						}
+						//cvSet2D(canvas, new_point.y, new_point.x, cvScalar(0,0,0));
 
 						s.route[s.points_cnt++] = new_point;
 
@@ -147,6 +187,10 @@ int main() {
 						last_dy = dy;
 
 						current_point = new_point;
+
+						if (s.points_cnt > max_stroke_length || is_out==1) {
+							break;
+						}
 						
 					}
 
@@ -158,6 +202,9 @@ int main() {
 		shuffleArr(stroke_arr, stroke_cnt);
 		for (int i = 0; i < stroke_cnt; i++) {
 			drawSplineStroke(canvas, stroke_arr[i]);
+		}
+		for (int i = 0; i < stroke_cnt; i++) {
+			free(stroke_arr[i].route);
 		}
 		free(stroke_arr);
 
