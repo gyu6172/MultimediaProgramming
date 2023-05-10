@@ -1,13 +1,14 @@
 #include <opencv2/opencv.hpp>
 #define R 32
 #define L 32
-#define T 2700
+#define T 5000
+#define Fc 1.0f
 typedef struct Stroke {
-	int radius;
-	CvScalar color;
 	CvPoint start_point;
 	CvPoint *route;
 	int points_cnt;
+	int radius;
+	CvScalar color;
 };
 typedef struct Grid {
 	int colsCnt;	//격자판의 가로 개수
@@ -22,7 +23,8 @@ void drawSplineStroke(IplImage* img, Stroke stroke) {
 	for (int i = 0; i < stroke.points_cnt; i++) {
 		ed = stroke.route[i];
 		cvLine(img, st, ed, stroke.color, stroke.radius);
-		printf("(%d, %d)에서 (%d, %d)로 그림\n",st.x,st.y, ed.x,ed.y);
+		/*cvShowImage("img", img);
+		cvWaitKey();*/
 		st = ed;
 	}
 }
@@ -41,9 +43,6 @@ void shuffleArr(Stroke* stroke_arr, int size) {
 		stroke_arr[ran] = tmp;
 	}
 }
-float mag(CvPoint p) {
-	return sqrt(p.x * p.x + p.y * p.y);
-}
 
 int main() {
 	IplImage* srcImg = cvLoadImage("C:\\tmp\\lena.png");
@@ -59,40 +58,42 @@ int main() {
 	//선의 반지름
 	int r = R;
 
-	Grid jitteredGrid;
-	jitteredGrid.width = L;
-	jitteredGrid.height = L;
-	jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width) + 1;
-	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height) + 1;
+	Grid jittered_grid;
+	jittered_grid.width = L;
+	jittered_grid.height = L;
+	jittered_grid.colsCnt = (imgSize.width) / (jittered_grid.width) + 1;
+	jittered_grid.rowsCnt = (imgSize.height) / (jittered_grid.height) + 1;
 
 	//Stroke s;
 	//s.color = cvScalar(0,0,0);	
-	//s.radius = 2;
+	//s.radius = 32;
 	//s.points_cnt = 3;
 	//s.start_point = cvPoint(10,10);
 	//s.route = (CvPoint*)malloc(sizeof(CvPoint)*s.points_cnt);
 	//(s.route)[0] = cvPoint(400,10);
 	//(s.route)[1] = cvPoint(40,60);
 	//(s.route)[2] = cvPoint(100,200);
+	//cvLine(canvas, cvPoint(300,300), cvPoint(300,300), s.color, 32);
+	//cvCircle(canvas, cvPoint(300,400), 32, s.color);
 	//drawSplineStroke(canvas, s);
 	//cvShowImage("c",canvas);
 	//cvWaitKey();
 
-	while (r >= 1) {
-		Stroke* stroke_arr = (Stroke*)malloc(sizeof(Stroke) * (jitteredGrid.colsCnt * jitteredGrid.rowsCnt));
+	while (r >= 2) {
+		Stroke* stroke_arr = (Stroke*)malloc(sizeof(Stroke) * (jittered_grid.colsCnt * jittered_grid.rowsCnt));
 		int stroke_cnt = 0;
 
-		cvSmooth(srcImg, refImg, CV_GAUSSIAN, r - 1);
+		cvSmooth(srcImg, refImg, CV_GAUSSIAN, 4*r - 1);
 
-		for (int y = 0; y < h; y += jitteredGrid.height) {
-			for (int x = 0; x < w; x += jitteredGrid.width) {
+		for (int y = 0; y < h; y += jittered_grid.height) {
+			for (int x = 0; x < w; x += jittered_grid.width) {
 				float max_diff = 0;
 				float diff_avg = 0.0;
 				CvPoint max_diff_pos = { 0,0 };
 				CvScalar max_diff_color = cvScalar(255, 255, 255);
 
-				for (int v = y; v < y + jitteredGrid.height; v++) {
-					for (int u = x; u < x + jitteredGrid.width; u++) {
+				for (int v = y; v < y + jittered_grid.height; v++) {
+					for (int u = x; u < x + jittered_grid.width; u++) {
 						if (u > w - 1 || v > h - 1)	continue;
 						if (u < 0 || v < 0) continue;
 
@@ -111,8 +112,8 @@ int main() {
 					}
 				}
 
-				diff_avg = diff_avg / (jitteredGrid.width * jitteredGrid.height);
-				//printf("(%d, %d) err=%.2f\n", x,y,diff_avg);
+				diff_avg = diff_avg / (jittered_grid.width * jittered_grid.height);
+				
 				if (diff_avg > T) {
 
 					int max_stroke_length = 10;
@@ -127,79 +128,102 @@ int main() {
 
 					CvPoint current_point = s.start_point;
 					float dx=0, dy=0, last_dx=0, last_dy=0;
-					while (true) {
-						
 
-						CvScalar top, left, mid, right, bot;
-						top = cvGet2D(refImg, current_point.y - 1, current_point.x);
-						left = cvGet2D(refImg, current_point.y, current_point.x - 1);
-						//mid = cvGet2D(refImg, current_point.y, current_point.x);
-						right = cvGet2D(refImg, current_point.y, current_point.x + 1);
-						bot = cvGet2D(refImg, current_point.y + 1, current_point.x);
+					while (true) {
+
+						CvPoint p1 = cvPoint(current_point.x-1, current_point.y-1);
+						CvPoint p2 = cvPoint(current_point.x+1, current_point.y+1);
+
+						if (p1.x < 0) {
+							p1.x = 0;
+						}
+						if (p1.y < 0) {
+							p1.y = 0;
+						}
+						if (p2.x > w - 1) {
+							p2.x = w-1;
+						}
+						if (p2.y > h - 1) {
+							p2.y = h-1;
+						}
+
+						CvScalar x1_color, x2_color, y1_color, y2_color;
+						x1_color = cvGet2D(refImg, p1.x, current_point.y);
+						x2_color = cvGet2D(refImg, p2.x, current_point.y);
+						y1_color = cvGet2D(refImg, current_point.x, p1.y);
+						y2_color = cvGet2D(refImg, current_point.x, p2.y);
 
 						float gx = 0, gy = 0;
 						for (int k = 0; k < 3; k++) {
-							gx += right.val[k] - left.val[k];
-							gy += bot.val[k] - top.val[k];
+							gx += x2_color.val[k] - x1_color.val[k];
+							gy += y2_color.val[k] - y1_color.val[k];
 						}
 
-						if(gx==0 && gy==0) break;
+						if (gx==0 && gy==0) break;
+						if (s.points_cnt >= max_stroke_length || is_out==1) break;
 
-						dx = gy;
-						dy = -gx;
+						dx = -gy;
+						dy = gx;
+
+						//만약 방향이 확 꺾였다면?
+						if (last_dx * dx + last_dy * dy < 0) {
+							dx *= -1;
+							dy *= -1;
+						}
+
+						dx = Fc*dx + (1-Fc)*last_dx;
+						dy = Fc*dy + (1-Fc)*last_dy;
 
 						//d : 단위벡터?
 						dx = dx / sqrt(dx*dx + dy*dy);
 						dy = dy / sqrt(dx*dx + dy*dy);
 
-						if (/*만약 붓이 확 꺾인다면*/last_dx * dx + last_dy * dy < 0) {
-							dx *= -1;
-							dy *= -1;
-						}
+						
 
 						CvPoint new_point;
-
 						new_point.x = current_point.x + s.radius*dx;
 						new_point.y = current_point.y + s.radius*dy;
-						if(current_point.x < 0) {
-							current_point.x = 0;
-							is_out=1;
+						if(new_point.x < 0) {
+							new_point.x = 0;
+							is_out = 1;
 						}
-						if(current_point.y < 0) {
-							current_point.y = 0;
+						if(new_point.y < 0) {
+							new_point.y = 0;
 							is_out = 1;
 
 						}
-						if(current_point.x > w-1) {
-							current_point.x = w-1;
+						if(new_point.x > w-1) {
+							new_point.x = w-1;
 							is_out = 1;
 
 						}
-						if(current_point.y > h-1) {
-							current_point.y = h-1;
+						if(new_point.y > h-1) {
+							new_point.y = h-1;
 							is_out = 1;
 						}
-						//cvSet2D(canvas, new_point.y, new_point.x, cvScalar(0,0,0));
 
 						s.route[s.points_cnt++] = new_point;
 
 						last_dx = dx;
 						last_dy = dy;
 
+						CvScalar current_color = cvGet2D(refImg, current_point.y, current_point.x);
+						CvScalar new_color = cvGet2D(refImg, new_point.y, new_point.x);
+						CvScalar ref_color = cvGet2D(refImg, new_point.y, new_point.x);
+						CvScalar canvas_color = cvGet2D(refImg, new_point.y, new_point.x);
+						if (getDifference(ref_color, canvas_color) < getDifference(ref_color, s.color)) break;
+
 						current_point = new_point;
 
-						if (s.points_cnt > max_stroke_length || is_out==1) {
-							break;
-						}
-						
-					}
 
+					}
 					stroke_arr[stroke_cnt++] = s;
 				}
 			}
 		}
 
 		shuffleArr(stroke_arr, stroke_cnt);
+		printf("stroke_cnt : %d\n",stroke_cnt);
 		for (int i = 0; i < stroke_cnt; i++) {
 			drawSplineStroke(canvas, stroke_arr[i]);
 		}
@@ -209,10 +233,10 @@ int main() {
 		free(stroke_arr);
 
 		r /= 2;
-		jitteredGrid.width /= 2;
-		jitteredGrid.height /= 2;
-		jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width) + 1;
-		jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height) + 1;
+		jittered_grid.width /= 2;
+		jittered_grid.height /= 2;
+		jittered_grid.colsCnt = (imgSize.width) / (jittered_grid.width) + 1;
+		jittered_grid.rowsCnt = (imgSize.height) / (jittered_grid.height) + 1;
 		cvShowImage("canvas", canvas);
 		cvWaitKey();
 	}
