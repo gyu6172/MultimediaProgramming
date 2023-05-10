@@ -1,7 +1,7 @@
 #include <opencv2/opencv.hpp>
 #define R 32
 #define L 32
-#define T 2700
+#define T 1200
 typedef struct Circle {
 	int radius;
 	CvScalar color;
@@ -12,11 +12,12 @@ typedef struct Grid{
 	int rowsCnt;	//격자판의 세로 개수
 	int width;		//격자 하나의 가로 길이(너비)
 	int height;		//격자 하나의 세로 길이(높이)
-};
+}Grid;
 
 void drawCircle(IplImage* img, Circle circle) {
 	cvCircle(img, circle.point, circle.radius, circle.color, -1);
 }
+
 float getDifference(CvScalar f, CvScalar g) {
 	float sum = 0.0;
 	for (int k = 0; k < 3; k++) {
@@ -24,6 +25,7 @@ float getDifference(CvScalar f, CvScalar g) {
 	}
 	return sum;
 }
+
 void shuffleArr(Circle *circleArr, int size) {
 	for (int i = 0; i < size; i++) {
 		int ran = rand()%size;
@@ -44,7 +46,6 @@ int main() {
 	int w = imgSize.width;
 	int h = imgSize.height;
 
-	//원의 반지름
 	int r=R;
 
 	Grid jitteredGrid;
@@ -53,13 +54,12 @@ int main() {
 	jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width)+1;
 	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height)+1;
 
-	//cvShowImage("ref", refImg);
-
 	while (r >= 2) {
 		Circle *circleArr = (Circle*)malloc(sizeof(Circle)*(jitteredGrid.colsCnt*jitteredGrid.rowsCnt));
+
 		int circleCnt = 0;
 
-		cvSmooth(srcImg, refImg, CV_GAUSSIAN, r-1);
+		cvSmooth(srcImg, refImg, CV_GAUSSIAN, 4*r-1);
 
 		for (int y = 0; y < h; y += jitteredGrid.height) {
 			for (int x = 0; x < w; x += jitteredGrid.width) {
@@ -71,8 +71,7 @@ int main() {
 				for (int v = y; v < y + jitteredGrid.height; v++) {
 					for (int u = x; u < x + jitteredGrid.width; u++) {
 						if (u > w - 1 || v > h - 1)	continue;
-						if(u-1<0||u+1>w-1) continue;
-						if(v-1<0||v+1>h-1) continue;
+						if(u<0 || v<0) continue;
 
 						CvScalar refColor = cvGet2D(refImg, v,u);
 
@@ -89,8 +88,8 @@ int main() {
 					}
 				}
 
-				diff_avg = diff_avg / (jitteredGrid.width * jitteredGrid.height);
-				//printf("(%d, %d) err=%.2f\n", x,y,diff_avg);
+				diff_avg /= (jitteredGrid.width * jitteredGrid.height);
+				
 				if (diff_avg > T) {
 					Circle c;
 					c.radius = r;
@@ -116,6 +115,7 @@ int main() {
 		cvWaitKey();
 	}
 
+	cvShowImage("src",srcImg);
 	cvWaitKey();
 	
 }
