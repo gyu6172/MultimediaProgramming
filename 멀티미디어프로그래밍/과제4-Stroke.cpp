@@ -22,6 +22,9 @@ typedef struct Grid {
 void drawSplineStroke(IplImage* img, Stroke stroke) {
 	CvPoint st = stroke.start_point;
 	CvPoint ed;
+	if (stroke.points_cnt == 0) {
+		cvCircle(img, st, stroke.radius, stroke.color, -1);
+	}
 	for (int i = 0; i < stroke.points_cnt; i++) {
 		ed = stroke.route[i];
 		cvLine(img, st, ed, stroke.color, stroke.radius);
@@ -45,10 +48,11 @@ void shuffleArr(Stroke* stroke_arr, int size) {
 }
 
 int main() {
-	IplImage* srcImg = cvLoadImage("C:\\tmp\\lena.png");
+	IplImage* srcImg = cvLoadImage("C:\\tmp\\sju4.jpg");
 	CvSize imgSize = cvGetSize(srcImg);
 	IplImage* refImg = cvCreateImage(imgSize, 8, 3);
 	IplImage* canvas = cvCreateImage(imgSize, 8, 3);
+	cvShowImage("src", srcImg);
 
 	cvSet(canvas, cvScalar(255, 255, 255));
 
@@ -193,5 +197,5 @@ int main() {
 		cvShowImage("canvas", canvas);
 		cvWaitKey();
 	}
-
+	cvSaveImage("C:\\tmp\\result1.jpg",canvas);
 }
