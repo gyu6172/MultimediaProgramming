@@ -70,6 +70,9 @@
     <Filter Include="소스 파일\0509-Affine Transform">
       <UniqueIdentifier>{192cc7af-143e-4a4e-9673-9f9a2fe252fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0511-Affine Transform">
+      <UniqueIdentifier>{e523ff18-300f-4f0f-b2a2-4544b4734e8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -227,6 +230,15 @@
     </ClCompile>
     <ClCompile Include="과제4-Circle2.cpp">
       <Filter>소스 파일\과제4</Filter>
+    </ClCompile>
+    <ClCompile Include="0511.cpp">
+      <Filter>소스 파일\0511-Affine Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="0511-실습1.cpp">
+      <Filter>소스 파일\0511-Affine Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="0511-실습2.cpp">
+      <Filter>소스 파일\0511-Affine Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
