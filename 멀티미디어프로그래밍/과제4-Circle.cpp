@@ -26,7 +26,7 @@ float getDifference(CvScalar f, CvScalar g) {
 	return sum;
 }
 
-void shuffleArr(Circle *circleArr, int size) {
+void shuffleCircleArr(Circle *circleArr, int size) {
 	for (int i = 0; i < size; i++) {
 		int ran = rand()%size;
 		Circle tmp = circleArr[i];
@@ -100,7 +100,7 @@ int main() {
 			}
 		}
 
-		shuffleArr(circleArr, circleCnt);
+		shuffleCircleArr(circleArr, circleCnt);
 		for (int i = 0; i < circleCnt; i++) {
 			drawCircle(canvas, circleArr[i]);
 		}

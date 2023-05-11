@@ -3,8 +3,8 @@
 #define L 32
 #define T 1200
 #define Fc 1.0f
-#define MAX_STROKE_LENGTH 10
-#define MIN_STROKE_LENGTH 3
+#define MAX_STROKE_LENGTH 15
+#define MIN_STROKE_LENGTH 2
 typedef struct Stroke {
 	CvPoint start_point;
 	CvPoint *route;
@@ -100,8 +100,6 @@ int main() {
 				
 				if (diff_avg > T) {
 
-					int is_out = 0;
-
 					Stroke s;
 					s.route = (CvPoint*)malloc(sizeof(CvPoint)*MAX_STROKE_LENGTH);
 					s.radius = r;
@@ -109,28 +107,24 @@ int main() {
 					s.start_point = max_diff_pos;
 					s.points_cnt=0;
 
-
 					CvPoint current_point = s.start_point;
-					float dx=0, dy=0, last_dx=0, last_dy=0;
+					float last_dx=0, last_dy=0;
 
 					while (true) {
+
+						CvScalar ref_color = cvGet2D(refImg, current_point.y, current_point.x);
+						CvScalar canvas_color = cvGet2D(refImg, current_point.y, current_point.x);
+						if (MIN_STROKE_LENGTH < s.points_cnt && getDifference(ref_color, canvas_color) < getDifference(ref_color, s.color)) break;
+						if (s.points_cnt >= MAX_STROKE_LENGTH) break;
 
 						CvPoint p1 = cvPoint(current_point.x-1, current_point.y-1);
 						CvPoint p2 = cvPoint(current_point.x+1, current_point.y+1);
 
-						if (p1.x < 0) {
-							p1.x = 0;
-						}
-						if (p1.y < 0) {
-							p1.y = 0;
-						}
-						if (p2.x > w - 1) {
-							p2.x = w-1;
-						}
-						if (p2.y > h - 1) {
-							p2.y = h-1;
-						}
-
+						if (p1.x < 0) p1.x = 0;
+						if (p1.y < 0) p1.y = 0;
+						if (p2.x > w - 1) p2.x = w-1;
+						if (p2.y > h - 1) p2.y = h-1;
+						
 						CvScalar x1_color, x2_color, y1_color, y2_color;
 						x1_color = cvGet2D(refImg, current_point.y, p1.x);
 						x2_color = cvGet2D(refImg, current_point.y, p2.x);
@@ -144,8 +138,8 @@ int main() {
 						}
 
 						if (gx==0 && gy==0) break;
-						if (s.points_cnt >= MAX_STROKE_LENGTH || is_out==1) break;
 
+						float dx,dy;
 						dx = -gy;
 						dy = gx;
 
@@ -165,38 +159,17 @@ int main() {
 						CvPoint new_point;
 						new_point.x = current_point.x + s.radius*dx;
 						new_point.y = current_point.y + s.radius*dy;
-						if(new_point.x < 0) {
-							new_point.x = 0;
-							is_out = 1;
-						}
-						if(new_point.y < 0) {
-							new_point.y = 0;
-							is_out = 1;
-
-						}
-						if(new_point.x > w-1) {
-							new_point.x = w-1;
-							is_out = 1;
-
-						}
-						if(new_point.y > h-1) {
-							new_point.y = h-1;
-							is_out = 1;
-						}
-
-						s.route[s.points_cnt++] = new_point;
+						if(new_point.x < 0) new_point.x = 0;
+						if(new_point.y < 0) new_point.y = 0;
+						if(new_point.x > w-1) new_point.x = w-1;
+						if(new_point.y > h-1) new_point.y = h-1;
 
 						last_dx = dx;
 						last_dy = dy;
 
-						CvScalar current_color = cvGet2D(refImg, current_point.y, current_point.x);
-						CvScalar new_color = cvGet2D(refImg, new_point.y, new_point.x);
-						CvScalar ref_color = cvGet2D(refImg, new_point.y, new_point.x);
-						CvScalar canvas_color = cvGet2D(refImg, new_point.y, new_point.x);
-						if (MIN_STROKE_LENGTH <= s.points_cnt && getDifference(ref_color, canvas_color) < getDifference(ref_color, s.color)) break;
-
 						current_point = new_point;
 
+						s.route[s.points_cnt++] = new_point;
 					}
 					stroke_arr[stroke_cnt++] = s;
 				}
@@ -220,7 +193,5 @@ int main() {
 		cvShowImage("canvas", canvas);
 		cvWaitKey();
 	}
-
-	//cvWaitKey();
 
 }
