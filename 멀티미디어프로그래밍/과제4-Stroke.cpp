@@ -1,8 +1,10 @@
 #include <opencv2/opencv.hpp>
 #define R 32
 #define L 32
-#define T 5000
+#define T 1200
 #define Fc 1.0f
+#define MAX_STROKE_LENGTH 10
+#define MIN_STROKE_LENGTH 3
 typedef struct Stroke {
 	CvPoint start_point;
 	CvPoint *route;
@@ -23,8 +25,6 @@ void drawSplineStroke(IplImage* img, Stroke stroke) {
 	for (int i = 0; i < stroke.points_cnt; i++) {
 		ed = stroke.route[i];
 		cvLine(img, st, ed, stroke.color, stroke.radius);
-		/*cvShowImage("img", img);
-		cvWaitKey();*/
 		st = ed;
 	}
 }
@@ -64,21 +64,6 @@ int main() {
 	jittered_grid.colsCnt = (imgSize.width) / (jittered_grid.width) + 1;
 	jittered_grid.rowsCnt = (imgSize.height) / (jittered_grid.height) + 1;
 
-	//Stroke s;
-	//s.color = cvScalar(0,0,0);	
-	//s.radius = 32;
-	//s.points_cnt = 3;
-	//s.start_point = cvPoint(10,10);
-	//s.route = (CvPoint*)malloc(sizeof(CvPoint)*s.points_cnt);
-	//(s.route)[0] = cvPoint(400,10);
-	//(s.route)[1] = cvPoint(40,60);
-	//(s.route)[2] = cvPoint(100,200);
-	//cvLine(canvas, cvPoint(300,300), cvPoint(300,300), s.color, 32);
-	//cvCircle(canvas, cvPoint(300,400), 32, s.color);
-	//drawSplineStroke(canvas, s);
-	//cvShowImage("c",canvas);
-	//cvWaitKey();
-
 	while (r >= 2) {
 		Stroke* stroke_arr = (Stroke*)malloc(sizeof(Stroke) * (jittered_grid.colsCnt * jittered_grid.rowsCnt));
 		int stroke_cnt = 0;
@@ -98,7 +83,6 @@ int main() {
 						if (u < 0 || v < 0) continue;
 
 						CvScalar refColor = cvGet2D(refImg, v, u);
-
 						CvScalar canvasColor = cvGet2D(canvas, v, u);
 
 						float diff = getDifference(refColor, canvasColor);
@@ -116,15 +100,15 @@ int main() {
 				
 				if (diff_avg > T) {
 
-					int max_stroke_length = 10;
 					int is_out = 0;
 
 					Stroke s;
-					s.route = (CvPoint*)malloc(sizeof(CvPoint)*max_stroke_length);
+					s.route = (CvPoint*)malloc(sizeof(CvPoint)*MAX_STROKE_LENGTH);
 					s.radius = r;
 					s.color = max_diff_color;
 					s.start_point = max_diff_pos;
 					s.points_cnt=0;
+
 
 					CvPoint current_point = s.start_point;
 					float dx=0, dy=0, last_dx=0, last_dy=0;
@@ -148,10 +132,10 @@ int main() {
 						}
 
 						CvScalar x1_color, x2_color, y1_color, y2_color;
-						x1_color = cvGet2D(refImg, p1.x, current_point.y);
-						x2_color = cvGet2D(refImg, p2.x, current_point.y);
-						y1_color = cvGet2D(refImg, current_point.x, p1.y);
-						y2_color = cvGet2D(refImg, current_point.x, p2.y);
+						x1_color = cvGet2D(refImg, current_point.y, p1.x);
+						x2_color = cvGet2D(refImg, current_point.y, p2.x);
+						y1_color = cvGet2D(refImg, p1.y, current_point.x);
+						y2_color = cvGet2D(refImg, p2.y, current_point.x);
 
 						float gx = 0, gy = 0;
 						for (int k = 0; k < 3; k++) {
@@ -160,7 +144,7 @@ int main() {
 						}
 
 						if (gx==0 && gy==0) break;
-						if (s.points_cnt >= max_stroke_length || is_out==1) break;
+						if (s.points_cnt >= MAX_STROKE_LENGTH || is_out==1) break;
 
 						dx = -gy;
 						dy = gx;
@@ -177,8 +161,6 @@ int main() {
 						//d : ¥‹¿ß∫§≈Õ?
 						dx = dx / sqrt(dx*dx + dy*dy);
 						dy = dy / sqrt(dx*dx + dy*dy);
-
-						
 
 						CvPoint new_point;
 						new_point.x = current_point.x + s.radius*dx;
@@ -211,10 +193,9 @@ int main() {
 						CvScalar new_color = cvGet2D(refImg, new_point.y, new_point.x);
 						CvScalar ref_color = cvGet2D(refImg, new_point.y, new_point.x);
 						CvScalar canvas_color = cvGet2D(refImg, new_point.y, new_point.x);
-						if (getDifference(ref_color, canvas_color) < getDifference(ref_color, s.color)) break;
+						if (MIN_STROKE_LENGTH <= s.points_cnt && getDifference(ref_color, canvas_color) < getDifference(ref_color, s.color)) break;
 
 						current_point = new_point;
-
 
 					}
 					stroke_arr[stroke_cnt++] = s;
@@ -223,7 +204,6 @@ int main() {
 		}
 
 		shuffleArr(stroke_arr, stroke_cnt);
-		printf("stroke_cnt : %d\n",stroke_cnt);
 		for (int i = 0; i < stroke_cnt; i++) {
 			drawSplineStroke(canvas, stroke_arr[i]);
 		}
@@ -241,6 +221,6 @@ int main() {
 		cvWaitKey();
 	}
 
-	cvWaitKey();
+	//cvWaitKey();
 
 }
