@@ -3,7 +3,7 @@
 #define L 32
 #define T 1200
 #define Fc 1.0f
-#define MAX_STROKE_LENGTH 15
+#define MAX_STROKE_LENGTH 20
 #define MIN_STROKE_LENGTH 2
 typedef struct Stroke {
 	CvPoint start_point;
