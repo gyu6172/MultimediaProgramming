@@ -1,6 +1,6 @@
 #include <opencv2/opencv.hpp>
 #define R 32
-#define L 32
+#define GRID 32
 #define T 2700
 typedef struct Circle {
 	int radius;
@@ -48,8 +48,8 @@ int main() {
 	int r = R;
 
 	Grid jitteredGrid;
-	jitteredGrid.width = L;
-	jitteredGrid.height = L;
+	jitteredGrid.width = GRID;
+	jitteredGrid.height = GRID;
 	jitteredGrid.colsCnt = (imgSize.width) / (jitteredGrid.width) + 1;
 	jitteredGrid.rowsCnt = (imgSize.height) / (jitteredGrid.height) + 1;
 

@@ -1,6 +1,6 @@
 #include <opencv2/opencv.hpp>
 #define R 32
-#define L 32
+#define GRID 32
 #define T 1200
 #define Fc 1.0f
 #define MAX_STROKE_LENGTH 10
@@ -80,8 +80,8 @@ void drawWithCircle(IplImage* src, IplImage* canvas) {
 	int r = R;
 
 	Grid jittered_grid;
-	jittered_grid.width = L;
-	jittered_grid.height = L;
+	jittered_grid.width = GRID;
+	jittered_grid.height = GRID;
 	jittered_grid.colsCnt = (img_size.width) / (jittered_grid.width) + 1;
 	jittered_grid.rowsCnt = (img_size.height) / (jittered_grid.height) + 1;
 
@@ -164,8 +164,8 @@ void drawWithSplineStrokes(IplImage* src, IplImage* canvas) {
 	int r = R;
 
 	Grid jittered_grid;
-	jittered_grid.width = L;
-	jittered_grid.height = L;
+	jittered_grid.width = GRID;
+	jittered_grid.height = GRID;
 	jittered_grid.colsCnt = (img_size.width) / (jittered_grid.width) + 1;
 	jittered_grid.rowsCnt = (img_size.height) / (jittered_grid.height) + 1;
 

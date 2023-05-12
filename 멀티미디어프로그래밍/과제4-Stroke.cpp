@@ -1,7 +1,7 @@
 #include <opencv2/opencv.hpp>
 #define R 32
-#define L 32
-#define T 1200
+#define GRID 32
+#define T 30
 #define Fc 1.0f
 #define MAX_STROKE_LENGTH 20
 #define MIN_STROKE_LENGTH 2
@@ -22,9 +22,9 @@ typedef struct Grid {
 void drawSplineStroke(IplImage* img, Stroke stroke) {
 	CvPoint st = stroke.start_point;
 	CvPoint ed;
-	if (stroke.points_cnt == 0) {
-		cvCircle(img, st, stroke.radius, stroke.color, -1);
-	}
+	//if (stroke.points_cnt == 0) {
+	//	cvCircle(img, st, stroke.radius, stroke.color, -1);
+	//}
 	for (int i = 0; i < stroke.points_cnt; i++) {
 		ed = stroke.route[i];
 		cvLine(img, st, ed, stroke.color, stroke.radius);
@@ -36,7 +36,7 @@ float getDifference(CvScalar f, CvScalar g) {
 	for (int k = 0; k < 3; k++) {
 		sum += (f.val[k] - g.val[k]) * (f.val[k] - g.val[k]);
 	}
-	return sum;
+	return sqrt(sum);
 }
 void shuffleArr(Stroke* stroke_arr, int size) {
 	for (int i = 0; i < size; i++) {
@@ -48,7 +48,7 @@ void shuffleArr(Stroke* stroke_arr, int size) {
 }
 
 int main() {
-	IplImage* srcImg = cvLoadImage("C:\\tmp\\sju4.jpg");
+	IplImage* srcImg = cvLoadImage("C:\\tmp\\lena.png");
 	CvSize imgSize = cvGetSize(srcImg);
 	IplImage* refImg = cvCreateImage(imgSize, 8, 3);
 	IplImage* canvas = cvCreateImage(imgSize, 8, 3);
@@ -63,8 +63,8 @@ int main() {
 	int r = R;
 
 	Grid jittered_grid;
-	jittered_grid.width = L;
-	jittered_grid.height = L;
+	jittered_grid.width = GRID;
+	jittered_grid.height = GRID;
 	jittered_grid.colsCnt = (imgSize.width) / (jittered_grid.width) + 1;
 	jittered_grid.rowsCnt = (imgSize.height) / (jittered_grid.height) + 1;
 
@@ -124,11 +124,12 @@ int main() {
 						CvPoint p1 = cvPoint(current_point.x-1, current_point.y-1);
 						CvPoint p2 = cvPoint(current_point.x+1, current_point.y+1);
 
-						if (p1.x < 0) p1.x = 0;
+						/*if (p1.x < 0) p1.x = 0;
 						if (p1.y < 0) p1.y = 0;
 						if (p2.x > w - 1) p2.x = w-1;
-						if (p2.y > h - 1) p2.y = h-1;
-						
+						if (p2.y > h - 1) p2.y = h-1;*/
+						if(p1.x<0 || p1.y<0 || p2.x>w-1 || p2.y>h-1) break;
+
 						CvScalar x1_color, x2_color, y1_color, y2_color;
 						x1_color = cvGet2D(refImg, current_point.y, p1.x);
 						x2_color = cvGet2D(refImg, current_point.y, p2.x);
@@ -175,6 +176,7 @@ int main() {
 
 						s.route[s.points_cnt++] = new_point;
 					}
+
 					stroke_arr[stroke_cnt++] = s;
 				}
 			}
