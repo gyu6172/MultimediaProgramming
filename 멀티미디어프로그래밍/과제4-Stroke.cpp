@@ -1,10 +1,11 @@
 #include <opencv2/opencv.hpp>
 #define R 32
 #define GRID 32
-#define T 30
-#define Fc 1.0f
+#define T 20
+#define fc 1.0f
 #define MAX_STROKE_LENGTH 20
 #define MIN_STROKE_LENGTH 2
+CvScalar BLACK = cvScalar(0,0,0);
 typedef struct Stroke {
 	CvPoint start_point;
 	CvPoint *route;
@@ -124,11 +125,11 @@ int main() {
 						CvPoint p1 = cvPoint(current_point.x-1, current_point.y-1);
 						CvPoint p2 = cvPoint(current_point.x+1, current_point.y+1);
 
-						/*if (p1.x < 0) p1.x = 0;
+						if (p1.x < 0) p1.x = 0;
 						if (p1.y < 0) p1.y = 0;
 						if (p2.x > w - 1) p2.x = w-1;
-						if (p2.y > h - 1) p2.y = h-1;*/
-						if(p1.x<0 || p1.y<0 || p2.x>w-1 || p2.y>h-1) break;
+						if (p2.y > h - 1) p2.y = h-1;
+						//if(p1.x<0 || p1.y<0 || p2.x>w-1 || p2.y>h-1) break;
 
 						CvScalar x1_color, x2_color, y1_color, y2_color;
 						x1_color = cvGet2D(refImg, current_point.y, p1.x);
@@ -154,8 +155,8 @@ int main() {
 							dy *= -1;
 						}
 
-						dx = Fc*dx + (1-Fc)*last_dx;
-						dy = Fc*dy + (1-Fc)*last_dy;
+						dx = fc*dx + (1-fc)*last_dx;
+						dy = fc*dy + (1-fc)*last_dy;
 
 						//d : ¥‹¿ß∫§≈Õ?
 						dx = dx / sqrt(dx*dx + dy*dy);
@@ -189,6 +190,12 @@ int main() {
 		for (int i = 0; i < stroke_cnt; i++) {
 			free(stroke_arr[i].route);
 		}
+		for (int i = 0; i < stroke_cnt; i++) {
+			int xx = stroke_arr[i].start_point.x;
+			int yy = stroke_arr[i].start_point.y;
+			//cvSet2D(srcImg, yy, xx, BLACK);
+			//cvSet2D(canvas, yy, xx, BLACK);
+		}
 		free(stroke_arr);
 
 		r /= 2;
@@ -197,6 +204,7 @@ int main() {
 		jittered_grid.colsCnt = (imgSize.width) / (jittered_grid.width) + 1;
 		jittered_grid.rowsCnt = (imgSize.height) / (jittered_grid.height) + 1;
 		cvShowImage("canvas", canvas);
+		cvShowImage("src", srcImg);
 		cvWaitKey();
 	}
 	cvSaveImage("C:\\tmp\\result1.jpg",canvas);
