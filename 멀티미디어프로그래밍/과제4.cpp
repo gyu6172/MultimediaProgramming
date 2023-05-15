@@ -334,7 +334,6 @@ void drawWithSplineStrokes(IplImage* src, IplImage* canvas) {
 						CvPoint p1 = cvPoint(current_point.x - 1, current_point.y - 1);
 						CvPoint p2 = cvPoint(current_point.x + 1, current_point.y + 1);
 
-						//이 부분 주석 필요
 						//만약 p1이나 p2가 이미지를 벗어난다면
 						//그 좌표를 이미지 안으로 이동시킨다.
 						if (p1.x < 0) p1.x = 0;
