@@ -3,7 +3,7 @@
 #define GRID 32
 #define T 20
 #define fc 1.0f
-#define MAX_STROKE_LENGTH 20
+#define MAX_STROKE_LENGTH 8
 #define MIN_STROKE_LENGTH 2
 CvScalar BLACK = cvScalar(0,0,0);
 typedef struct Stroke {
@@ -49,7 +49,7 @@ void shuffleArr(Stroke* stroke_arr, int size) {
 }
 
 int main() {
-	IplImage* srcImg = cvLoadImage("C:\\tmp\\lena.png");
+	IplImage* srcImg = cvLoadImage("C:\\tmp\\source2.jpg");
 	CvSize imgSize = cvGetSize(srcImg);
 	IplImage* refImg = cvCreateImage(imgSize, 8, 3);
 	IplImage* canvas = cvCreateImage(imgSize, 8, 3);
@@ -118,7 +118,7 @@ int main() {
 					while (true) {
 
 						CvScalar ref_color = cvGet2D(refImg, current_point.y, current_point.x);
-						CvScalar canvas_color = cvGet2D(refImg, current_point.y, current_point.x);
+						CvScalar canvas_color = cvGet2D(canvas, current_point.y, current_point.x);
 						if (MIN_STROKE_LENGTH < s.points_cnt && getDifference(ref_color, canvas_color) < getDifference(ref_color, s.color)) break;
 						if (s.points_cnt >= MAX_STROKE_LENGTH) break;
 
@@ -129,7 +129,7 @@ int main() {
 						if (p1.y < 0) p1.y = 0;
 						if (p2.x > w - 1) p2.x = w-1;
 						if (p2.y > h - 1) p2.y = h-1;
-						//if(p1.x<0 || p1.y<0 || p2.x>w-1 || p2.y>h-1) break;
+						/*if(p1.x<0 || p1.y<0 || p2.x>w-1 || p2.y>h-1) break;*/
 
 						CvScalar x1_color, x2_color, y1_color, y2_color;
 						x1_color = cvGet2D(refImg, current_point.y, p1.x);

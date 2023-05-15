@@ -335,14 +335,13 @@ void drawWithSplineStrokes(IplImage* src, IplImage* canvas) {
 						CvPoint p2 = cvPoint(current_point.x + 1, current_point.y + 1);
 
 						//이 부분 주석 필요
-						//만약 현재 좌표가 이미지의 모서리라면
-						/*if (p1.x < 0) p1.x = 0;
+						//만약 p1이나 p2가 이미지를 벗어난다면
+						//그 좌표를 이미지 안으로 이동시킨다.
+						if (p1.x < 0) p1.x = 0;
 						if (p1.y < 0) p1.y = 0;
 						if (p2.x > w - 1) p2.x = w - 1;
-						if (p2.y > h - 1) p2.y = h - 1;*/
-						if (p1.x<0 || p1.y<0 || p2.x>w - 1 || p2.y>h - 1) {
-							break;
-						}
+						if (p2.y > h - 1) p2.y = h - 1;
+
 						
 						//현재 좌표를 기준으로 각각 왼쪽, 오른쪽, 위, 아래에 있는 픽셀의 컬러값을 저장할 변수
 						CvScalar x1_color, x2_color, y1_color, y2_color;
@@ -437,6 +436,8 @@ void drawWithSplineStrokes(IplImage* src, IplImage* canvas) {
 		jittered_grid.colsCnt = (img_size.width) / (jittered_grid.length) + 1;
 		jittered_grid.rowsCnt = (img_size.height) / (jittered_grid.length) + 1;
 
+		t++;
+
 		//canvas이미지 띄우기
 		cvShowImage("canvas", canvas);
 		cvWaitKey(1000);
@@ -486,6 +487,7 @@ int main() {
 	}
 	else {						//Stroke로 그리기 모드
 		drawWithSplineStrokes(src_img, canvas);
+		
 	}
 
 	return 0;
