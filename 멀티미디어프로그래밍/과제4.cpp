@@ -4,10 +4,10 @@
 #define R 32	//원의 반지름 (또는 Stroke	의 크기)
 #define G 4		//가우시안 블러링할 때 반지름에 곱해지는 변수
 #define fg 1	//jittered Grid를 생성할 때 반지름에 곱해지는 변수
-#define T 20	//threshold값 (그림의 거친 정도를 결정하는 변수)
-#define fc 1.0f	//Curved Brush Stroke의 곡률을 결정하는 변수
-#define MAX_STROKE_LENGTH 10	//Curved Brush Stroke를 이루는 점들의 최대 개수
-#define MIN_STROKE_LENGTH 2		//Curved Brush Stroke를 이루는 점들의 최소 개수
+#define T 20	//원본과 canvas의 닮은 정도를 결정하는 변수
+#define fc 1.0f	//Spline Stroke의 곡률을 결정하는 변수
+#define MAX_STROKE_LENGTH 10	//Spline Stroke를 이루는 점들의 최대 개수
+#define MIN_STROKE_LENGTH 2		//Spline Stroke를 이루는 점들의 최소 개수
 
 //구조체 정의
 typedef struct Circle {	//Circle 구조체
