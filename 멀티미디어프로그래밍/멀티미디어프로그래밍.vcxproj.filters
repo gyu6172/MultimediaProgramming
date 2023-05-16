@@ -73,6 +73,9 @@
     <Filter Include="소스 파일\0511-Affine Transform">
       <UniqueIdentifier>{e523ff18-300f-4f0f-b2a2-4544b4734e8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0516-interpolation">
+      <UniqueIdentifier>{5575354d-cc14-49f9-955a-dd8ffef1da39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="과제4.cpp">
       <Filter>소스 파일\과제4</Filter>
+    </ClCompile>
+    <ClCompile Include="0516-interpolation.cpp">
+      <Filter>소스 파일\0516-interpolation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
