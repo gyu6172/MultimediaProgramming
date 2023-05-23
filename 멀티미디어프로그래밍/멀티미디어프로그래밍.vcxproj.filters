@@ -79,6 +79,9 @@
     <Filter Include="소스 파일\0518-homography">
       <UniqueIdentifier>{85fb5e9f-0de0-48be-b100-cd35f3e3a08e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0523-Cross Dissolve">
+      <UniqueIdentifier>{feb96890-048e-4e76-857a-88c24de0fb7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -257,6 +260,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\Downloads\MatrixInverse\MatrixInverse.cpp">
       <Filter>소스 파일\0518-homography</Filter>
+    </ClCompile>
+    <ClCompile Include="0523-CrossDissolve.cpp">
+      <Filter>소스 파일\0523-Cross Dissolve</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
