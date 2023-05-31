@@ -85,6 +85,9 @@
     <Filter Include="소스 파일\0525-Image Morphing">
       <UniqueIdentifier>{9fe2367d-649c-4fe4-a1a4-3390d1388d13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0530-Image Morphing">
+      <UniqueIdentifier>{d39971f1-47a3-4fb9-8504-c553a1cd0e52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -269,6 +272,9 @@
     </ClCompile>
     <ClCompile Include="0525-ImageMorphing.cpp">
       <Filter>소스 파일\0525-Image Morphing</Filter>
+    </ClCompile>
+    <ClCompile Include="0530-ImageMorphing.cpp">
+      <Filter>소스 파일\0530-Image Morphing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
