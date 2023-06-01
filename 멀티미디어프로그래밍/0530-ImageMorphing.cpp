@@ -78,14 +78,19 @@ float getTransformed(Line A, Line B, float x1, float y1, float* x2, float* y2) {
 	*x2 = B.P.x + u * nQPx + v * nPerQPx / nPerQPlen;
 	*y2 = B.P.y + u * nQPy + v * nPerQPy / nPerQPlen;
 
-	float dist = v;
+	float dist = abs(v);
 	if (u < 0) {
 		//dist = P客狼 芭府
+		dist = sqrt(XPx * XPx + XPy * XPy);
 	}
 	else if (u > 1) {
 		//dist = Q客狼 芭府
+		float XQx = x1 - A.Q.x;
+		float XQy = y1 - A.Q.y;
+		dist = sqrt(XQx * XQx + XQy * XQy);
 	}
 	float w = QPlen / (dist + 0.0001f);
+	return w;
 }
 
 void doMorphing(IplImage* src, IplImage* dst, Line A[], Line B[], int num) {
@@ -105,12 +110,36 @@ void doMorphing(IplImage* src, IplImage* dst, Line A[], Line B[], int num) {
 			x_sum /= w_sum;
 			y_sum /= w_sum;
 
-			float x2, y2;
-
-			if (x2<0 || x2>dst->width - 1) continue;
-			if (y2<0 || y2>dst->height - 1) continue;
+			if (x_sum<0 || x_sum>dst->width - 1) continue;
+			if (y_sum<0 || y_sum>dst->height - 1) continue;
 
 			CvScalar f = cvGet2D(src, y1, x1);
+			cvSet2D(dst, y_sum, x_sum, f);
+		}
+	}
+}
+
+void doMorphing2(IplImage* src, IplImage* dst, Line A[], Line B[], int num) {
+	for (int y2 = 0; y2 < dst->height; y2++) {
+		for (int x2 = 0; x2 < dst->width; x2++) {
+			float x_sum = 0.0f;
+			float y_sum = 0.0f;
+			float w_sum = 0.0f;
+			for (int i = 0; i < num; i++) {
+				float x1, y1;
+				float w = getTransformed(B[i], A[i], x2, y2, &x1, &y1);
+				x_sum += w * x1;
+				y_sum += w * y1;
+				w_sum += w;
+			}
+
+			x_sum /= w_sum;
+			y_sum /= w_sum;
+
+			if (x_sum<0 || x_sum>src->width - 1) continue;
+			if (y_sum<0 || y_sum>src->height - 1) continue;
+
+			CvScalar f = cvGet2D(src, y_sum, x_sum);
 			cvSet2D(dst, y2, x2, f);
 		}
 	}
@@ -130,7 +159,8 @@ int main() {
 	cvSetMouseCallback("dst", myMouse2);
 	cvWaitKey();
 
-	doMorphing(src, dst, A, B, numA);
+	doMorphing2(src, dst, A, B, numA);
+	drawLine(dst, B, numB, cvScalar(255, 0, 0));
 	cvShowImage("dst", dst);
 	cvWaitKey();
 
