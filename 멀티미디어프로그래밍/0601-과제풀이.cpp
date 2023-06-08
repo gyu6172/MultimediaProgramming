@@ -16,6 +16,79 @@ float diff2(CvScalar f, CvScalar g) {
 	return sum;
 }
 
+void drawStroke(IplImage* dst, IplImage* ref, CvPoint p0, int R, CvScalar c) {
+	int maxLength = 10;
+	int minLength = 3;
+	CvPoint pts[100];
+	pts[0] = p0;
+	int numPts = 1;
+
+	float lastDx = 0.0f;
+	float lastDy = 0.0f;
+	for (int i = 0; i < maxLength; i++) {
+		
+		int x = pts[numPts-1].x;
+		int y = pts[numPts-1].y;
+
+		if (i>minLength) {
+			CvScalar r = cvGet2D(ref, y, x);
+			CvScalar d = cvGet2D(dst, y, x);
+			if (diff2(r, d) < diff2(r, c)) {
+				break;
+			}
+		}
+
+		CvScalar c1 = cvGet2D(ref, y, x);
+		CvScalar c2 = cvGet2D(ref, y, x+1);
+		CvScalar c3 = cvGet2D(ref, y+1, x);
+		
+		int bri1 = (c1.val[0]+c1.val[1]+c1.val[2])/3;
+		int bri2 = (c2.val[0]+c2.val[1]+c2.val[2])/3;
+		int bri3 = (c3.val[0]+c3.val[1]+c3.val[2])/3;
+
+		float gx = bri2 - bri1;
+		float gy = bri3 - bri1;
+
+		float mag = sqrt(gx*gx + gy*gy);
+		if(mag < 0.01) break;
+
+		gx /= mag;
+		gy /= mag;
+
+		float dx = -gy;
+		float dy = gx;
+
+		if (dx * lastDx + dy * lastDy < 0) {
+			dx = -dx;
+			dy = -dy;
+		}
+
+		float fc = 1.0f;
+		dx = fc*dx + (1-fc)*lastDx;
+		dy = fc*dy + (1-fc)*lastDy;
+		mag = sqrt(dx*dx + dy*dy);
+		dx /= mag;
+		dy /= mag;
+
+		x = x + dx*R;
+		y = y + dy*R;
+
+		if(x>dst->width-2 || x<0)break;
+		if(y>dst->height-2 || y<0)break;
+
+		pts[numPts] = cvPoint(x, y);
+		numPts++;
+
+		lastDx = dx;
+		lastDy = dy;
+
+	}
+
+	for (int i = 0; i < numPts-1; i++) {
+		cvLine(dst, pts[i], pts[i+1], c, 2*R);
+	}
+}
+
 void paintLayer(IplImage* dst, IplImage* ref, int R) {
 	int grid = R * 1.0f;
 	int xdiv = dst->width / grid/* + 1*/;	//+1은 자투리를 버린다는 뜻이다.
@@ -77,8 +150,8 @@ void paintLayer(IplImage* dst, IplImage* ref, int R) {
 	}
 
 	for (int i = 0; i < curNum; i++) {
-		
-		cvCircle(dst, s[i].pt, s[i].R, s[i].color, -1);
+		//cvCircle(dst, s[i].pt, s[i].R, s[i].color, -1);
+		drawStroke(dst, ref, s[i].pt, s[i].R, s[i].color);
 	}
 
 	delete[] s;
