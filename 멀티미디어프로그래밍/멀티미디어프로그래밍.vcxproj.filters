@@ -91,6 +91,9 @@
     <Filter Include="소스 파일\0601-Image Morphing">
       <UniqueIdentifier>{8f91925f-1896-4326-8988-6e6443eb425a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\기말고사 연습">
+      <UniqueIdentifier>{94e2b7b4-2eb1-404a-8baf-0b623615c926}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -284,6 +287,9 @@
     </ClCompile>
     <ClCompile Include="0601-과제풀이.cpp">
       <Filter>소스 파일\0601-Image Morphing</Filter>
+    </ClCompile>
+    <ClCompile Include="이미지워핑 연습.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
