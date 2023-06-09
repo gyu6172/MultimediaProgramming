@@ -128,6 +128,20 @@ int main() {
 	float IM[3][3];
 	setInverseMatrix(M, IM);
 
+	//예제 : 그림의 중심을 기준으로 45도만큼 돌리기
+	float middleT[3][3];
+	setTranslatingMatrix(middleT, -w/2, -h/2);
+	
+	float middleR[3][3];
+	setRotateMatrix(middleR, 45);
+
+	float middleT1[3][3];
+	setTranslatingMatrix(middleT1, w/2, h/2);
+
+	setMultiplyMatrix(M1, middleR, middleT);
+	setMultiplyMatrix(M, middleT1, M1);
+	setInverseMatrix(M, IM);
+
 	//역변형
 	for (int y2 = 0; y2 < h; y2++) {
 		for (int x2 = 0; x2 < w; x2++) {
