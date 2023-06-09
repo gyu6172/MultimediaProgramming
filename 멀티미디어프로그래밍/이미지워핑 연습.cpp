@@ -38,6 +38,19 @@ void copyMatrix(float M[][3], float src[][3]) {
 	}
 }
 
+void setMultiplyMatrix(float M[][3], float A[][3], float B[][3]) {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			M[i][j] = 0.0f;
+
+			for (int k = 0; k < 3; k++) {
+				M[i][j] += A[i][k]*B[k][j];
+
+			}
+		}
+	}
+}
+
 int main() {
 	IplImage* src = cvLoadImage("C:\\tmp\\lena.png");
 	CvSize size = cvGetSize(src);
@@ -58,16 +71,19 @@ int main() {
 	float T[3][3];
 	setTranslatingMatrix(T, 20, 30);
 	
+	float M1[3][3];
+	setMultiplyMatrix(M1, R, S);
+
 	float M[3][3];
-	copyMatrix(M, T);
+	setMultiplyMatrix(M, T, M1);
 
 	for (int y1 = 0; y1 < h; y1++) {
 		for (int x1 = 0; x1 < w; x1++) {
 			int w1 = 1;
 
 			int x2 = M[0][0]*x1 + M[0][1]*y1 + M[0][2]*w1;
-			int y2 = M[1][0]*x1 + M[1][1] * y1 + M[1][2] * w1;
-			int w2 = M[2][0] * x1 + M[2][1] * y1 + M[2][2] * w1;
+			int y2 = M[1][0]*x1 + M[1][1]*y1 + M[1][2]*w1;
+			int w2 = M[2][0]*x1 + M[2][1]*y1 + M[2][2]*w1;
 
 			x2 /= w2;
 			y2 /= w2;
