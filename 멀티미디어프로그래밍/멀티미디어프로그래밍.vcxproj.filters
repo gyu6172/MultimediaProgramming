@@ -94,6 +94,9 @@
     <Filter Include="소스 파일\기말고사 연습">
       <UniqueIdentifier>{94e2b7b4-2eb1-404a-8baf-0b623615c926}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\과제5">
+      <UniqueIdentifier>{ca3caa9c-8dc2-4638-9c6f-41bfd996a83a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -291,6 +294,18 @@
     <ClCompile Include="이미지워핑 연습.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
+    <ClCompile Include="이미지워핑with마우스콜백.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\main.cpp">
+      <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\MatrixInverse.cpp">
+      <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
+    <ClCompile Include="마우스콜백연습.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
@@ -300,6 +315,15 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\Downloads\MatrixInverse\MatrixInverse.h">
       <Filter>소스 파일\0518-homography</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\mat.h">
+      <Filter>소스 파일\과제5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\MatrixInverse.h">
+      <Filter>소스 파일\과제5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\vec.h">
+      <Filter>소스 파일\과제5</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
