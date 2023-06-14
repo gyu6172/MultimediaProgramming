@@ -97,6 +97,9 @@
     <Filter Include="소스 파일\과제5">
       <UniqueIdentifier>{ca3caa9c-8dc2-4638-9c6f-41bfd996a83a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0613-Image Matting">
+      <UniqueIdentifier>{122bb2b1-58fd-43a2-8d10-de9652ced126}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="마우스콜백연습.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
+    <ClCompile Include="0613-ImageMatting.cpp">
+      <Filter>소스 파일\0613-Image Matting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
