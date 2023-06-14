@@ -113,6 +113,29 @@ void applyInverseAffineTransform(IplImage* src, IplImage* dst, float IM[][3]) {
 	}
 }
 
+void applyAffineTransform(IplImage* src, IplImage* dst, float M[][3]) {
+	cvSet(dst, cvScalar(0, 0, 0));
+	for (int y1 = 0; y1 < src->height; y1++) {
+		for (int x1 = 0; x1 < src->width; x1++) {
+			int w1 = 1.0f;
+
+			int x2;
+			int y2;
+			int w2;
+			setMultiply(M, &x2, &y2, &w2, x1, y1, w1);
+
+			x2 /= w2;
+			y2 /= w2;
+
+			if (x2<0 || x2>dst->width - 1) continue;
+			if (y2<0 || y2>dst->height - 1) continue;
+
+			CvScalar f = cvGet2D(src, y1, x1);
+			cvSet2D(dst, y2, x2, f);
+		}
+	}
+}
+
 void rotationImage(int event, int x, int y, int flag, void*) {
 	if (event == CV_EVENT_LBUTTONDOWN) {
 		p1 = cvPoint(x,y);
@@ -139,29 +162,45 @@ void rotationImage(int event, int x, int y, int flag, void*) {
 
 
 		//예제 : 마우스 드래그를 하면 각도차이 만큼 돌리고, 스케일도 조정하기
-		float middleT[3][3];
-		setTranslatingMatrix(middleT, -w / 2, -h / 2);
+		float T[3][3];
+		setTranslatingMatrix(T, 50, 50);
 
-		float middleR[3][3];
-		setRotateMatrix(middleR, theta);
+		float R[3][3];
+		setRotateMatrix(R, theta);
 
-		float middleT1[3][3];
-		setTranslatingMatrix(middleT1, w / 2, h / 2);
+		float T1[3][3];
+		setTranslatingMatrix(T1, w / 2, h / 2);
+
+		float S[3][3];
+		setScaleMatrix(S, 1.5f, 0.4f);
 
 		float M[3][3], M1[3][3], M2[3][3];
-		float IM[3][3];
+		float IM[3][3], IM1[3][3], IM2[3][3];
 
-		//B = T1 * R * T * A
-		setMultiplyMatrix(M1, middleT, middleR);
-		setMultiplyMatrix(M, middleT1, M1);
-		setInverseMatrix(M, IM);
+		////B = T1 * R * T * A
+		//setMultiplyMatrix(M1, T, R);
+		//setMultiplyMatrix(M, T1, M1);
+		//setInverseMatrix(M, IM);
 
-		//M = T1 * R * T
-		//IM = T * R * T1
-		//setRotateMatrix(middleR, -theta);
-		//setMultiplyMatrix(M1, middleT1, middleR);
-		//setMultiplyMatrix(IM, M1, middleT);
+		////M = T1 * R * T
+		////IM = T * R * T1
+		////setRotateMatrix(middleR, -theta);
+		////setMultiplyMatrix(M1, middleT1, middleR);
+		////setMultiplyMatrix(IM, M1, middleT);
 
+		//B = T * R * S * A
+		//M = T * R * S
+		/*setMultiplyMatrix(M1, R, S);
+		setMultiplyMatrix(M, T, M1);
+		applyInverseAffineTransform(src, dst, M);*/
+
+		//IM * B = A
+		//IM = S * R * T
+		setTranslatingMatrix(T, -50, -50);
+		setRotateMatrix(R, -theta);
+		setScaleMatrix(S, 1 / 1.5f, 1 / 0.4f);
+		setMultiplyMatrix(IM1, R, T);
+		setMultiplyMatrix(IM, S, IM1);
 		applyInverseAffineTransform(src, dst, IM);
 
 		cvShowImage("dst",dst);
