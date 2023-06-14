@@ -128,19 +128,6 @@ void rotationImage(int event, int x, int y, int flag, void*) {
 		float py = p1.y/float(h)*2-1;
 		float qx = p2.x/float(w)*2-1;
 		float qy = p2.y/float(h)*2-1;
-
-		float len = sqrt(pow(qx-px, 2) + pow(py-py, 2));
-		float lenp = sqrt(px*px + py*py);
-		float lenq = sqrt(qx*qx + qy*qy);
-		
-		if (lenq > lenp) {
-			sx += len;
-			sy += len;
-		}
-		else {
-			sx -= len;
-			sy -= len;
-		}
 		
 
 		//atan2 : arctan() 라디안으로 리턴
@@ -155,9 +142,6 @@ void rotationImage(int event, int x, int y, int flag, void*) {
 		float middleT[3][3];
 		setTranslatingMatrix(middleT, -w / 2, -h / 2);
 
-		float middleS[3][3];
-		setScaleMatrix(middleS, sx, sy);
-
 		float middleR[3][3];
 		setRotateMatrix(middleR, theta);
 
@@ -167,11 +151,17 @@ void rotationImage(int event, int x, int y, int flag, void*) {
 		float M[3][3], M1[3][3], M2[3][3];
 		float IM[3][3];
 
-		setMultiplyMatrix(M2, middleS, middleT);
-		setMultiplyMatrix(M1, middleR, middleT);
+		//B = T1 * R * T * A
+		setMultiplyMatrix(M1, middleT, middleR);
 		setMultiplyMatrix(M, middleT1, M1);
 		setInverseMatrix(M, IM);
-		
+
+		//M = T1 * R * T
+		//IM = T * R * T1
+		//setRotateMatrix(middleR, -theta);
+		//setMultiplyMatrix(M1, middleT1, middleR);
+		//setMultiplyMatrix(IM, M1, middleT);
+
 		applyInverseAffineTransform(src, dst, IM);
 
 		cvShowImage("dst",dst);

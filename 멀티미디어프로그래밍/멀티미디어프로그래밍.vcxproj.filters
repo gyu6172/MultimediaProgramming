@@ -100,6 +100,12 @@
     <Filter Include="소스 파일\0613-Image Matting">
       <UniqueIdentifier>{122bb2b1-58fd-43a2-8d10-de9652ced126}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\기말고사 연습\기말고사2021">
+      <UniqueIdentifier>{4e68aeab-9fbd-4556-944b-3719a3b5d6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\기말고사 연습\기말고사2022">
+      <UniqueIdentifier>{c68811d9-2ea6-4aba-a82e-9a7e96a1909a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -276,9 +282,6 @@
     <ClCompile Include="0518-homography.cpp">
       <Filter>소스 파일\0518-homography</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Downloads\MatrixInverse\MatrixInverse.cpp">
-      <Filter>소스 파일\0518-homography</Filter>
-    </ClCompile>
     <ClCompile Include="0523-CrossDissolve.cpp">
       <Filter>소스 파일\0523-Cross Dissolve</Filter>
     </ClCompile>
@@ -312,6 +315,21 @@
     <ClCompile Include="0613-ImageMatting.cpp">
       <Filter>소스 파일\0613-Image Matting</Filter>
     </ClCompile>
+    <ClCompile Include="기말2021-문제1.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixInverse.cpp">
+      <Filter>소스 파일\0518-homography</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2021-문제2.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2022-문제3.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2022-문제4.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
@@ -319,9 +337,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Downloads\MatrixInverse\MatrixInverse.h">
-      <Filter>소스 파일\0518-homography</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\mat.h">
       <Filter>소스 파일\과제5</Filter>
     </ClInclude>
@@ -330,6 +345,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\vec.h">
       <Filter>소스 파일\과제5</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixInverse.h">
+      <Filter>소스 파일\0518-homography</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
