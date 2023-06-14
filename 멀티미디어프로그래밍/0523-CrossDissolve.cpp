@@ -7,7 +7,7 @@ int main() {
 	CvSize size = cvGetSize(src[0]);
 	IplImage* dst = cvCreateImage(size, 8, 3);
 
-	for (float t = 0.0f; t <= 1.0f; t += 0.01f) {
+	for (float t = -1.0f; t <= 2.0f; t += 0.05f) {
 		for (int y = 0; y < size.height; y++) {
 			for (int x = 0; x < size.width; x++) {
 				CvScalar f[2];
@@ -23,7 +23,7 @@ int main() {
 			}
 		}
 		printf("t=%.2f\n",t);
-		cvWaitKey(1);
+		cvWaitKey(30);
 		cvShowImage("dst",dst);
 	}
 	cvWaitKey();
