@@ -61,12 +61,6 @@ void setMultiplyMatrix(float M[][3], float A[][3], float B[][3]) {
 	}
 }
 
-void setMultiply(float M[][3], int* x, int* y, int* w, int ex, int ey, int ew) {
-	*x = M[0][0] * ex + M[0][1] * ey + M[0][2] * ew;
-	*y = M[1][0] * ex + M[1][1] * ey + M[1][2] * ew;
-	*w = M[2][0] * ex + M[2][1] * ey + M[2][2] * ew;
-}
-
 void setInverseMatrix(float matrix[3][3], float inverse[3][3]) {
 	float determinant = 0;
 
@@ -96,10 +90,9 @@ void applyInverseAffineTransform(IplImage* src, IplImage* dst, float IM[][3]) {
 		for (int x2 = 0; x2 < dst->width; x2++) {
 			int w2 = 1.0f;
 
-			int x1;
-			int y1;
-			int w1;
-			setMultiply(IM, &x1, &y1, &w1, x2, y2, w2);
+			int x1 = IM[0][0] * x2 + IM[0][1] * y2 + IM[0][2] * w2;
+			int y1 = IM[1][0] * x2 + IM[1][1] * y2 + IM[1][2] * w2;
+			int w1 = IM[2][0] * x2 + IM[2][1] * y2 + IM[2][2] * w2;
 
 			x1 /= w1;
 			y1 /= w1;
@@ -119,10 +112,9 @@ void applyAffineTransform(IplImage* src, IplImage* dst, float M[][3]) {
 		for (int x1 = 0; x1 < src->width; x1++) {
 			int w1 = 1.0f;
 
-			int x2;
-			int y2;
-			int w2;
-			setMultiply(M, &x2, &y2, &w2, x1, y1, w1);
+			int x2 = M[0][0] * x1 + M[0][1] * y1 + M[0][2] * w1;
+			int y2 = M[1][0] * x1 + M[1][1] * y1 + M[1][2] * w1;
+			int w2 = M[2][0] * x1 + M[2][1] * y1 + M[2][2] * w1;
 
 			x2 /= w2;
 			y2 /= w2;
@@ -168,8 +160,9 @@ void rotationImage(int event, int x, int y, int flag, void*) {
 		float R[3][3];
 		setRotateMatrix(R, theta);
 
-		float T1[3][3];
-		setTranslatingMatrix(T1, w / 2, h / 2);
+		float Tp[3][3], Tm[3][3];
+		setTranslatingMatrix(Tp, w / 2, h / 2);
+		setTranslatingMatrix(Tm, -w / 2, -h / 2);
 
 		float S[3][3];
 		setScaleMatrix(S, 1.5f, 0.4f);
@@ -177,31 +170,18 @@ void rotationImage(int event, int x, int y, int flag, void*) {
 		float M[3][3], M1[3][3], M2[3][3];
 		float IM[3][3], IM1[3][3], IM2[3][3];
 
-		////B = T1 * R * T * A
-		//setMultiplyMatrix(M1, T, R);
-		//setMultiplyMatrix(M, T1, M1);
-		//setInverseMatrix(M, IM);
+		//B = Tp*R*Tm*A
+		//M = Tp*R*Tm
+		//setMultiplyMatrix(M1, R, Tm);
+		//setMultiplyMatrix(M, Tp, M1);
+		//applyAffineTransform(src, dst, M);
 
-		////M = T1 * R * T
-		////IM = T * R * T1
-		////setRotateMatrix(middleR, -theta);
-		////setMultiplyMatrix(M1, middleT1, middleR);
-		////setMultiplyMatrix(IM, M1, middleT);
-
-		//B = T * R * S * A
-		//M = T * R * S
-		/*setMultiplyMatrix(M1, R, S);
-		setMultiplyMatrix(M, T, M1);
-		applyInverseAffineTransform(src, dst, M);*/
-
-		//IM * B = A
-		//IM = S * R * T
-		setTranslatingMatrix(T, -50, -50);
-		setRotateMatrix(R, -theta);
-		setScaleMatrix(S, 1 / 1.5f, 1 / 0.4f);
-		setMultiplyMatrix(IM1, R, T);
-		setMultiplyMatrix(IM, S, IM1);
-		applyInverseAffineTransform(src, dst, IM);
+		//A = Tm * R(-1) * Tp * B
+		//IM = Tm*R*Tp
+		//setRotateMatrix(R, -theta);
+		//setMultiplyMatrix(IM1, R, Tm);
+		//setMultiplyMatrix(IM, Tp, IM1);
+		//applyInverseAffineTransform(src, dst, IM);
 
 		cvShowImage("dst",dst);
 

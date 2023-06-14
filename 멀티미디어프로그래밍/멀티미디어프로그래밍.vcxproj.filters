@@ -106,6 +106,9 @@
     <Filter Include="소스 파일\기말고사 연습\기말고사2022">
       <UniqueIdentifier>{c68811d9-2ea6-4aba-a82e-9a7e96a1909a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\기말고사 연습\기말고사2023예비문제">
+      <UniqueIdentifier>{94256548-df3f-4f23-be73-ae6703d71532}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -328,6 +331,15 @@
       <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
     </ClCompile>
     <ClCompile Include="기말2022-문제4.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2022-문제1.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2022-문제2.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2022-문제5.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
     </ClCompile>
   </ItemGroup>

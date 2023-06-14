@@ -72,12 +72,12 @@ int main() {
 		setRotation(R, -theta);
 		setTranslate(TC2, -cx, -cy);
 
-		//IM = Tc1 * R * Tc2
+		//M = 
+		//IM = Tc1*R*Tc2
 		float IM[3][3], IM1[3][3], IM2[3][3];
-		setMultiply(IM1, TC1, S);
+		/*setMultiply(IM1, TC1, S);*/
 		setMultiply(IM2, R, TC2);
-		setMultiply(IM, IM1, IM2);
-
+		setMultiply(IM, TC1, IM2);
 
 		for (int y2 = 0; y2 < dst->height; y2++) {
 			for (int x2 = 0; x2 < dst->width; x2++) {
