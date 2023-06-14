@@ -114,8 +114,8 @@ void myCircle(IplImage* src, IplImage* dst, CvPoint mid, int r, int theta) {
 			float snx = nx / (src->width - 1) * 2 - 1;
 			float sny = ny / (src->height - 1) * 2 - 1;
 
-			float x1 = cos(-theta) * snx - sin(-theta) * sny;
-			float y1 = sin(-theta) * snx + cos(-theta) * sny;
+			float x1 = cos(theta) * snx - sin(theta) * sny;
+			float y1 = sin(theta) * snx + cos(theta) * sny;
 
 			x1 = (x1 + 1) * (src->width - 1) / 2;
 			y1 = (y1 + 1) * (src->height- 1) / 2;
@@ -128,6 +128,49 @@ void myCircle(IplImage* src, IplImage* dst, CvPoint mid, int r, int theta) {
 			}
 		}
 	}
+	cvShowImage("dst", dst);
+}
+
+//1. scale 조정
+//2. 이미지 중앙을 (0,0)으로 옮김
+//3. rotation
+//4. 이미지 중앙을 mid로 옮김
+void myRectangle(IplImage* src, IplImage* dst, CvPoint mid, int r, int theta) {
+	CvPoint lt = cvPoint(mid.x - r, mid.y - r);
+	CvPoint rb = cvPoint(mid.x + r, mid.y + r);
+
+	float dx = rb.x - lt.x + 0.0001;
+	float dy = rb.y - lt.y + 0.0001;
+
+	for (int y = lt.y; y <= rb.y; y++) {
+		for (int x = lt.x; x <= rb.x; x++) {
+
+			//nx : 0~src.width-1
+			float nx = float(x - lt.x) / dx * (src->width - 1);
+			float ny = float(y - lt.y) / dy * (src->height - 1);
+
+			//sx : -1 ~ 1 (in Src)
+			float sx = nx / (src->width - 1) * 2 - 1;
+			float sy = ny / (src->height - 1) * 2 - 1;
+
+			//rx : 돌아간 x in src
+			float rx = cos(theta) * sx - sin(theta) * sy;
+			float ry = sin(theta) * sx + cos(theta) * sy;
+
+			//x1 : 0~src.width-1
+			int x1 = (rx + 1) * (src->width - 1) / 2;
+			int y1 = (ry + 1) * (src->height - 1) / 2;
+
+			if (x1<0 || x1>src->width - 1) continue;
+			if (y1<0 || y1>src->height - 1) continue;
+
+			CvScalar f = cvGet2D(src, y1, x1);
+
+			cvSet2D(dst, y, x, f);
+		}
+	}
+
+	cvShowImage("dst", dst);
 }
 
 void myMouse(int event, int x, int y, int flag, void*) {
@@ -140,11 +183,13 @@ void myMouse(int event, int x, int y, int flag, void*) {
 			cvCopy(copy, dst);
 			p2 = cvPoint(x, y);
 			int r = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2))/2;
-			float theta = atan2(p2.y - p1.y, p2.x - p1.x);
+			float theta = atan2(p1.y - p2.y, p2.x - p1.x);
+			//printf("theta=%.2f\n", theta * 180 / PI);
 			
 			myCircle(src, dst, p1, r, theta);
+			//myRectangle(src, dst, p1, r, theta);
 
-			cvShowImage("dst", dst);
+			
 		}
 	}
 

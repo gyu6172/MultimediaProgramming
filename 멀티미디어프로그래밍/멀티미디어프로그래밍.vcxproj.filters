@@ -342,6 +342,18 @@
     <ClCompile Include="기말2022-문제5.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2022</Filter>
     </ClCompile>
+    <ClCompile Include="기말2023-문제1.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제2.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제3.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제4.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
