@@ -109,6 +109,9 @@
     <Filter Include="소스 파일\기말고사 연습\기말고사2023예비문제">
       <UniqueIdentifier>{94256548-df3f-4f23-be73-ae6703d71532}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\기말고사 연습\이미지모핑연습">
+      <UniqueIdentifier>{402846d4-62aa-4536-9fff-6f3c1045d307}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -352,6 +355,33 @@
       <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
     </ClCompile>
     <ClCompile Include="기말2023-문제4.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="이미지모핑연습.cpp">
+      <Filter>소스 파일\기말고사 연습\이미지모핑연습</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제5.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제6.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제7.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제8.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제9.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제10.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제11.cpp">
+      <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
+    </ClCompile>
+    <ClCompile Include="기말2023-문제12.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
     </ClCompile>
   </ItemGroup>

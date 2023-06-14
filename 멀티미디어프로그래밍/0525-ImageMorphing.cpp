@@ -123,7 +123,7 @@ void myMouse(int event, int x, int y, int flag, void*) {
 	}
 	if (event == CV_EVENT_LBUTTONUP) {
 		pt2 = cvPoint(x,y);
-		doMorphing2(src, dst, pt1, pt2);
+		doMorphing1(src, dst, pt1, pt2);
 		cvShowImage("img",dst);
 		cvCopy(dst, src);
 		
