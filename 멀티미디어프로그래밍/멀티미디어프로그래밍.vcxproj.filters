@@ -390,6 +390,9 @@
     <ClCompile Include="어파인변환 연습.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
+    <ClCompile Include="기말연습-레나돌리기.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
