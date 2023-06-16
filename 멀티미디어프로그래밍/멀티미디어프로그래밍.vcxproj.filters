@@ -309,12 +309,6 @@
     <ClCompile Include="이미지워핑with마우스콜백.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\main.cpp">
-      <Filter>소스 파일\과제5</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\MatrixInverse.cpp">
-      <Filter>소스 파일\과제5</Filter>
-    </ClCompile>
     <ClCompile Include="마우스콜백연습.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
@@ -323,9 +317,6 @@
     </ClCompile>
     <ClCompile Include="기말2021-문제1.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixInverse.cpp">
-      <Filter>소스 파일\0518-homography</Filter>
     </ClCompile>
     <ClCompile Include="기말2021-문제2.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
@@ -396,6 +387,12 @@
     <ClCompile Include="MFC과제연습.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixInverse.cpp">
+      <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
@@ -403,17 +400,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\mat.h">
+    <ClInclude Include="mat.h">
       <Filter>소스 파일\과제5</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\MatrixInverse.h">
-      <Filter>소스 파일\과제5</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\vec.h">
+    <ClInclude Include="vec.h">
       <Filter>소스 파일\과제5</Filter>
     </ClInclude>
     <ClInclude Include="MatrixInverse.h">
-      <Filter>소스 파일\0518-homography</Filter>
+      <Filter>소스 파일\과제5</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

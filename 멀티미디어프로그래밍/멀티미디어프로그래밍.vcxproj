@@ -142,12 +142,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\MatrixInverse.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="0309.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -275,6 +269,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="cf연습.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="MatrixInverse.cpp">
@@ -429,16 +426,13 @@
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\mat.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\MatrixInverse.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\HW5\StartingCode\vec.h">
+    <ClInclude Include="mat.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="MatrixInverse.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="vec.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
   </ItemGroup>

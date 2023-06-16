@@ -1,11 +1,48 @@
 #include "MatrixInverse.h"
 #include <math.h>
 
+bool InverseMatrixGJ8(float A[][8], float invA[][8])
+{
+	int i, j;
+	int n_size = 8;
+	float** n_m;
+	float** n_sol;
 
-bool InverseMatrixGJ(float A[][3], float invA[][3], int size)
+	n_m = new float* [n_size + 1];
+	for (i = 0; i < n_size + 1; i++)
+		n_m[i] = new float[n_size + 1];
+
+	n_sol = new float* [n_size + 1];
+	for (i = 0; i < n_size + 1; i++)
+		n_sol[i] = new float[2];
+
+	for (i = 0; i <= n_size; i++)
+		n_sol[i][1] = 10.0f;				// DUMMY: AnyValue is okay
+
+	for (i = 0; i < n_size; i++)
+		for (j = 0; j < n_size; j++)
+			n_m[i + 1][j + 1] = A[i][j];
+
+	if (!ImGaussj(n_m, n_size, n_sol, 1))
+		return false;
+
+	for (i = 0; i < n_size; i++)
+		for (j = 0; j < n_size; j++)
+			invA[i][j] = n_m[i + 1][j + 1];
+
+	for (i = 0; i < n_size + 1; i++)
+		delete[] n_m[i];
+	delete[] n_m;
+	for (i = 0; i < n_size + 1; i++)
+		delete[] n_sol[i];
+	delete[] n_sol;
+	return true;
+}
+
+bool InverseMatrixGJ3(float A[][3], float invA[][3])
 {
 	int i,j;
-	int n_size = size;
+	int n_size = 3;
 	float ** n_m;
 	float ** n_sol;
 
