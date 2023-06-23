@@ -95,7 +95,7 @@ void setMultiply(float M[][8], float A[][9], float B[][8]) {
 	}
 }
 
-void doHomography(IplImage* src, IplImage* dst, int w, int h, rect pts) {
+void doHomography(IplImage* src, IplImage* dst, rect pts) {
 	//src의 네 꼭짓점을 pts.pos[0~4]로 보내서 dst에 그리기
 
 	//we are trying to find M, and A*M = 0
@@ -115,25 +115,25 @@ void doHomography(IplImage* src, IplImage* dst, int w, int h, rect pts) {
 		if (i == 1) p = p2;
 		if (i == 2) p = p3;
 		if (i == 3) p = p4;
-		A[2 * i][0] = -p.x;
-		A[2 * i][1] = -p.y;
+		A[2 * i][0] = float(-p.x)/(W-1);
+		A[2 * i][1] = float(-p.y)/(H-1);
 		A[2 * i][2] = -1;
 		A[2 * i][3] = 0;
 		A[2 * i][4] = 0;
 		A[2 * i][5] = 0;
-		A[2 * i][6] = pts.pos[i].x * p.x;
-		A[2 * i][7] = pts.pos[i].x * p.y;
-		A[2*i][8] = pts.pos[i].x;
+		A[2 * i][6] = float(pts.pos[i].x)/(W-1) * float(p.x)/(W-1);
+		A[2 * i][7] = float(pts.pos[i].x)/(W-1) * float(p.y)/(H-1);
+		A[2*i][8] = float(pts.pos[i].x)/(W-1);
 
 		A[2 * i + 1][0] = 0;
 		A[2 * i + 1][1] = 0;
 		A[2 * i + 1][2] = 0;
-		A[2 * i + 1][3] = -p.x;
-		A[2 * i + 1][4] = -p.y;
+		A[2 * i + 1][3] = float(-p.x)/(W-1);
+		A[2 * i + 1][4] = float(-p.y)/(H-1);
 		A[2 * i + 1][5] = -1;
-		A[2 * i + 1][6] = pts.pos[i].y * p.x;
-		A[2 * i + 1][7] = pts.pos[i].y * p.y;
-		A[2*i+1][8] = pts.pos[i].y;
+		A[2 * i + 1][6] = float(pts.pos[i].y)/(H-1) * float(p.x)/(W-1);
+		A[2 * i + 1][7] = float(pts.pos[i].y)/(H-1) * float(p.y)/(H-1);
+		A[2*i+1][8] = float(pts.pos[i].y)/(H-1);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -155,28 +155,19 @@ void doHomography(IplImage* src, IplImage* dst, int w, int h, rect pts) {
 		}
 	}
 
-	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 8; j++) {
-			printf("%.2f ",pseudoInverseA[i][j]*A[i][j]);
-		}
-		printf("\n");
-	}
-	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-
 	for (int i = 0; i < 9; i++) {
 		M[i/3][i%3] = 0.0f;
 		for (int j = 0; j < 8; j++) {
-			M[i/3][i%3] += pseudoInverseA[i][j]*0.1f;
+			M[i/3][i%3] += pseudoInverseA[i][j]*0.0001f;
 		}
 	}
 
-	//printf("\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	printf("\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
 
-	//for (int i = 0; i < 9; i++) {
-	//	printf("%.2f ",M[i/3][i%3]);
-	//}
-	//printf("\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	for (int i = 0; i < 9; i++) {
+		printf("%.2f ",M[i/3][i%3]);
+	}
+	printf("\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
 
 	float IM[3][3];
 	InverseMatrixGJ3(M, IM);
@@ -184,12 +175,15 @@ void doHomography(IplImage* src, IplImage* dst, int w, int h, rect pts) {
 	for (int y2 = 0; y2 < H; y2++) {
 		for (int x2 = 0; x2 < W; x2++) {
 
-			float x1 = IM[0][0] * x2 + IM[0][1] * y2 + IM[0][2];
-			float y1 = IM[1][0] * x2 + IM[1][1] * y2 + IM[1][2];
-			float w1 = IM[2][0] * x2 + IM[2][1] * y2 + 1;
+			float x1 = IM[0][0] * float(x2)/(W-1) + IM[0][1] * float(y2)/(H-1) + IM[0][2];
+			float y1 = IM[1][0] * float(x2)/(W-1) + IM[1][1] * float(y2)/(H-1) + IM[1][2];
+			float w1 = IM[2][0] * float(x2)/(W-1) + IM[2][1] * float(y2)/(H-1) + IM[2][2];
 
 			x1 /= w1;
 			y1 /= w1;
+
+			x1 *= W-1;
+			x2 *= H-1;
 
 			if (x1<0 || x1>W - 1) continue;
 			if (y1<0 || y1>H - 1) continue;
@@ -216,7 +210,7 @@ void drawImage()									// 그림을 그린다 (각 면의 테두리를 직선으로 그림)
 
 		}
 		//Lena 이미지를 cube[i]의 네 꼭짓점(cube[i].pos[j])로 보내야한다.
-		doHomography(src, dst, W, H, cube[i]);
+		doHomography(src, dst, cube[i]);
 
 	}
 	//cvCircle(dst, cvPoint(cube[0].pos[0].x, cube[0].pos[0].y), 5, cvScalar(255,0,0), -1);
