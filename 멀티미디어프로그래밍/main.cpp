@@ -99,10 +99,7 @@ void doHomography(IplImage* src, IplImage* dst, rect pts) {
 	//src의 네 꼭짓점을 pts.pos[0~4]로 보내서 dst에 그리기
 
 	//we are trying to find M, and A*M = 0
-	float A[8][9], transA[9][8];
-	float AAt[8][8], inverseAAt[8][8];
-	float pseudoInverseA[9][8];
-	float M[3][3];
+	float A[8][9];
 
 	CvPoint p1 = cvPoint(0, 0);		//go to pts.pos[0]
 	CvPoint p2 = cvPoint(0, H - 1);	//go to pts.pos[1]
@@ -111,82 +108,172 @@ void doHomography(IplImage* src, IplImage* dst, rect pts) {
 
 	for (int i = 0; i < 4; i++) {
 		CvPoint p;
-		if (i == 0) p = p1;
-		if (i == 1) p = p2;
-		if (i == 2) p = p3;
-		if (i == 3) p = p4;
-		A[2 * i][0] = float(-p.x)/(W-1);
-		A[2 * i][1] = float(-p.y)/(H-1);
+		switch (i) {
+		case 0:
+			p = p1;
+			break;
+		case 1:
+			p = p2;
+			break;
+		case 2:
+			p = p3;
+			break;
+		case 3:
+			p = p4;
+			break;
+		}
+
+		A[2 * i][0] = float(-p.x) / (W - 1);
+		A[2 * i][1] = float(-p.y) / (H - 1);
 		A[2 * i][2] = -1;
 		A[2 * i][3] = 0;
 		A[2 * i][4] = 0;
 		A[2 * i][5] = 0;
-		A[2 * i][6] = float(pts.pos[i].x)/(W-1) * float(p.x)/(W-1);
-		A[2 * i][7] = float(pts.pos[i].x)/(W-1) * float(p.y)/(H-1);
-		A[2*i][8] = float(pts.pos[i].x)/(W-1);
+		A[2 * i][6] = float(pts.pos[i].x) / (W - 1) * float(p.x) / (W - 1);
+		A[2 * i][7] = float(pts.pos[i].x) / (W - 1) * float(p.y) / (H - 1);
+		A[2 * i][8] = float(pts.pos[i].x) / (W - 1);
 
 		A[2 * i + 1][0] = 0;
 		A[2 * i + 1][1] = 0;
 		A[2 * i + 1][2] = 0;
-		A[2 * i + 1][3] = float(-p.x)/(W-1);
-		A[2 * i + 1][4] = float(-p.y)/(H-1);
+		A[2 * i + 1][3] = float(-p.x) / (W - 1);
+		A[2 * i + 1][4] = float(-p.y) / (H - 1);
 		A[2 * i + 1][5] = -1;
-		A[2 * i + 1][6] = float(pts.pos[i].y)/(H-1) * float(p.x)/(W-1);
-		A[2 * i + 1][7] = float(pts.pos[i].y)/(H-1) * float(p.y)/(H-1);
-		A[2*i+1][8] = float(pts.pos[i].y)/(H-1);
+		A[2 * i + 1][6] = float(pts.pos[i].y) / (H - 1) * float(p.x) / (W - 1);
+		A[2 * i + 1][7] = float(pts.pos[i].y) / (H - 1) * float(p.y) / (H - 1);
+		A[2 * i + 1][8] = float(pts.pos[i].y) / (H - 1);
+
 	}
 
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 9; j++) {
-			transA[j][i] = A[i][j];
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡAㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	for (int j = 0; j < 9; j++) {
+	//		printf("%f\t", A[i][j]);
+	//	}
+	//	printf("\n");
+	//}
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+
+	float transA[9][8];
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 8; j++) {
+			transA[i][j] = A[j][i];
 		}
 	}
 
-	setMultiply(AAt, A, transA);
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡtransAㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	//for (int i = 0; i < 9; i++)
+	//{
+	//	for (int j = 0; j < 8; j++) {
+	//		printf("%f\t", transA[i][j]);
+	//	}
+	//	printf("\n");
+	//}
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
 
-	InverseMatrixGJ8(AAt, inverseAAt);
-
-	for (int i = 0; i < 9; i++) {
+	float AAt[8][8];
+	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			pseudoInverseA[i][j] = 0.0f;
-			for (int k = 0; k < 8; k++) {
-				pseudoInverseA[i][j] += transA[i][k] * inverseAAt[k][j];
+			AAt[i][j] = 0.0f;
+			for (int k = 0; k < 9; k++) {
+				AAt[i][j] += A[i][k] * transA[k][j];
 			}
 		}
 	}
 
+	float invAAt[8][8];
+	InverseMatrixGJ8(AAt, invAAt);
+
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡAAtㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	//for (int i = 0; i < 8; i++) {
+	//	for (int j = 0; j < 8; j++) {
+	//		printf("%.1f\t", AAt[i][j]);
+	//	}
+	//	printf("\n");
+	//}
+
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡinvAAtㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	//for (int i = 0; i < 8; i++) {
+	//	for (int j = 0; j < 8; j++) {
+	//		printf("%.1f\t", invAAt[i][j]);
+	//	}
+	//	printf("\n");
+
+	//}
+
+	//float tmp[8][8];
+	//for (int i = 0; i < 8; i++) {
+	//	for (int j = 0; j < 8; j++) {
+	//		tmp[i][j] = 0.0f;
+	//		for (int k = 0; k < 8; k++) {
+	//			tmp[i][j] += AAt[i][k] * invAAt[k][j];
+	//		}
+	//	}
+	//}
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡtmpㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	//for (int i = 0; i < 8; i++) {
+	//	for (int j = 0; j < 8; j++) {
+	//		printf("%.1f\t", tmp[i][j]);
+	//	}
+	//	printf("\n");
+	//}
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+
+
+
+
+	float pseudoInvA[9][8];
 	for (int i = 0; i < 9; i++) {
-		M[i/3][i%3] = 0.0f;
 		for (int j = 0; j < 8; j++) {
-			M[i/3][i%3] += pseudoInverseA[i][j]*0.0001f;
+			pseudoInvA[i][j] = 0.0f;
+
+			for (int k = 0; k < 8; k++) {
+				pseudoInvA[i][j] += transA[i][k] * invAAt[k][j];
+			}
 		}
 	}
 
-	printf("\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-
+	float M[3][3];
 	for (int i = 0; i < 9; i++) {
-		printf("%.2f ",M[i/3][i%3]);
+		float rst = 0.0f;
+		for (int j = 0; j < 8; j++) {
+			rst += pseudoInvA[i][j];
+		}
+		M[i / 3][i % 3] = rst;
 	}
-	printf("\nㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
 
-	float IM[3][3];
-	InverseMatrixGJ3(M, IM);
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡpseudoInvAㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	//for (int i = 0; i < 9; i++) {
+	//	for (int j = 0; j < 8; j++) {
+	//		printf("%.1f\t", pseudoInvA[i][j]);
+	//	}
+	//	printf("\n");
+	//}
 
-	for (int y2 = 0; y2 < H; y2++) {
-		for (int x2 = 0; x2 < W; x2++) {
+	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡMㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	//for (int i = 0; i < 9; i++) {
+	//	printf("%.3f ", M[i / 3][i % 3]);
+	//}
+	//printf("\n");
 
-			float x1 = IM[0][0] * float(x2)/(W-1) + IM[0][1] * float(y2)/(H-1) + IM[0][2];
-			float y1 = IM[1][0] * float(x2)/(W-1) + IM[1][1] * float(y2)/(H-1) + IM[1][2];
-			float w1 = IM[2][0] * float(x2)/(W-1) + IM[2][1] * float(y2)/(H-1) + IM[2][2];
+	for (int y1 = 0; y1 < H; y1++) {
+		for (int x1 = 0; x1 < W; x1++) {
 
-			x1 /= w1;
-			y1 /= w1;
+			float x2 = M[0][0] * (float(x1) / (W - 1)) + M[0][1] * (float(y1) / (H - 1)) + M[0][2];
+			float y2 = M[1][0] * (float(x1) / (W - 1)) + M[1][1] * (float(y1) / (H - 1)) + M[1][2];
+			float w2 = M[2][0] * (float(x1) / (W - 1)) + M[2][1] * (float(y1) / (H - 1)) + M[2][2];
 
-			x1 *= W-1;
-			x2 *= H-1;
+			/*x2 /= w2;
+			y2 /= w2;*/
 
-			if (x1<0 || x1>W - 1) continue;
-			if (y1<0 || y1>H - 1) continue;
+			x2 *= -(W - 1);
+			y2 *= -(H - 1);
+
+			//printf("x2:%.2f, y2:%.2f, w2:%.2f\n", x2, y2, w2);
+
+			if (x2<0 || x2>W - 1) continue;
+			if (y2<0 || y2>H - 1) continue;
 
 			CvScalar f = cvGet2D(src, y1, x1);
 			cvSet2D(dst, y2, x2, f);
