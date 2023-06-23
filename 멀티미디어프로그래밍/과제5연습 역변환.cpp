@@ -3,6 +3,37 @@
 IplImage* src;
 IplImage* dst;
 
+
+float determinant(float matrix[][8], int N) {
+	int i, j, k;
+	float det = 0;
+	float submatrix[8][8];
+
+	// 2x2 행렬일 경우
+	if (N == 2) {
+		return (matrix[0][0] * matrix[1][1]) - (matrix[1][0] * matrix[0][1]);
+	}
+	// 그 이상의 행렬일 경우
+	else {
+		for (i = 0; i < N; i++) {
+			int subi = 0; // 부분 행렬의 행 인덱스
+			for (j = 1; j < N; j++) {
+				int subj = 0; // 부분 행렬의 열 인덱스
+				for (k = 0; k < N; k++) {
+					if (k == i) {
+						continue;
+					}
+					submatrix[subi][subj] = matrix[j][k];
+					subj++;
+				}
+				subi++;
+			}
+			det = det + (matrix[0][i] * pow(-1, i) * determinant(submatrix, N - 1));
+		}
+	}
+	return det;
+}
+
 int W, H;
 
 int main() {
@@ -137,6 +168,7 @@ int main() {
 			}
 		}
 	}
+	printf("det(AAt) : %.2f\n", determinant(AAt, 8));
 	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡtmpㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
@@ -178,8 +210,23 @@ int main() {
 	}
 
 	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡMㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-	for (int i = 0; i < 9; i++) {
-		printf("%.3f ", M[i/3][i%3]);
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			printf("%.3f ", M[i][j]);
+		}
+		printf("\n");
+	}
+
+	printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡA * A+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			float rst = 0.0f;
+			for (int k = 0; k < 9; k++) {
+				rst += A[i][k]*pseudoInvA[k][j];
+			}
+			printf("%.3f\t",rst);
+		}
+		printf("\n");
 	}
 
 	for (int y1 = 0; y1 < H; y1++) {
@@ -189,11 +236,11 @@ int main() {
 			float y2 = M[1][0] * (float(x1) / (W - 1)) + M[1][1] * (float(y1) / (H - 1)) + M[1][2];
 			float w2 = M[2][0] * (float(x1) / (W - 1)) + M[2][1] * (float(y1) / (H - 1)) + M[2][2];
 
-			x2 /= w2;
-			y2 /= w2;
+			//x2 /= w2;
+			//y2 /= w2;
 
-			x2 *= (W - 1);
-			y2 *= (H - 1);
+			x2 *= -(W - 1);
+			y2 *= -(H - 1);
 
 			//printf("x2:%.2f, y2:%.2f, w2:%.2f\n", x2, y2, w2);
 
