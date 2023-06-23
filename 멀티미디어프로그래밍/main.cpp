@@ -151,7 +151,6 @@ void doHomography(IplImage* src, IplImage* dst, int w, int h, rect pts) {
 			pseudoInverseA[i][j] = 0.0f;
 			for (int k = 0; k < 8; k++) {
 				pseudoInverseA[i][j] += transA[i][k] * inverseAAt[k][j];
-
 			}
 		}
 	}

@@ -393,6 +393,9 @@
     <ClCompile Include="MatrixInverse.cpp">
       <Filter>소스 파일\과제5</Filter>
     </ClCompile>
+    <ClCompile Include="과제5연습.cpp">
+      <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
