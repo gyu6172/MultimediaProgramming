@@ -224,20 +224,19 @@ int main()
 {
 
 	//이미지의 경로가 저장될 변수
-	//char str[1000];
-	//while (true) {
-	//	//경로 입력받음
-	//	printf("Input File Path: ");
-	//	scanf("%s", str);
-	//	src = cvLoadImage(str);
+	char str[1000];
+	while (true) {
+		//경로 입력받음
+		printf("Input File Path: ");
+		scanf("%s", str);
+		src = cvLoadImage(str);
 
-	//	//만약 경로가 잘못되었다면 반복문을 탈출하지 못함
-	//	if (src != nullptr) {
-	//		break;
-	//	}
-	//	printf("File not Found!\n");
-	//}
-	src = cvLoadImage("C:\\tmp\\lena.png");
+		//만약 경로가 잘못되었다면 반복문을 탈출하지 못함
+		if (src != nullptr) {
+			break;
+		}
+		printf("File not Found!\n");
+	}
 
 	W = src->width;
 	H = src->height;
