@@ -83,22 +83,15 @@ void updatePosAndNormal(rect* r, vec3 p[])			// 육면체의 회전에 따른 각 면의 3차
 	r->nor = cross(a, b);
 }
 
-void setMultiply(float M[][8], float A[][9], float B[][8]) {
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			M[i][j] = 0.0f;
-			for (int k = 0; k < 9; k++) {
-				M[i][j] += A[i][k] * B[k][j];
-
-			}
-		}
-	}
-}
-
 void doHomography(IplImage* src, IplImage* dst, rect pts) {
 	//src의 네 꼭짓점을 pts.pos[0~4]로 보내서 dst에 그려야한다.
 
-	float A[8][9];
+	//행렬 A와 A의 역행렬 invA
+	float A[8][8], invA[8][8];
+	float B[8][1];
+	float h[8][1];
+	//A * h = B 이다.
+	//즉, h = invA * B 이다.
 
 	CvPoint p1 = cvPoint(0, 0);		//go to pts.pos[0]
 	CvPoint p2 = cvPoint(0, H - 1);	//go to pts.pos[1]
@@ -124,103 +117,62 @@ void doHomography(IplImage* src, IplImage* dst, rect pts) {
 			break;
 		}
 
-		//A행렬에 저장되는 좌표들은 실제 좌표를 100으로 나눈 값이다.
-		//100으로 나눠서 저장하는 이유는 행렬 안 요소의 값이 너무 커져서 오류가 생기는 것을 방지하기 위함이다.
-		float x = float(p.x)/100.0f;
-		float y = float(p.y)/100.0f;
-
-		float xprime = float((pts.pos[i]).x)/100.0f;
-		float yprime = float((pts.pos[i]).y)/100.0f;
-
 		//A행렬의 짝수번호 행 초기화
-		A[2 * i][0] = -x;
-		A[2 * i][1] = -y;
-		A[2 * i][2] = -1;
+		A[2 * i][0] = p.x;
+		A[2 * i][1] = p.y;
+		A[2 * i][2] = 1;
 		A[2 * i][3] = 0;
 		A[2 * i][4] = 0;
 		A[2 * i][5] = 0;
-		A[2 * i][6] = xprime * x;
-		A[2 * i][7] = xprime * y;
-		A[2 * i][8] = xprime;
+		A[2 * i][6] = -pts.pos[i].x * p.x;
+		A[2 * i][7] = -pts.pos[i].x * p.y;
 
 		//A행렬의 홀수번호 행 초기화
 		A[2 * i + 1][0] = 0;
 		A[2 * i + 1][1] = 0;
 		A[2 * i + 1][2] = 0;
-		A[2 * i + 1][3] = -x;
-		A[2 * i + 1][4] = -y;
-		A[2 * i + 1][5] = -1;
-		A[2 * i + 1][6] = yprime * x;
-		A[2 * i + 1][7] = yprime * y;
-		A[2 * i + 1][8] = yprime;
-
+		A[2 * i + 1][3] = p.x;
+		A[2 * i + 1][4] = p.y;
+		A[2 * i + 1][5] = 1;
+		A[2 * i + 1][6] = -pts.pos[i].y * p.x;
+		A[2 * i + 1][7] = -pts.pos[i].y * p.y;
 	}
 
-	//A의 전치행렬(행과 열이 바뀐 행렬)을 구한다.
-	float transA[9][8];
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 8; j++) {
-			transA[i][j] = A[j][i];
-		}
+	//B행렬값 초기화
+	for (int i = 0; i < 4; i++) {
+		B[2*i][0] = pts.pos[i].x;
+		B[2*i+1][0] = pts.pos[i].y;
 	}
 
-	//A와 A의 전치행렬을 곱한 행렬을 구한다. (이하 AAt행렬)
-	float AAt[8][8];
+	//A의 역행렬을 구해서 invA에 초기화
+	InverseMatrixGJ8(A, invA);
+
+	//h = invA * B이다.
 	for (int i = 0; i < 8; i++) {
+		h[i][0] = 0.0f;
 		for (int j = 0; j < 8; j++) {
-			AAt[i][j] = 0.0f;
-			for (int k = 0; k < 9; k++) {
-				AAt[i][j] += A[i][k] * transA[k][j];
-			}
+			h[i][0] += invA[i][j] * B[j][0];
 		}
 	}
 
-	//AAt행렬의 역행렬 invAAt행렬을 구한다.
-	float invAAt[8][8];
-	InverseMatrixGJ8(AAt, invAAt);
-
-	//A의 유사 역행렬 pseudoInvA를 구한다.
-	//pseudoInvA = transA * (A * transA)^-1
-	float pseudoInvA[9][8];
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 8; j++) {
-			pseudoInvA[i][j] = 0.0f;
-
-			for (int k = 0; k < 8; k++) {
-				pseudoInvA[i][j] += transA[i][k] * invAAt[k][j];
-			}
-		}
-	}
-
-	//A * M = 0 이라고 하면,
-	//M = pseudoInvA * 0이다.
-	//실제로 0을 곱하면 의미없는 행렬이 되므로 0에 가까운 값을 곱해준다.
+	//h행렬을 3by3행렬로 바꾼 행렬 M
 	float M[3][3];
-	for (int i = 0; i < 9; i++) {
-		float rst = 0.0f;
-		for (int j = 0; j < 8; j++) {
-			rst += pseudoInvA[i][j]*0.01f;
-		}
-		M[i / 3][i % 3] = rst;
+	for (int i = 0; i < 8; i++) {
+		M[i/3][i%3] = h[i][0];
 	}
+	//M의 마지막 원소는 1이다.
+	M[2][2] = 1;
 
 	//구한 행렬 M을 토대로 dst에 그림을 그려준다.
 	for (int y1 = 0; y1 < H; y1++) {
 		for (int x1 = 0; x1 < W; x1++) {
 
-			//처음에 A행렬을 초기화할때, 원래 좌표를 100으로 나눈 값을 넣어주었으므로
-			//(x2, y2, w2)를 구할때도 행렬에 곱해지는 값에 원래 좌표를 100으로 나눈 값을 넣어줘야 한다.
-			float x2 = M[0][0] * (float(x1) / 100.0f) + M[0][1] * (float(y1) / 100.0f) + M[0][2];
-			float y2 = M[1][0] * (float(x1) / 100.0f) + M[1][1] * (float(y1) / 100.0f) + M[1][2];
-			float w2 = M[2][0] * (float(x1) / 100.0f) + M[2][1] * (float(y1) / 100.0f) + M[2][2];
+			float x2 = M[0][0] * x1 + M[0][1] * y1 + M[0][2];
+			float y2 = M[1][0] * x1 + M[1][1] * y1 + M[1][2];
+			float w2 = M[2][0] * x1 + M[2][1] * y1 + M[2][2];
 			
 			x2 /= w2;
 			y2 /= w2;
-
-			//결과로 나온 x2,y2는 원래 좌표를 100으로 나눈 값이다.
-			//따라서 실제 좌표는 x2, y2에 100을 곱해주어야 한다.
-			x2 *= 100;
-			y2 *= 100;
 
 			if (x2<0 || x2>W - 1) continue;
 			if (y2<0 || y2>H - 1) continue;
@@ -272,19 +224,20 @@ int main()
 {
 
 	//이미지의 경로가 저장될 변수
-	char str[1000];
-	while (true) {
-		//경로 입력받음
-		printf("Input File Path: ");
-		scanf("%s", str);
-		src = cvLoadImage(str);
+	//char str[1000];
+	//while (true) {
+	//	//경로 입력받음
+	//	printf("Input File Path: ");
+	//	scanf("%s", str);
+	//	src = cvLoadImage(str);
 
-		//만약 경로가 잘못되었다면 반복문을 탈출하지 못함
-		if (src != nullptr) {
-			break;
-		}
-		printf("File not Found!\n");
-	}
+	//	//만약 경로가 잘못되었다면 반복문을 탈출하지 못함
+	//	if (src != nullptr) {
+	//		break;
+	//	}
+	//	printf("File not Found!\n");
+	//}
+	src = cvLoadImage("C:\\tmp\\lena.png");
 
 	W = src->width;
 	H = src->height;
@@ -303,3 +256,7 @@ int main()
 
 	return 0;
 }
+
+
+
+
