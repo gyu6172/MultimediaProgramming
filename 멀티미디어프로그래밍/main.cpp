@@ -95,240 +95,142 @@ void setMultiply(float M[][8], float A[][9], float B[][8]) {
 	}
 }
 
-//void doHomography(IplImage* src, IplImage* dst, rect pts) {
-//	//src의 네 꼭짓점을 pts.pos[0~4]로 보내서 dst에 그리기
-//
-//	//we are trying to find M, and A*M = 0
-//	float A[8][9];
-//
-//	CvPoint p1 = cvPoint(0, 0);		//go to pts.pos[0]
-//	CvPoint p2 = cvPoint(0, H - 1);	//go to pts.pos[1]
-//	CvPoint p3 = cvPoint(W - 1, H - 1);	//go to pts.pos[2]
-//	CvPoint p4 = cvPoint(W - 1, 0);	//go to pts.pos[3]
-//
-//	for (int i = 0; i < 4; i++) {
-//		CvPoint p;
-//		switch (i) {
-//		case 0:
-//			p = p1;
-//			break;
-//		case 1:
-//			p = p2;
-//			break;
-//		case 2:
-//			p = p3;
-//			break;
-//		case 3:
-//			p = p4;
-//			break;
-//		}
-//
-//		A[2 * i][0] = float(-p.x) / (W - 1);
-//		A[2 * i][1] = float(-p.y) / (H - 1);
-//		A[2 * i][2] = -1;
-//		A[2 * i][3] = 0;
-//		A[2 * i][4] = 0;
-//		A[2 * i][5] = 0;
-//		A[2 * i][6] = float(pts.pos[i].x) / (W - 1) * float(p.x) / (W - 1);
-//		A[2 * i][7] = float(pts.pos[i].x) / (W - 1) * float(p.y) / (H - 1);
-//		A[2 * i][8] = float(pts.pos[i].x) / (W - 1);
-//
-//		A[2 * i + 1][0] = 0;
-//		A[2 * i + 1][1] = 0;
-//		A[2 * i + 1][2] = 0;
-//		A[2 * i + 1][3] = float(-p.x) / (W - 1);
-//		A[2 * i + 1][4] = float(-p.y) / (H - 1);
-//		A[2 * i + 1][5] = -1;
-//		A[2 * i + 1][6] = float(pts.pos[i].y) / (H - 1) * float(p.x) / (W - 1);
-//		A[2 * i + 1][7] = float(pts.pos[i].y) / (H - 1) * float(p.y) / (H - 1);
-//		A[2 * i + 1][8] = float(pts.pos[i].y) / (H - 1);
-//
-//	}
-//
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡAㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//	//for (int i = 0; i < 8; i++)
-//	//{
-//	//	for (int j = 0; j < 9; j++) {
-//	//		printf("%f\t", A[i][j]);
-//	//	}
-//	//	printf("\n");
-//	//}
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//
-//	float transA[9][8];
-//	for (int i = 0; i < 9; i++) {
-//		for (int j = 0; j < 8; j++) {
-//			transA[i][j] = A[j][i];
-//		}
-//	}
-//
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡtransAㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//	//for (int i = 0; i < 9; i++)
-//	//{
-//	//	for (int j = 0; j < 8; j++) {
-//	//		printf("%f\t", transA[i][j]);
-//	//	}
-//	//	printf("\n");
-//	//}
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//
-//	float AAt[8][8];
-//	for (int i = 0; i < 8; i++) {
-//		for (int j = 0; j < 8; j++) {
-//			AAt[i][j] = 0.0f;
-//			for (int k = 0; k < 9; k++) {
-//				AAt[i][j] += A[i][k] * transA[k][j];
-//			}
-//		}
-//	}
-//
-//	float invAAt[8][8];
-//	InverseMatrixGJ8(AAt, invAAt);
-//
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡAAtㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//	//for (int i = 0; i < 8; i++) {
-//	//	for (int j = 0; j < 8; j++) {
-//	//		printf("%.1f\t", AAt[i][j]);
-//	//	}
-//	//	printf("\n");
-//	//}
-//
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡinvAAtㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//	//for (int i = 0; i < 8; i++) {
-//	//	for (int j = 0; j < 8; j++) {
-//	//		printf("%.1f\t", invAAt[i][j]);
-//	//	}
-//	//	printf("\n");
-//
-//	//}
-//
-//	//float tmp[8][8];
-//	//for (int i = 0; i < 8; i++) {
-//	//	for (int j = 0; j < 8; j++) {
-//	//		tmp[i][j] = 0.0f;
-//	//		for (int k = 0; k < 8; k++) {
-//	//			tmp[i][j] += AAt[i][k] * invAAt[k][j];
-//	//		}
-//	//	}
-//	//}
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡtmpㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//	//for (int i = 0; i < 8; i++) {
-//	//	for (int j = 0; j < 8; j++) {
-//	//		printf("%.1f\t", tmp[i][j]);
-//	//	}
-//	//	printf("\n");
-//	//}
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//
-//
-//
-//
-//	float pseudoInvA[9][8];
-//	for (int i = 0; i < 9; i++) {
-//		for (int j = 0; j < 8; j++) {
-//			pseudoInvA[i][j] = 0.0f;
-//
-//			for (int k = 0; k < 8; k++) {
-//				pseudoInvA[i][j] += transA[i][k] * invAAt[k][j];
-//			}
-//		}
-//	}
-//
-//	float M[3][3];
-//	for (int i = 0; i < 9; i++) {
-//		float rst = 0.0f;
-//		for (int j = 0; j < 8; j++) {
-//			rst += pseudoInvA[i][j];
-//		}
-//		M[i / 3][i % 3] = rst;
-//	}
-//
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡpseudoInvAㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//	//for (int i = 0; i < 9; i++) {
-//	//	for (int j = 0; j < 8; j++) {
-//	//		printf("%.1f\t", pseudoInvA[i][j]);
-//	//	}
-//	//	printf("\n");
-//	//}
-//
-//	//printf("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡMㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ\n");
-//	//for (int i = 0; i < 9; i++) {
-//	//	printf("%.3f ", M[i / 3][i % 3]);
-//	//}
-//	//printf("\n");
-//
-//	for (int y1 = 0; y1 < H; y1++) {
-//		for (int x1 = 0; x1 < W; x1++) {
-//
-//			float x2 = M[0][0] * (float(x1) / (W - 1)) + M[0][1] * (float(y1) / (H - 1)) + M[0][2];
-//			float y2 = M[1][0] * (float(x1) / (W - 1)) + M[1][1] * (float(y1) / (H - 1)) + M[1][2];
-//			float w2 = M[2][0] * (float(x1) / (W - 1)) + M[2][1] * (float(y1) / (H - 1)) + M[2][2];
-//
-//			/*x2 /= w2;
-//			y2 /= w2;*/
-//
-//			x2 *= -(W - 1);
-//			y2 *= -(H - 1);
-//
-//			//printf("x2:%.2f, y2:%.2f, w2:%.2f\n", x2, y2, w2);
-//
-//			if (x2<0 || x2>W - 1) continue;
-//			if (y2<0 || y2>H - 1) continue;
-//
-//			CvScalar f = cvGet2D(src, y1, x1);
-//			cvSet2D(dst, y2, x2, f);
-//		}
-//	}
-//
-//}
+void doHomography(IplImage* src, IplImage* dst, rect pts) {
+	//src의 네 꼭짓점을 pts.pos[0~4]로 보내서 dst에 그려야한다.
 
+	float A[8][9];
 
+	CvPoint p1 = cvPoint(0, 0);		//go to pts.pos[0]
+	CvPoint p2 = cvPoint(0, H - 1);	//go to pts.pos[1]
+	CvPoint p3 = cvPoint(W - 1, H - 1);	//go to pts.pos[2]
+	CvPoint p4 = cvPoint(W - 1, 0);	//go to pts.pos[3]
 
-//삼각형 허탕
-//void doHomography(IplImage* src, IplImage* dst, rect pts) {
-//	CvPoint p1 = cvPoint(1, 1);		//go to q1
-//	CvPoint p2 = cvPoint(1, H - 1);	//go to q2
-//	CvPoint p3 = cvPoint(W - 1, H - 1);	//go to q3
-//	CvPoint p4 = cvPoint(W - 1, 1);	//go to q4
-//
-//	float A[3][3] = { {p1.x, p2.x, p4.x},{p1.y, p2.y, p4.y},{1, 1, 1} };
-//	float B[3][3] = { {pts.pos[0].x, pts.pos[1].x, pts.pos[3].x},{pts.pos[0].y, pts.pos[1].y, pts.pos[3].y},{1, 1, 1} };
-//	float invA[3][3];
-//	float M[3][3];
-//
-//	float invB[3][3];
-//	InverseMatrixGJ3(B, invB);
-//
-//	for (int i = 0; i < 3; i++) {
-//		for (int j = 0; j < 3; j++) {
-//			M[i][j] = 0.0f;
-//			for (int k = 0; k < 3; k++) {
-//				M[i][j] += A[i][k] * invB[k][j];
-//
-//			}
-//		}
-//	}
-//
-//	for (int y2 = 0; y2 < H; y2++) {
-//		for (int x2 = 0; x2 < W; x2++) {
-//
-//			float x1 = M[0][0] * x2 + M[0][1] * y2 + M[0][2];
-//			float y1 = M[1][0] * x2 + M[1][1] * y2 + M[1][2];
-//			float w1 = M[2][0] * x2 + M[2][1] * y2 + M[2][2];
-//
-//			x1 /= w1;
-//			y1 /= w1;
-//
-//			//printf("x2:%.2f, y2:%.2f, w2:%.2f\n", x2, y2, w2);
-//
-//			if (x1<0 || x1>W - 1) continue;
-//			if (y1<0 || y1>H - 1) continue;
-//
-//			CvScalar f = cvGet2D(src, y1, x1);
-//			cvSet2D(dst, y2, x2, f);
-//		}
-//	}
-//}
+	//A행렬 초기화 하기
+	for (int i = 0; i < 4; i++) {
+		//A행렬의 행 번호에 따라 저장하는 값이 달라진다.
+		CvPoint p;
+		switch (i) {
+		case 0:
+			p = p1;
+			break;
+		case 1:
+			p = p2;
+			break;
+		case 2:
+			p = p3;
+			break;
+		case 3:
+			p = p4;
+			break;
+		}
+
+		//A행렬에 저장되는 좌표들은 실제 좌표를 100으로 나눈 값이다.
+		//100으로 나눠서 저장하는 이유는 행렬 안 요소의 값이 너무 커져서 오류가 생기는 것을 방지하기 위함이다.
+		float x = float(p.x)/100.0f;
+		float y = float(p.y)/100.0f;
+
+		float xprime = float((pts.pos[i]).x)/100.0f;
+		float yprime = float((pts.pos[i]).y)/100.0f;
+
+		//A행렬의 짝수번호 행 초기화
+		A[2 * i][0] = -x;
+		A[2 * i][1] = -y;
+		A[2 * i][2] = -1;
+		A[2 * i][3] = 0;
+		A[2 * i][4] = 0;
+		A[2 * i][5] = 0;
+		A[2 * i][6] = xprime * x;
+		A[2 * i][7] = xprime * y;
+		A[2 * i][8] = xprime;
+
+		//A행렬의 홀수번호 행 초기화
+		A[2 * i + 1][0] = 0;
+		A[2 * i + 1][1] = 0;
+		A[2 * i + 1][2] = 0;
+		A[2 * i + 1][3] = -x;
+		A[2 * i + 1][4] = -y;
+		A[2 * i + 1][5] = -1;
+		A[2 * i + 1][6] = yprime * x;
+		A[2 * i + 1][7] = yprime * y;
+		A[2 * i + 1][8] = yprime;
+
+	}
+
+	//A의 전치행렬(행과 열이 바뀐 행렬)을 구한다.
+	float transA[9][8];
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 8; j++) {
+			transA[i][j] = A[j][i];
+		}
+	}
+
+	//A와 A의 전치행렬을 곱한 행렬을 구한다. (이하 AAt행렬)
+	float AAt[8][8];
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			AAt[i][j] = 0.0f;
+			for (int k = 0; k < 9; k++) {
+				AAt[i][j] += A[i][k] * transA[k][j];
+			}
+		}
+	}
+
+	//AAt행렬의 역행렬 invAAt행렬을 구한다.
+	float invAAt[8][8];
+	InverseMatrixGJ8(AAt, invAAt);
+
+	//A의 유사 역행렬 pseudoInvA를 구한다.
+	//pseudoInvA = transA * (A * transA)^-1
+	float pseudoInvA[9][8];
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 8; j++) {
+			pseudoInvA[i][j] = 0.0f;
+
+			for (int k = 0; k < 8; k++) {
+				pseudoInvA[i][j] += transA[i][k] * invAAt[k][j];
+			}
+		}
+	}
+
+	//A * M = 0 이라고 하면,
+	//M = pseudoInvA * 0이다.
+	//실제로 0을 곱하면 의미없는 행렬이 되므로 0에 가까운 값을 곱해준다.
+	float M[3][3];
+	for (int i = 0; i < 9; i++) {
+		float rst = 0.0f;
+		for (int j = 0; j < 8; j++) {
+			rst += pseudoInvA[i][j]*0.01f;
+		}
+		M[i / 3][i % 3] = rst;
+	}
+
+	//구한 행렬 M을 토대로 dst에 그림을 그려준다.
+	for (int y1 = 0; y1 < H; y1++) {
+		for (int x1 = 0; x1 < W; x1++) {
+
+			//처음에 A행렬을 초기화할때, 원래 좌표를 100으로 나눈 값을 넣어주었으므로
+			//(x2, y2, w2)를 구할때도 행렬에 곱해지는 값에 원래 좌표를 100으로 나눈 값을 넣어줘야 한다.
+			float x2 = M[0][0] * (float(x1) / 100.0f) + M[0][1] * (float(y1) / 100.0f) + M[0][2];
+			float y2 = M[1][0] * (float(x1) / 100.0f) + M[1][1] * (float(y1) / 100.0f) + M[1][2];
+			float w2 = M[2][0] * (float(x1) / 100.0f) + M[2][1] * (float(y1) / 100.0f) + M[2][2];
+			
+			x2 /= w2;
+			y2 /= w2;
+
+			//결과로 나온 x2,y2는 원래 좌표를 100으로 나눈 값이다.
+			//따라서 실제 좌표는 x2, y2에 100을 곱해주어야 한다.
+			x2 *= 100;
+			y2 *= 100;
+
+			if (x2<0 || x2>W - 1) continue;
+			if (y2<0 || y2>H - 1) continue;
+
+			CvScalar f = cvGet2D(src, y1, x1);
+			cvSet2D(dst, y2, x2, f);
+		}
+	}
+}
+
 
 void drawImage()									// 그림을 그린다 (각 면의 테두리를 직선으로 그림)
 {
@@ -348,10 +250,6 @@ void drawImage()									// 그림을 그린다 (각 면의 테두리를 직선으로 그림)
 		doHomography(src, dst, cube[i]);
 
 	}
-	//cvCircle(dst, cvPoint(cube[0].pos[0].x, cube[0].pos[0].y), 5, cvScalar(255,0,0), -1);
-	//cvCircle(dst, cvPoint(cube[0].pos[1].x, cube[0].pos[1].y), 5, cvScalar(0,255,0), -1);
-	//cvCircle(dst, cvPoint(cube[0].pos[2].x, cube[0].pos[2].y), 5, cvScalar(0,0,255), -1);
-	//cvCircle(dst, cvPoint(cube[0].pos[3].x, cube[0].pos[3].y), 5, cvScalar(0,255,255), -1);
 	cvShowImage("3D view", dst);
 }
 
@@ -373,22 +271,20 @@ void myMouse(int event, int x, int y, int flags, void*)
 int main()
 {
 
-	////이미지의 경로가 저장될 변수
-	//char str[1000];
-	//while (true) {
-	//	//경로 입력받음
-	//	printf("Input File Path: ");
-	//	scanf("%s", str);
-	//	src = cvLoadImage(str);
+	//이미지의 경로가 저장될 변수
+	char str[1000];
+	while (true) {
+		//경로 입력받음
+		printf("Input File Path: ");
+		scanf("%s", str);
+		src = cvLoadImage(str);
 
-	//	//만약 경로가 잘못되었다면 반복문을 탈출하지 못함
-	//	if (src != nullptr) {
-	//		break;
-	//	}
-	//	printf("File not Found!\n");
-	//}
-
-	src = cvLoadImage("C:\\tmp\\lena.png");
+		//만약 경로가 잘못되었다면 반복문을 탈출하지 못함
+		if (src != nullptr) {
+			break;
+		}
+		printf("File not Found!\n");
+	}
 
 	W = src->width;
 	H = src->height;
