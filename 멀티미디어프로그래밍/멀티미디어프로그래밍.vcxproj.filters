@@ -22,9 +22,6 @@
     <Filter Include="소스 파일\과제4">
       <UniqueIdentifier>{957c421c-2073-4e30-a26d-61da3a1d11fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0601-Image Morphing">
-      <UniqueIdentifier>{8f91925f-1896-4326-8988-6e6443eb425a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\기말고사 연습">
       <UniqueIdentifier>{94e2b7b4-2eb1-404a-8baf-0b623615c926}</UniqueIdentifier>
     </Filter>
@@ -112,6 +109,9 @@
     <Filter Include="소스 파일\MP24%280530%29 - Feature-based Image Metamorphosis">
       <UniqueIdentifier>{d39971f1-47a3-4fb9-8504-c553a1cd0e52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MP25%280601%29 - Feature-based Metamorphosis">
+      <UniqueIdentifier>{8f91925f-1896-4326-8988-6e6443eb425a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -176,12 +176,6 @@
     </ClCompile>
     <ClCompile Include="과제4.cpp">
       <Filter>소스 파일\과제4</Filter>
-    </ClCompile>
-    <ClCompile Include="0601-ImageMorphing.cpp">
-      <Filter>소스 파일\0601-Image Morphing</Filter>
-    </ClCompile>
-    <ClCompile Include="0601-과제풀이.cpp">
-      <Filter>소스 파일\0601-Image Morphing</Filter>
     </ClCompile>
     <ClCompile Include="이미지워핑 연습.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
@@ -401,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="MP24%280530%29-Feature-based Morphing%28미완%29.cpp">
       <Filter>소스 파일\MP24%280530%29 - Feature-based Image Metamorphosis</Filter>
+    </ClCompile>
+    <ClCompile Include="MP25%280601%29-Feature-based Morphing%28완%29.cpp">
+      <Filter>소스 파일\MP25%280601%29 - Feature-based Metamorphosis</Filter>
+    </ClCompile>
+    <ClCompile Include="MP25%280601%29-과제4풀이.cpp">
+      <Filter>소스 파일\MP25%280601%29 - Feature-based Metamorphosis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

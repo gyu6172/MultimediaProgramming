@@ -259,10 +259,10 @@
     <ClCompile Include="MP24%280530%29-Feature-based Morphing%28미완%29.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0601-ImageMorphing.cpp">
+    <ClCompile Include="MP25%280601%29-Feature-based Morphing%28완%29.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0601-과제풀이.cpp">
+    <ClCompile Include="MP25%280601%29-과제4풀이.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0613-ImageMatting.cpp">
