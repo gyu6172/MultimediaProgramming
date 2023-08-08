@@ -207,9 +207,6 @@
     <ClCompile Include="MP08%280328%29-과제2힌트.cpp">
       <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
     </ClCompile>
-    <ClCompile Include="MP09%280330%29.cpp">
-      <Filter>소스 파일\MP09%280330%29 - Neighborhood Processing</Filter>
-    </ClCompile>
     <ClCompile Include="MP10%280404%29-Median Filtering.cpp">
       <Filter>소스 파일\MP10%280404%29 - More Neighborhood Processing</Filter>
     </ClCompile>
@@ -380,6 +377,9 @@
     </ClCompile>
     <ClCompile Include="MP08%280328%29-Hisogram Equalization.cpp">
       <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
+    </ClCompile>
+    <ClCompile Include="MP09%280330%29-Filtering.cpp">
+      <Filter>소스 파일\MP09%280330%29 - Neighborhood Processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

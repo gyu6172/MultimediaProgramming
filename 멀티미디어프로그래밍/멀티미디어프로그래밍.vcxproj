@@ -190,7 +190,7 @@
     <ClCompile Include="MP08%280328%29-Hisogram Equalization.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="MP09%280330%29.cpp">
+    <ClCompile Include="MP09%280330%29-Filtering.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="MP10%280404%29-Median Filtering.cpp">
