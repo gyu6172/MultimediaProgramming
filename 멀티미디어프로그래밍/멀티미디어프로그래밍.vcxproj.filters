@@ -37,9 +37,6 @@
     <Filter Include="소스 파일\기말고사 연습\기말고사2023예비문제">
       <UniqueIdentifier>{94256548-df3f-4f23-be73-ae6703d71532}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\기말고사 연습\이미지모핑연습">
-      <UniqueIdentifier>{402846d4-62aa-4536-9fff-6f3c1045d307}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\MP03%280309%29 - Image with OpenCV">
       <UniqueIdentifier>{3132a438-245e-4a9a-b3f8-db9420470bc5}</UniqueIdentifier>
     </Filter>
@@ -147,15 +144,6 @@
     <ClCompile Include="이미지 필터링 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
-    <ClCompile Include="이미지워핑 연습.cpp">
-      <Filter>소스 파일\기말고사 연습</Filter>
-    </ClCompile>
-    <ClCompile Include="이미지워핑with마우스콜백.cpp">
-      <Filter>소스 파일\기말고사 연습</Filter>
-    </ClCompile>
-    <ClCompile Include="마우스콜백연습.cpp">
-      <Filter>소스 파일\기말고사 연습</Filter>
-    </ClCompile>
     <ClCompile Include="기말2021-문제1.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
     </ClCompile>
@@ -189,9 +177,6 @@
     <ClCompile Include="기말2023-문제4.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
     </ClCompile>
-    <ClCompile Include="이미지모핑연습.cpp">
-      <Filter>소스 파일\기말고사 연습\이미지모핑연습</Filter>
-    </ClCompile>
     <ClCompile Include="기말2023-문제5.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2023예비문제</Filter>
     </ClCompile>
@@ -218,12 +203,6 @@
     </ClCompile>
     <ClCompile Include="기말2021-문제4.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
-    </ClCompile>
-    <ClCompile Include="어파인변환 연습.cpp">
-      <Filter>소스 파일\기말고사 연습</Filter>
-    </ClCompile>
-    <ClCompile Include="기말연습-레나돌리기.cpp">
-      <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
     <ClCompile Include="MP03%280309%29.cpp">
       <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
@@ -386,6 +365,24 @@
     </ClCompile>
     <ClCompile Include="MatrixInverse.cpp">
       <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
+    <ClCompile Include="기말연습-이미지모핑.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
+    <ClCompile Include="기말연습-Lena돌리기.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
+    <ClCompile Include="기말연습-마우스콜백.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
+    <ClCompile Include="기말연습-어파인변환.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
+    <ClCompile Include="기말연습-이미지워핑.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
+    </ClCompile>
+    <ClCompile Include="기말연습-이미지워핑with마우스콜백.cpp">
+      <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

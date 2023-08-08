@@ -367,13 +367,13 @@
     <ClCompile Include="기말2023-문제9.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="기말연습-레나돌리기.cpp">
+    <ClCompile Include="기말연습-Lena돌리기.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="마우스콜백연습.cpp">
+    <ClCompile Include="기말연습-마우스콜백.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="어파인변환 연습.cpp">
+    <ClCompile Include="기말연습-어파인변환.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="예제1.cpp">
@@ -397,13 +397,13 @@
     <ClCompile Include="이미지 하프토닝 연습.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="이미지모핑연습.cpp">
+    <ClCompile Include="기말연습-이미지모핑.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="이미지워핑 연습.cpp">
+    <ClCompile Include="기말연습-이미지워핑.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="이미지워핑with마우스콜백.cpp">
+    <ClCompile Include="기말연습-이미지워핑with마우스콜백.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="중간고사연습.cpp">
