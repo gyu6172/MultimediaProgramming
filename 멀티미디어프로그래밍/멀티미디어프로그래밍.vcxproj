@@ -142,7 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MP03%280309%29.cpp">
+    <ClCompile Include="MP03%280309%29-ImageWithOpenCV.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="MP03%280309%29-실습1.cpp">
@@ -268,6 +268,7 @@
     <ClCompile Include="MP26%280613%29-ImageMatting.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="교수님코드 주석버전.cpp" />
     <ClCompile Include="중간연습-Cumulative Frequency.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>

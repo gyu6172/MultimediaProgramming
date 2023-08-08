@@ -100,9 +100,6 @@
     <Filter Include="소스 파일\MP26%280613%29 - Image Matting">
       <UniqueIdentifier>{122bb2b1-58fd-43a2-8d10-de9652ced126}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\과제1-OpenCV Practice">
-      <UniqueIdentifier>{a249b9eb-8d85-4006-b14c-a9f4555db098}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\과제3 - Fastest Mean Filter">
       <UniqueIdentifier>{fd47075b-7446-4b70-8f4e-c9a5d8971ec2}</UniqueIdentifier>
     </Filter>
@@ -114,6 +111,9 @@
     </Filter>
     <Filter Include="소스 파일\과제5 - Homography : 3D Illusion">
       <UniqueIdentifier>{ca3caa9c-8dc2-4638-9c6f-41bfd996a83a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\과제1 - OpenCV Practice">
+      <UniqueIdentifier>{a249b9eb-8d85-4006-b14c-a9f4555db098}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +176,6 @@
     </ClCompile>
     <ClCompile Include="기말2021-문제4.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
-    </ClCompile>
-    <ClCompile Include="MP03%280309%29.cpp">
-      <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
     </ClCompile>
     <ClCompile Include="MP03%280309%29-실습1.cpp">
       <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
@@ -319,7 +316,7 @@
       <Filter>소스 파일\과제2 - A Colorful Russian Empire</Filter>
     </ClCompile>
     <ClCompile Include="과제1 코드.cpp">
-      <Filter>소스 파일\과제1-OpenCV Practice</Filter>
+      <Filter>소스 파일\과제1 - OpenCV Practice</Filter>
     </ClCompile>
     <ClCompile Include="과제3 코드.cpp">
       <Filter>소스 파일\과제3 - Fastest Mean Filter</Filter>
@@ -381,13 +378,19 @@
     <ClCompile Include="중간연습-이미지 하프토닝.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
+    <ClCompile Include="교수님코드 주석버전.cpp">
+      <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
+    </ClCompile>
+    <ClCompile Include="MP03%280309%29-ImageWithOpenCV.cpp">
+      <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="과제2 보고서.pdf">
       <Filter>소스 파일\과제2 - A Colorful Russian Empire</Filter>
     </None>
     <None Include="과제1 보고서.pdf">
-      <Filter>소스 파일\과제1-OpenCV Practice</Filter>
+      <Filter>소스 파일\과제1 - OpenCV Practice</Filter>
     </None>
     <None Include="과제3 보고서.pdf">
       <Filter>소스 파일\과제3 - Fastest Mean Filter</Filter>
