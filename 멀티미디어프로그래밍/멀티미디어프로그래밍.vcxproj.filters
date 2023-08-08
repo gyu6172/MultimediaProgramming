@@ -204,9 +204,6 @@
     <ClCompile Include="MP05%280316%29-실습2.cpp">
       <Filter>소스 파일\MP05%280316%29 - More about Pixel</Filter>
     </ClCompile>
-    <ClCompile Include="MP07%280323%29.cpp">
-      <Filter>소스 파일\MP07%280323%29 - Gamma Control</Filter>
-    </ClCompile>
     <ClCompile Include="MP08%280328%29.cpp">
       <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
     </ClCompile>
@@ -383,6 +380,9 @@
     </ClCompile>
     <ClCompile Include="MP06%280321%29-Point Processing.cpp">
       <Filter>소스 파일\MP06%280321%29 - Point Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="MP07%280323%29-Gamma Control.cpp">
+      <Filter>소스 파일\MP07%280323%29 - Gamma Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
