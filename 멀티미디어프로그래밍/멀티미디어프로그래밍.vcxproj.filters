@@ -204,9 +204,6 @@
     <ClCompile Include="MP05%280316%29-실습2.cpp">
       <Filter>소스 파일\MP05%280316%29 - More about Pixel</Filter>
     </ClCompile>
-    <ClCompile Include="MP08%280328%29.cpp">
-      <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
-    </ClCompile>
     <ClCompile Include="MP08%280328%29-과제2힌트.cpp">
       <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
     </ClCompile>
@@ -366,9 +363,6 @@
     <ClCompile Include="중간연습-이미지 하프토닝.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
-    <ClCompile Include="교수님코드 주석버전.cpp">
-      <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
-    </ClCompile>
     <ClCompile Include="MP03%280309%29-ImageWithOpenCV.cpp">
       <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
     </ClCompile>
@@ -383,6 +377,9 @@
     </ClCompile>
     <ClCompile Include="MP07%280323%29-Gamma Control.cpp">
       <Filter>소스 파일\MP07%280323%29 - Gamma Control</Filter>
+    </ClCompile>
+    <ClCompile Include="MP08%280328%29-Hisogram Equalization.cpp">
+      <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

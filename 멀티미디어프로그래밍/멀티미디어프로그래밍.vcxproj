@@ -187,7 +187,7 @@
     <ClCompile Include="MP08%280328%29-과제2힌트.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="MP08%280328%29.cpp">
+    <ClCompile Include="MP08%280328%29-Hisogram Equalization.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="MP09%280330%29.cpp">
@@ -268,7 +268,6 @@
     <ClCompile Include="MP26%280613%29-ImageMatting.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="교수님코드 주석버전.cpp" />
     <ClCompile Include="중간연습-Cumulative Frequency.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
