@@ -229,7 +229,7 @@
     <ClCompile Include="MP16%280502%29-Scailing.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0504-행렬.cpp">
+    <ClCompile Include="MP17%280504%29-Linear Transform.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0509.cpp">
