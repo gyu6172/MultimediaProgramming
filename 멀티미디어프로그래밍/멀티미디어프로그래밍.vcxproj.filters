@@ -120,13 +120,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="과제2Test.cpp">
-      <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
     <ClCompile Include="과제2-템플릿매칭.cpp">
-      <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
-    <ClCompile Include="과제2-공백제거.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
     <ClCompile Include="2차원배열.cpp">
@@ -393,13 +387,22 @@
     <ClCompile Include="그림판.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="과제1-OpenCV Practice.cpp">
+    <ClCompile Include="과제2-Test.cpp">
+      <Filter>소스 파일\과제2</Filter>
+    </ClCompile>
+    <ClCompile Include="과제2-코드%28제출물%29.cpp">
+      <Filter>소스 파일\과제2</Filter>
+    </ClCompile>
+    <ClCompile Include="과제1-코드1.cpp">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
       <Filter>소스 파일\중간고사연습</Filter>
+    </None>
+    <None Include="과제1-보고서1.pdf">
+      <Filter>소스 파일\과제1-OpenCV Practice</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
