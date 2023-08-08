@@ -268,7 +268,7 @@
     <ClCompile Include="MP26%280613%29-ImageMatting.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="cf연습.cpp">
+    <ClCompile Include="중간연습-Cumulative Frequency.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="과제5-main.cpp">
@@ -376,25 +376,25 @@
     <ClCompile Include="기말연습-어파인변환.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="예제1.cpp">
+    <ClCompile Include="중간연습-예제1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="예제2.cpp">
+    <ClCompile Include="중간연습-예제2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="예제3.cpp">
+    <ClCompile Include="중간연습-예제3.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="예제4.cpp">
+    <ClCompile Include="중간연습-예제4.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="예제5.cpp">
+    <ClCompile Include="중간연습-예제5.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="이미지 필터링 연습.cpp">
+    <ClCompile Include="중간연습-이미지 필터링.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="이미지 하프토닝 연습.cpp">
+    <ClCompile Include="중간연습-이미지 하프토닝.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="기말연습-이미지모핑.cpp">
@@ -406,17 +406,14 @@
     <ClCompile Include="기말연습-이미지워핑with마우스콜백.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="중간고사연습.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf" />
     <None Include="과제1 보고서.pdf" />
     <None Include="과제2 보고서.pdf" />
     <None Include="과제3 보고서.pdf" />
     <None Include="과제4 보고서.pdf" />
     <None Include="과제5 보고서.pdf" />
+    <None Include="중간고사연습.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mat.h">

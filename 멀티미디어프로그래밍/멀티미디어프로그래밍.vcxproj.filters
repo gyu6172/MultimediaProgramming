@@ -13,20 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\과제2">
-      <UniqueIdentifier>{bbcb3dee-9484-4f32-be13-2d5102084193}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\중간고사연습">
       <UniqueIdentifier>{f1f250c7-97c9-41a7-a3d9-285d4316d90a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\과제4">
-      <UniqueIdentifier>{957c421c-2073-4e30-a26d-61da3a1d11fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\기말고사 연습">
       <UniqueIdentifier>{94e2b7b4-2eb1-404a-8baf-0b623615c926}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\과제5">
-      <UniqueIdentifier>{ca3caa9c-8dc2-4638-9c6f-41bfd996a83a}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\기말고사 연습\기말고사2021">
       <UniqueIdentifier>{4e68aeab-9fbd-4556-944b-3719a3b5d6a9}</UniqueIdentifier>
@@ -109,41 +100,23 @@
     <Filter Include="소스 파일\MP26%280613%29 - Image Matting">
       <UniqueIdentifier>{122bb2b1-58fd-43a2-8d10-de9652ced126}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\과제3">
-      <UniqueIdentifier>{fd47075b-7446-4b70-8f4e-c9a5d8971ec2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\과제1-OpenCV Practice">
       <UniqueIdentifier>{a249b9eb-8d85-4006-b14c-a9f4555db098}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\과제3 - Fastest Mean Filter">
+      <UniqueIdentifier>{fd47075b-7446-4b70-8f4e-c9a5d8971ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\과제2 - A Colorful Russian Empire">
+      <UniqueIdentifier>{bbcb3dee-9484-4f32-be13-2d5102084193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\과제4 - Painterly Rendering">
+      <UniqueIdentifier>{957c421c-2073-4e30-a26d-61da3a1d11fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\과제5 - Homography : 3D Illusion">
+      <UniqueIdentifier>{ca3caa9c-8dc2-4638-9c6f-41bfd996a83a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="예제1.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="예제2.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="예제3.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="예제4.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="예제5.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="중간고사연습.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="cf연습.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="이미지 하프토닝 연습.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="이미지 필터링 연습.cpp">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
     <ClCompile Include="기말2021-문제1.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
     </ClCompile>
@@ -340,31 +313,31 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="과제2 코드.cpp">
-      <Filter>소스 파일\과제2</Filter>
+      <Filter>소스 파일\과제2 - A Colorful Russian Empire</Filter>
     </ClCompile>
     <ClCompile Include="과제2 템플릿매칭.cpp">
-      <Filter>소스 파일\과제2</Filter>
+      <Filter>소스 파일\과제2 - A Colorful Russian Empire</Filter>
     </ClCompile>
     <ClCompile Include="과제1 코드.cpp">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
     </ClCompile>
     <ClCompile Include="과제3 코드.cpp">
-      <Filter>소스 파일\과제3</Filter>
+      <Filter>소스 파일\과제3 - Fastest Mean Filter</Filter>
     </ClCompile>
     <ClCompile Include="과제4 코드.cpp">
-      <Filter>소스 파일\과제4</Filter>
+      <Filter>소스 파일\과제4 - Painterly Rendering</Filter>
     </ClCompile>
     <ClCompile Include="과제4 Circle.cpp">
-      <Filter>소스 파일\과제4</Filter>
+      <Filter>소스 파일\과제4 - Painterly Rendering</Filter>
     </ClCompile>
     <ClCompile Include="과제4 Stroke.cpp">
-      <Filter>소스 파일\과제4</Filter>
+      <Filter>소스 파일\과제4 - Painterly Rendering</Filter>
     </ClCompile>
     <ClCompile Include="과제5-main.cpp">
-      <Filter>소스 파일\과제5</Filter>
+      <Filter>소스 파일\과제5 - Homography : 3D Illusion</Filter>
     </ClCompile>
     <ClCompile Include="MatrixInverse.cpp">
-      <Filter>소스 파일\과제5</Filter>
+      <Filter>소스 파일\과제5 - Homography : 3D Illusion</Filter>
     </ClCompile>
     <ClCompile Include="기말연습-이미지모핑.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
@@ -384,36 +357,60 @@
     <ClCompile Include="기말연습-이미지워핑with마우스콜백.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
+    <ClCompile Include="중간연습-Cumulative Frequency.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간연습-예제1.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간연습-예제2.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간연습-예제3.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간연습-예제4.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간연습-예제5.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간연습-이미지 필터링.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
+    <ClCompile Include="중간연습-이미지 하프토닝.cpp">
+      <Filter>소스 파일\중간고사연습</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
-      <Filter>소스 파일\중간고사연습</Filter>
-    </None>
     <None Include="과제2 보고서.pdf">
-      <Filter>소스 파일\과제2</Filter>
+      <Filter>소스 파일\과제2 - A Colorful Russian Empire</Filter>
     </None>
     <None Include="과제1 보고서.pdf">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
     </None>
     <None Include="과제3 보고서.pdf">
-      <Filter>소스 파일\과제3</Filter>
+      <Filter>소스 파일\과제3 - Fastest Mean Filter</Filter>
     </None>
     <None Include="과제4 보고서.pdf">
-      <Filter>소스 파일\과제4</Filter>
+      <Filter>소스 파일\과제4 - Painterly Rendering</Filter>
     </None>
     <None Include="과제5 보고서.pdf">
-      <Filter>소스 파일\과제5</Filter>
+      <Filter>소스 파일\과제5 - Homography : 3D Illusion</Filter>
+    </None>
+    <None Include="중간고사연습.pdf">
+      <Filter>소스 파일\중간고사연습</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mat.h">
-      <Filter>소스 파일\과제5</Filter>
+      <Filter>소스 파일\과제5 - Homography : 3D Illusion</Filter>
     </ClInclude>
     <ClInclude Include="MatrixInverse.h">
-      <Filter>소스 파일\과제5</Filter>
+      <Filter>소스 파일\과제5 - Homography : 3D Illusion</Filter>
     </ClInclude>
     <ClInclude Include="vec.h">
-      <Filter>소스 파일\과제5</Filter>
+      <Filter>소스 파일\과제5 - Homography : 3D Illusion</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
