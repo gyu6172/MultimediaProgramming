@@ -147,18 +147,6 @@
     <ClCompile Include="이미지 필터링 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
-    <ClCompile Include="과제4-Circle.cpp">
-      <Filter>소스 파일\과제4</Filter>
-    </ClCompile>
-    <ClCompile Include="과제4-Stroke.cpp">
-      <Filter>소스 파일\과제4</Filter>
-    </ClCompile>
-    <ClCompile Include="과제4-Circle2.cpp">
-      <Filter>소스 파일\과제4</Filter>
-    </ClCompile>
-    <ClCompile Include="과제4.cpp">
-      <Filter>소스 파일\과제4</Filter>
-    </ClCompile>
     <ClCompile Include="이미지워핑 연습.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
@@ -390,6 +378,15 @@
     <ClCompile Include="과제3 코드.cpp">
       <Filter>소스 파일\과제3</Filter>
     </ClCompile>
+    <ClCompile Include="과제4 코드.cpp">
+      <Filter>소스 파일\과제4</Filter>
+    </ClCompile>
+    <ClCompile Include="과제4 Circle.cpp">
+      <Filter>소스 파일\과제4</Filter>
+    </ClCompile>
+    <ClCompile Include="과제4 Stroke.cpp">
+      <Filter>소스 파일\과제4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
@@ -403,6 +400,9 @@
     </None>
     <None Include="과제3 보고서.pdf">
       <Filter>소스 파일\과제3</Filter>
+    </None>
+    <None Include="과제4 보고서.pdf">
+      <Filter>소스 파일\과제4</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

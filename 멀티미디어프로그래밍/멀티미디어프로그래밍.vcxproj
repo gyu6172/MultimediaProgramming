@@ -295,16 +295,13 @@
     <ClCompile Include="MP13%280413%29-Dithering.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="과제4-Circle.cpp">
+    <ClCompile Include="과제4 Circle.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="과제4-Circle2.cpp">
+    <ClCompile Include="과제4 Stroke.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="과제4-Stroke.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="과제4.cpp">
+    <ClCompile Include="과제4 코드.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="그림판.cpp">
@@ -418,6 +415,7 @@
     <None Include="과제1 보고서.pdf" />
     <None Include="과제2 보고서.pdf" />
     <None Include="과제3 보고서.pdf" />
+    <None Include="과제4 보고서.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mat.h">
