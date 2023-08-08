@@ -97,12 +97,6 @@
     <Filter Include="소스 파일\MP08%280328%29 - Histogram Equalization">
       <UniqueIdentifier>{e75e67b2-fb39-47a8-90db-a68ca177071c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\MP12%280411%29">
-      <UniqueIdentifier>{37f84918-1899-4e38-ac72-a56defaa253b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\MP13%280413%29">
-      <UniqueIdentifier>{c73f86c0-5a2a-456c-9f92-f0b90562c103}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\MP09%280330%29 - Neighborhood Processing">
       <UniqueIdentifier>{7193f356-10b9-42ac-95dc-afeb4a40fa38}</UniqueIdentifier>
     </Filter>
@@ -111,6 +105,12 @@
     </Filter>
     <Filter Include="소스 파일\MP11%280406%29 - Fast Mean/Smart Filtering">
       <UniqueIdentifier>{6f6e9204-cdc4-4183-a77b-e149cc4594de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP12%280411%29 - Image Halftoning 1">
+      <UniqueIdentifier>{37f84918-1899-4e38-ac72-a56defaa253b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP13%280413%29 - Image Halftoning 2">
+      <UniqueIdentifier>{c73f86c0-5a2a-456c-9f92-f0b90562c103}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -135,14 +135,8 @@
     <ClCompile Include="과제3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="0411-경계법.cpp">
-      <Filter>소스 파일\MP12%280411%29</Filter>
-    </ClCompile>
-    <ClCompile Include="0411-패턴법.cpp">
-      <Filter>소스 파일\MP12%280411%29</Filter>
-    </ClCompile>
     <ClCompile Include="0413.cpp">
-      <Filter>소스 파일\MP13%280413%29</Filter>
+      <Filter>소스 파일\MP13%280413%29 - Image Halftoning 2</Filter>
     </ClCompile>
     <ClCompile Include="예제1.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
@@ -401,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="MP11%280406%29-Mean Filtering.cpp">
       <Filter>소스 파일\MP11%280406%29 - Fast Mean/Smart Filtering</Filter>
+    </ClCompile>
+    <ClCompile Include="MP12%280411%29-경계법.cpp">
+      <Filter>소스 파일\MP12%280411%29 - Image Halftoning 1</Filter>
+    </ClCompile>
+    <ClCompile Include="MP12%280411%29-패턴법.cpp">
+      <Filter>소스 파일\MP12%280411%29 - Image Halftoning 1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

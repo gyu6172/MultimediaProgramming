@@ -205,10 +205,10 @@
     <ClCompile Include="MP11%280406%29-Mean Filtering.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0411-경계법.cpp">
+    <ClCompile Include="MP12%280411%29-경계법.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0411-패턴법.cpp">
+    <ClCompile Include="MP12%280411%29-패턴법.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0418-과제2풀이.cpp">
