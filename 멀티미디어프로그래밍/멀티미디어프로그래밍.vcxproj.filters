@@ -186,9 +186,6 @@
     <ClCompile Include="MP03%280309%29-실습3.cpp">
       <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
     </ClCompile>
-    <ClCompile Include="MP04%280314%29.cpp">
-      <Filter>소스 파일\MP04%280314%29 - Pixel and OpenCV</Filter>
-    </ClCompile>
     <ClCompile Include="MP04%280314%29-실습1.cpp">
       <Filter>소스 파일\MP04%280314%29 - Pixel and OpenCV</Filter>
     </ClCompile>
@@ -383,6 +380,9 @@
     </ClCompile>
     <ClCompile Include="MP03%280309%29-ImageWithOpenCV.cpp">
       <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="MP04%280314%29-Pixel and OpenCV.cpp">
+      <Filter>소스 파일\MP04%280314%29 - Pixel and OpenCV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
