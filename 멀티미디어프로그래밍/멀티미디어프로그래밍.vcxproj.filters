@@ -22,9 +22,6 @@
     <Filter Include="소스 파일\과제4">
       <UniqueIdentifier>{957c421c-2073-4e30-a26d-61da3a1d11fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0523-Cross Dissolve">
-      <UniqueIdentifier>{feb96890-048e-4e76-857a-88c24de0fb7e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\0525-Image Morphing">
       <UniqueIdentifier>{9fe2367d-649c-4fe4-a1a4-3390d1388d13}</UniqueIdentifier>
     </Filter>
@@ -112,6 +109,9 @@
     <Filter Include="소스 파일\MP21%280518%29 - homography">
       <UniqueIdentifier>{85fb5e9f-0de0-48be-b100-cd35f3e3a08e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MP22%280523%29 - Cross Dissolve">
+      <UniqueIdentifier>{feb96890-048e-4e76-857a-88c24de0fb7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -176,9 +176,6 @@
     </ClCompile>
     <ClCompile Include="과제4.cpp">
       <Filter>소스 파일\과제4</Filter>
-    </ClCompile>
-    <ClCompile Include="0523-CrossDissolve.cpp">
-      <Filter>소스 파일\0523-Cross Dissolve</Filter>
     </ClCompile>
     <ClCompile Include="0525-ImageMorphing.cpp">
       <Filter>소스 파일\0525-Image Morphing</Filter>
@@ -401,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="MP21%280518%29-homography.cpp">
       <Filter>소스 파일\MP21%280518%29 - homography</Filter>
+    </ClCompile>
+    <ClCompile Include="MP22%280523%29-CrossDissolve.cpp">
+      <Filter>소스 파일\MP22%280523%29 - Cross Dissolve</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

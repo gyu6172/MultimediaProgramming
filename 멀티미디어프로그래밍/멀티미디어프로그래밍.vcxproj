@@ -250,7 +250,7 @@
     <ClCompile Include="MP21%280518%29-homography.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0523-CrossDissolve.cpp">
+    <ClCompile Include="MP22%280523%29-CrossDissolve.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0525-ImageMorphing.cpp">
