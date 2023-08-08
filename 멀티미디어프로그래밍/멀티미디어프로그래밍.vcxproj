@@ -178,7 +178,7 @@
     <ClCompile Include="MP05%280316%29-More About Pixel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="MP06%280321%29.cpp">
+    <ClCompile Include="MP06%280321%29-Point Processing.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="MP07%280323%29.cpp">
