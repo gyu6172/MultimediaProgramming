@@ -19,9 +19,6 @@
     <Filter Include="소스 파일\중간고사연습">
       <UniqueIdentifier>{f1f250c7-97c9-41a7-a3d9-285d4316d90a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0418-과제풀이">
-      <UniqueIdentifier>{8005f9dd-8d13-47fb-8e82-517fe3e94770}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\과제4">
       <UniqueIdentifier>{957c421c-2073-4e30-a26d-61da3a1d11fe}</UniqueIdentifier>
     </Filter>
@@ -112,6 +109,9 @@
     <Filter Include="소스 파일\MP13%280413%29 - Image Halftoning 2">
       <UniqueIdentifier>{c73f86c0-5a2a-456c-9f92-f0b90562c103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MP14%280418%29 - 과제풀이">
+      <UniqueIdentifier>{8005f9dd-8d13-47fb-8e82-517fe3e94770}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -158,12 +158,6 @@
     </ClCompile>
     <ClCompile Include="이미지 하프토닝 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="0418-과제3풀이.cpp">
-      <Filter>소스 파일\0418-과제풀이</Filter>
-    </ClCompile>
-    <ClCompile Include="0418-과제2풀이.cpp">
-      <Filter>소스 파일\0418-과제풀이</Filter>
     </ClCompile>
     <ClCompile Include="이미지 필터링 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
@@ -401,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="MP13%280413%29-Dithering.cpp">
       <Filter>소스 파일\MP13%280413%29 - Image Halftoning 2</Filter>
+    </ClCompile>
+    <ClCompile Include="MP14%280418%29-과제2풀이.cpp">
+      <Filter>소스 파일\MP14%280418%29 - 과제풀이</Filter>
+    </ClCompile>
+    <ClCompile Include="MP14%280418%29-과제3풀이.cpp">
+      <Filter>소스 파일\MP14%280418%29 - 과제풀이</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

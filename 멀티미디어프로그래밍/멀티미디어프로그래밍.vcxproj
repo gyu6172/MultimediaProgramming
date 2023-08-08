@@ -211,10 +211,10 @@
     <ClCompile Include="MP12%280411%29-Patterning.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0418-과제2풀이.cpp">
+    <ClCompile Include="MP14%280418%29-과제2풀이.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0418-과제3풀이.cpp">
+    <ClCompile Include="MP14%280418%29-과제3풀이.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0427-마우스이벤트.cpp">
