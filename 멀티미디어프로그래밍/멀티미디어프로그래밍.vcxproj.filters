@@ -372,9 +372,6 @@
     <ClCompile Include="MP26%280613%29-ImageMatting.cpp">
       <Filter>소스 파일\MP26%280613%29 - Image Matting</Filter>
     </ClCompile>
-    <ClCompile Include="과제3.cpp">
-      <Filter>소스 파일\과제3</Filter>
-    </ClCompile>
     <ClCompile Include="별그리기.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -390,6 +387,9 @@
     <ClCompile Include="과제1 코드.cpp">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
     </ClCompile>
+    <ClCompile Include="과제3 코드.cpp">
+      <Filter>소스 파일\과제3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
@@ -400,6 +400,9 @@
     </None>
     <None Include="과제1 보고서.pdf">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
+    </None>
+    <None Include="과제3 보고서.pdf">
+      <Filter>소스 파일\과제3</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
