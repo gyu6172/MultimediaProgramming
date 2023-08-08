@@ -165,9 +165,6 @@
     <ClCompile Include="그림판.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="0502.cpp">
-      <Filter>소스 파일\MP16%280502%29 - Image Warping</Filter>
-    </ClCompile>
     <ClCompile Include="과제4-Circle.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
@@ -401,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="MP15%280427%29-실습2.cpp">
       <Filter>소스 파일\MP15%280427%29 - Mouse Callback with OpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="MP16%280502%29-Scailing.cpp">
+      <Filter>소스 파일\MP16%280502%29 - Image Warping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
