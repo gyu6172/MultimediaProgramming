@@ -225,12 +225,6 @@
     <ClCompile Include="기말연습-레나돌리기.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일\과제5</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixInverse.cpp">
-      <Filter>소스 파일\과제5</Filter>
-    </ClCompile>
     <ClCompile Include="MP03%280309%29.cpp">
       <Filter>소스 파일\MP03%280309%29 - Image with OpenCV</Filter>
     </ClCompile>
@@ -387,6 +381,12 @@
     <ClCompile Include="과제4 Stroke.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
+    <ClCompile Include="과제5-main.cpp">
+      <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixInverse.cpp">
+      <Filter>소스 파일\과제5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf">
@@ -404,15 +404,18 @@
     <None Include="과제4 보고서.pdf">
       <Filter>소스 파일\과제4</Filter>
     </None>
+    <None Include="과제5 보고서.pdf">
+      <Filter>소스 파일\과제5</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mat.h">
       <Filter>소스 파일\과제5</Filter>
     </ClInclude>
-    <ClInclude Include="vec.h">
+    <ClInclude Include="MatrixInverse.h">
       <Filter>소스 파일\과제5</Filter>
     </ClInclude>
-    <ClInclude Include="MatrixInverse.h">
+    <ClInclude Include="vec.h">
       <Filter>소스 파일\과제5</Filter>
     </ClInclude>
   </ItemGroup>
