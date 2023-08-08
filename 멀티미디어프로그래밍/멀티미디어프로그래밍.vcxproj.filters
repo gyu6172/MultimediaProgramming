@@ -135,9 +135,6 @@
     <ClCompile Include="과제3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="0413.cpp">
-      <Filter>소스 파일\MP13%280413%29 - Image Halftoning 2</Filter>
-    </ClCompile>
     <ClCompile Include="예제1.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
@@ -401,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="MP12%280411%29-Patterning.cpp">
       <Filter>소스 파일\MP12%280411%29 - Image Halftoning 1</Filter>
+    </ClCompile>
+    <ClCompile Include="MP13%280413%29-Dithering.cpp">
+      <Filter>소스 파일\MP13%280413%29 - Image Halftoning 2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
