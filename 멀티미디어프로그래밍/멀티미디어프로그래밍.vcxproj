@@ -199,10 +199,10 @@
     <ClCompile Include="MP10%280404%29-Unsharp Masking.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0406-Bilateral.cpp">
+    <ClCompile Include="MP11%280406%29-Bilateral Filtering.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0406-실습1.cpp">
+    <ClCompile Include="MP11%280406%29-Mean Filtering.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0411-경계법.cpp">
