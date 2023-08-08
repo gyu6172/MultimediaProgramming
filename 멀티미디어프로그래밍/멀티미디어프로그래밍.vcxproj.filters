@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\0321">
-      <UniqueIdentifier>{73309eb8-14fa-4e4e-bc73-348f1357d989}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\0323">
       <UniqueIdentifier>{50328221-eb6a-4e37-8a06-bbc350ee9d4b}</UniqueIdentifier>
     </Filter>
@@ -112,6 +109,9 @@
     <Filter Include="소스 파일\MP05%280316%29">
       <UniqueIdentifier>{845e571c-7320-4767-8e7a-e4e965230e27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MP06%280321%29">
+      <UniqueIdentifier>{73309eb8-14fa-4e4e-bc73-348f1357d989}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -119,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="과제1.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="0321.cpp">
-      <Filter>소스 파일\0321</Filter>
     </ClCompile>
     <ClCompile Include="0323.cpp">
       <Filter>소스 파일\0323</Filter>
@@ -401,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="MP05%280316%29-실습2.cpp">
       <Filter>소스 파일\MP05%280316%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MP06%280321%29.cpp">
+      <Filter>소스 파일\MP06%280321%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
