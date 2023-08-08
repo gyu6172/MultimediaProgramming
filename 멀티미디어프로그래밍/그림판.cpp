@@ -53,4 +53,5 @@ int main() {
 	cvShowImage("그림판",paint);
 	cvSetMouseCallback("그림판", myMouse);
 	cvWaitKey();
+
 }
