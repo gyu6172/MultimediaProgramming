@@ -253,7 +253,7 @@
     <ClCompile Include="MP22%280523%29-CrossDissolve.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0525-ImageMorphing.cpp">
+    <ClCompile Include="MP23%280525%29-InteractiveImageMorphing.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0530-ImageMorphing.cpp">
