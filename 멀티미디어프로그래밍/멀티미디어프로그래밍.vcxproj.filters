@@ -112,14 +112,14 @@
     <Filter Include="소스 파일\MP26%280613%29 - Image Matting">
       <UniqueIdentifier>{122bb2b1-58fd-43a2-8d10-de9652ced126}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\과제3">
+      <UniqueIdentifier>{fd47075b-7446-4b70-8f4e-c9a5d8971ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\과제1-OpenCV Practice">
+      <UniqueIdentifier>{a249b9eb-8d85-4006-b14c-a9f4555db098}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="helloCV.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="과제1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="과제2Test.cpp">
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
@@ -131,9 +131,6 @@
     </ClCompile>
     <ClCompile Include="2차원배열.cpp">
       <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
-    <ClCompile Include="과제3.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="예제1.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
@@ -161,9 +158,6 @@
     </ClCompile>
     <ClCompile Include="이미지 필터링 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
-    </ClCompile>
-    <ClCompile Include="그림판.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="과제4-Circle.cpp">
       <Filter>소스 파일\과제4</Filter>
@@ -255,22 +249,10 @@
     <ClCompile Include="기말연습-레나돌리기.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
     </ClCompile>
-    <ClCompile Include="MFC과제연습.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일\과제5</Filter>
     </ClCompile>
     <ClCompile Include="MatrixInverse.cpp">
-      <Filter>소스 파일\과제5</Filter>
-    </ClCompile>
-    <ClCompile Include="과제5연습.cpp">
-      <Filter>소스 파일\과제5</Filter>
-    </ClCompile>
-    <ClCompile Include="과제5연습 역변환.cpp">
-      <Filter>소스 파일\과제5</Filter>
-    </ClCompile>
-    <ClCompile Include="과제5 삼각형 연습.cpp">
       <Filter>소스 파일\과제5</Filter>
     </ClCompile>
     <ClCompile Include="MP03%280309%29.cpp">
@@ -401,6 +383,18 @@
     </ClCompile>
     <ClCompile Include="MP26%280613%29-ImageMatting.cpp">
       <Filter>소스 파일\MP26%280613%29 - Image Matting</Filter>
+    </ClCompile>
+    <ClCompile Include="과제3.cpp">
+      <Filter>소스 파일\과제3</Filter>
+    </ClCompile>
+    <ClCompile Include="별그리기.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="그림판.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="과제1.cpp">
+      <Filter>소스 파일\과제1-OpenCV Practice</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
