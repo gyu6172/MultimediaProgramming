@@ -265,7 +265,7 @@
     <ClCompile Include="MP25%280601%29-과제4풀이.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0613-ImageMatting.cpp">
+    <ClCompile Include="MP26%280613%29-ImageMatting.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="cf연습.cpp">

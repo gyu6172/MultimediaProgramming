@@ -28,9 +28,6 @@
     <Filter Include="소스 파일\과제5">
       <UniqueIdentifier>{ca3caa9c-8dc2-4638-9c6f-41bfd996a83a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0613-Image Matting">
-      <UniqueIdentifier>{122bb2b1-58fd-43a2-8d10-de9652ced126}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\기말고사 연습\기말고사2021">
       <UniqueIdentifier>{4e68aeab-9fbd-4556-944b-3719a3b5d6a9}</UniqueIdentifier>
     </Filter>
@@ -112,6 +109,9 @@
     <Filter Include="소스 파일\MP25%280601%29 - Feature-based Metamorphosis">
       <UniqueIdentifier>{8f91925f-1896-4326-8988-6e6443eb425a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MP26%280613%29 - Image Matting">
+      <UniqueIdentifier>{122bb2b1-58fd-43a2-8d10-de9652ced126}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -185,9 +185,6 @@
     </ClCompile>
     <ClCompile Include="마우스콜백연습.cpp">
       <Filter>소스 파일\기말고사 연습</Filter>
-    </ClCompile>
-    <ClCompile Include="0613-ImageMatting.cpp">
-      <Filter>소스 파일\0613-Image Matting</Filter>
     </ClCompile>
     <ClCompile Include="기말2021-문제1.cpp">
       <Filter>소스 파일\기말고사 연습\기말고사2021</Filter>
@@ -401,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="MP25%280601%29-과제4풀이.cpp">
       <Filter>소스 파일\MP25%280601%29 - Feature-based Metamorphosis</Filter>
+    </ClCompile>
+    <ClCompile Include="MP26%280613%29-ImageMatting.cpp">
+      <Filter>소스 파일\MP26%280613%29 - Image Matting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
