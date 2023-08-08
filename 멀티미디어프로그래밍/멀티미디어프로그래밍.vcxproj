@@ -256,7 +256,7 @@
     <ClCompile Include="MP23%280525%29-InteractiveImageMorphing.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0530-ImageMorphing.cpp">
+    <ClCompile Include="MP24%280530%29-Feature-based Morphing%28미완%29.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0601-ImageMorphing.cpp">
