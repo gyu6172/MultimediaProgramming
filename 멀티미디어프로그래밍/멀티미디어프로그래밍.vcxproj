@@ -283,7 +283,7 @@
     <ClCompile Include="과제2 코드.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="과제1-코드.cpp">
+    <ClCompile Include="과제1 코드.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="과제2 템플릿매칭.cpp">
@@ -415,7 +415,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\세종대학교\2학년 1학기 2023\멀티미디어 프로그래밍\중간고사 연습.pdf" />
-    <None Include="과제1-보고서.pdf" />
+    <None Include="과제1 보고서.pdf" />
     <None Include="과제2 보고서.pdf" />
   </ItemGroup>
   <ItemGroup>
