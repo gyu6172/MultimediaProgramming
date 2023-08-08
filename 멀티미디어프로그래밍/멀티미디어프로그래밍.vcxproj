@@ -244,7 +244,7 @@
     <ClCompile Include="MP19%280511%29-Affine Transform2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0516-interpolation.cpp">
+    <ClCompile Include="MP20%280516%29-Interpolation.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0518-homography.cpp">

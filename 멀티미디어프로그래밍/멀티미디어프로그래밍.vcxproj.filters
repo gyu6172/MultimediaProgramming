@@ -177,9 +177,6 @@
     <ClCompile Include="과제4.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
-    <ClCompile Include="0516-interpolation.cpp">
-      <Filter>소스 파일\MP20%280516%29 - Interpolation</Filter>
-    </ClCompile>
     <ClCompile Include="0518-homography.cpp">
       <Filter>소스 파일\0518-homography</Filter>
     </ClCompile>
@@ -401,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="MP19%280511%29-실습2.cpp">
       <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
+    </ClCompile>
+    <ClCompile Include="MP20%280516%29-Interpolation.cpp">
+      <Filter>소스 파일\MP20%280516%29 - Interpolation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
