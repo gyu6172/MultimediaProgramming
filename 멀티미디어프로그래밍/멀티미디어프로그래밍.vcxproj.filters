@@ -117,21 +117,6 @@
     <ClCompile Include="helloCV.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="0314.cpp">
-      <Filter>소스 파일\MP03%280314%29</Filter>
-    </ClCompile>
-    <ClCompile Include="0314-실습1.cpp">
-      <Filter>소스 파일\MP03%280314%29</Filter>
-    </ClCompile>
-    <ClCompile Include="0314-실습2.cpp">
-      <Filter>소스 파일\MP03%280314%29</Filter>
-    </ClCompile>
-    <ClCompile Include="0314-실습3.cpp">
-      <Filter>소스 파일\MP03%280314%29</Filter>
-    </ClCompile>
-    <ClCompile Include="0314-실습4.cpp">
-      <Filter>소스 파일\MP03%280314%29</Filter>
-    </ClCompile>
     <ClCompile Include="0316.cpp">
       <Filter>소스 파일\0316</Filter>
     </ClCompile>
@@ -401,6 +386,21 @@
     </ClCompile>
     <ClCompile Include="MP03%280309%29-실습3.cpp">
       <Filter>소스 파일\MP03%280309%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MP03%280314%29.cpp">
+      <Filter>소스 파일\MP03%280314%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MP03%280314%29-실습1.cpp">
+      <Filter>소스 파일\MP03%280314%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MP03%280314%29-실습2.cpp">
+      <Filter>소스 파일\MP03%280314%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MP03%280314%29-실습3.cpp">
+      <Filter>소스 파일\MP03%280314%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MP03%280314%29-실습4.cpp">
+      <Filter>소스 파일\MP03%280314%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
