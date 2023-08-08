@@ -22,24 +22,6 @@
     <Filter Include="소스 파일\과제4">
       <UniqueIdentifier>{957c421c-2073-4e30-a26d-61da3a1d11fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0427-Mouse Callback">
-      <UniqueIdentifier>{652f4d80-59a8-48c9-a8a4-084e88652989}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0502-Image Warping">
-      <UniqueIdentifier>{049c721d-b10d-4db5-93e4-1c182f6997ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0504-Image Warping">
-      <UniqueIdentifier>{2afab986-c782-426e-a06c-e893c18f2778}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0509-Affine Transform">
-      <UniqueIdentifier>{192cc7af-143e-4a4e-9673-9f9a2fe252fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0511-Affine Transform">
-      <UniqueIdentifier>{e523ff18-300f-4f0f-b2a2-4544b4734e8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0516-interpolation">
-      <UniqueIdentifier>{5575354d-cc14-49f9-955a-dd8ffef1da39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\0518-homography">
       <UniqueIdentifier>{85fb5e9f-0de0-48be-b100-cd35f3e3a08e}</UniqueIdentifier>
     </Filter>
@@ -112,6 +94,24 @@
     <Filter Include="소스 파일\MP14%280418%29 - 과제풀이">
       <UniqueIdentifier>{8005f9dd-8d13-47fb-8e82-517fe3e94770}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MP15%280427%29 - Mouse Callback with OpenCV">
+      <UniqueIdentifier>{652f4d80-59a8-48c9-a8a4-084e88652989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP16%280502%29 - Image Warping">
+      <UniqueIdentifier>{049c721d-b10d-4db5-93e4-1c182f6997ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP17%280504%29 - Linear Transform">
+      <UniqueIdentifier>{2afab986-c782-426e-a06c-e893c18f2778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP18%280509%29 - Affine Transform">
+      <UniqueIdentifier>{192cc7af-143e-4a4e-9673-9f9a2fe252fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP19%280511%29 - Affine Transform2">
+      <UniqueIdentifier>{e523ff18-300f-4f0f-b2a2-4544b4734e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP20%280516%29 - Interpolation">
+      <UniqueIdentifier>{5575354d-cc14-49f9-955a-dd8ffef1da39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -162,50 +162,41 @@
     <ClCompile Include="이미지 필터링 연습.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
-    <ClCompile Include="0427-마우스이벤트.cpp">
-      <Filter>소스 파일\0427-Mouse Callback</Filter>
-    </ClCompile>
-    <ClCompile Include="0427-실습1.cpp">
-      <Filter>소스 파일\0427-Mouse Callback</Filter>
-    </ClCompile>
-    <ClCompile Include="0427-실습2.cpp">
-      <Filter>소스 파일\0427-Mouse Callback</Filter>
-    </ClCompile>
     <ClCompile Include="그림판.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="0502.cpp">
-      <Filter>소스 파일\0502-Image Warping</Filter>
+      <Filter>소스 파일\MP16%280502%29 - Image Warping</Filter>
     </ClCompile>
     <ClCompile Include="과제4-Circle.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
     <ClCompile Include="0504-행렬.cpp">
-      <Filter>소스 파일\0504-Image Warping</Filter>
+      <Filter>소스 파일\MP17%280504%29 - Linear Transform</Filter>
     </ClCompile>
     <ClCompile Include="과제4-Stroke.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
     <ClCompile Include="0509.cpp">
-      <Filter>소스 파일\0509-Affine Transform</Filter>
+      <Filter>소스 파일\MP18%280509%29 - Affine Transform</Filter>
     </ClCompile>
     <ClCompile Include="과제4-Circle2.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
     <ClCompile Include="0511.cpp">
-      <Filter>소스 파일\0511-Affine Transform</Filter>
+      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
     </ClCompile>
     <ClCompile Include="0511-실습1.cpp">
-      <Filter>소스 파일\0511-Affine Transform</Filter>
+      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
     </ClCompile>
     <ClCompile Include="0511-실습2.cpp">
-      <Filter>소스 파일\0511-Affine Transform</Filter>
+      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
     </ClCompile>
     <ClCompile Include="과제4.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
     <ClCompile Include="0516-interpolation.cpp">
-      <Filter>소스 파일\0516-interpolation</Filter>
+      <Filter>소스 파일\MP20%280516%29 - Interpolation</Filter>
     </ClCompile>
     <ClCompile Include="0518-homography.cpp">
       <Filter>소스 파일\0518-homography</Filter>
@@ -401,6 +392,15 @@
     </ClCompile>
     <ClCompile Include="MP14%280418%29-과제3풀이.cpp">
       <Filter>소스 파일\MP14%280418%29 - 과제풀이</Filter>
+    </ClCompile>
+    <ClCompile Include="MP15%280427%29-Mouse Event.cpp">
+      <Filter>소스 파일\MP15%280427%29 - Mouse Callback with OpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="MP15%280427%29-실습1.cpp">
+      <Filter>소스 파일\MP15%280427%29 - Mouse Callback with OpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="MP15%280427%29-실습2.cpp">
+      <Filter>소스 파일\MP15%280427%29 - Mouse Callback with OpenCV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
