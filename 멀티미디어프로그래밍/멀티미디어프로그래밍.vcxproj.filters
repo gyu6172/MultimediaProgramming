@@ -393,7 +393,7 @@
     <ClCompile Include="그림판.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="과제1.cpp">
+    <ClCompile Include="과제1-OpenCV Practice.cpp">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
     </ClCompile>
   </ItemGroup>
