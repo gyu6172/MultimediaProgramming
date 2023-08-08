@@ -13,23 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\0330">
-      <UniqueIdentifier>{7193f356-10b9-42ac-95dc-afeb4a40fa38}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\과제2">
       <UniqueIdentifier>{bbcb3dee-9484-4f32-be13-2d5102084193}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0404">
-      <UniqueIdentifier>{2bab9823-fc5f-4301-8b1a-c06c0b51583f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0406">
-      <UniqueIdentifier>{6f6e9204-cdc4-4183-a77b-e149cc4594de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0411">
-      <UniqueIdentifier>{37f84918-1899-4e38-ac72-a56defaa253b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0413">
-      <UniqueIdentifier>{c73f86c0-5a2a-456c-9f92-f0b90562c103}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\중간고사연습">
       <UniqueIdentifier>{f1f250c7-97c9-41a7-a3d9-285d4316d90a}</UniqueIdentifier>
@@ -112,6 +97,21 @@
     <Filter Include="소스 파일\MP08%280328%29 - Histogram Equalization">
       <UniqueIdentifier>{e75e67b2-fb39-47a8-90db-a68ca177071c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\MP10%280404%29">
+      <UniqueIdentifier>{2bab9823-fc5f-4301-8b1a-c06c0b51583f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP11%280406%29">
+      <UniqueIdentifier>{6f6e9204-cdc4-4183-a77b-e149cc4594de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP12%280411%29">
+      <UniqueIdentifier>{37f84918-1899-4e38-ac72-a56defaa253b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP13%280413%29">
+      <UniqueIdentifier>{c73f86c0-5a2a-456c-9f92-f0b90562c103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP09%280330%29 - Neighborhood Processing">
+      <UniqueIdentifier>{7193f356-10b9-42ac-95dc-afeb4a40fa38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helloCV.cpp">
@@ -119,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="과제1.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="0330.cpp">
-      <Filter>소스 파일\0330</Filter>
     </ClCompile>
     <ClCompile Include="과제2Test.cpp">
       <Filter>소스 파일\과제2</Filter>
@@ -136,28 +133,28 @@
       <Filter>소스 파일\과제2</Filter>
     </ClCompile>
     <ClCompile Include="0404-실습1.cpp">
-      <Filter>소스 파일\0404</Filter>
+      <Filter>소스 파일\MP10%280404%29</Filter>
     </ClCompile>
     <ClCompile Include="0404-실습2.cpp">
-      <Filter>소스 파일\0404</Filter>
+      <Filter>소스 파일\MP10%280404%29</Filter>
     </ClCompile>
     <ClCompile Include="0406-실습1.cpp">
-      <Filter>소스 파일\0406</Filter>
+      <Filter>소스 파일\MP11%280406%29</Filter>
     </ClCompile>
     <ClCompile Include="0406-Bilateral.cpp">
-      <Filter>소스 파일\0406</Filter>
+      <Filter>소스 파일\MP11%280406%29</Filter>
     </ClCompile>
     <ClCompile Include="과제3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="0411-경계법.cpp">
-      <Filter>소스 파일\0411</Filter>
+      <Filter>소스 파일\MP12%280411%29</Filter>
     </ClCompile>
     <ClCompile Include="0411-패턴법.cpp">
-      <Filter>소스 파일\0411</Filter>
+      <Filter>소스 파일\MP12%280411%29</Filter>
     </ClCompile>
     <ClCompile Include="0413.cpp">
-      <Filter>소스 파일\0413</Filter>
+      <Filter>소스 파일\MP13%280413%29</Filter>
     </ClCompile>
     <ClCompile Include="예제1.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
@@ -401,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="MP08%280328%29-과제2힌트.cpp">
       <Filter>소스 파일\MP08%280328%29 - Histogram Equalization</Filter>
+    </ClCompile>
+    <ClCompile Include="MP09%280330%29.cpp">
+      <Filter>소스 파일\MP09%280330%29 - Neighborhood Processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
