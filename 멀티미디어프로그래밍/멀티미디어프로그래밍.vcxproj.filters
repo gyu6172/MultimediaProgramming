@@ -174,15 +174,6 @@
     <ClCompile Include="과제4-Circle2.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
-    <ClCompile Include="0511.cpp">
-      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
-    </ClCompile>
-    <ClCompile Include="0511-실습1.cpp">
-      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
-    </ClCompile>
-    <ClCompile Include="0511-실습2.cpp">
-      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
-    </ClCompile>
     <ClCompile Include="과제4.cpp">
       <Filter>소스 파일\과제4</Filter>
     </ClCompile>
@@ -401,6 +392,15 @@
     </ClCompile>
     <ClCompile Include="MP18%280509%29-Affine Transform.cpp">
       <Filter>소스 파일\MP18%280509%29 - Affine Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="MP19%280511%29-Affine Transform2.cpp">
+      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
+    </ClCompile>
+    <ClCompile Include="MP19%280511%29-실습1.cpp">
+      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
+    </ClCompile>
+    <ClCompile Include="MP19%280511%29-실습2.cpp">
+      <Filter>소스 파일\MP19%280511%29 - Affine Transform2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
