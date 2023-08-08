@@ -232,7 +232,7 @@
     <ClCompile Include="MP17%280504%29-Linear Transform.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0509.cpp">
+    <ClCompile Include="MP18%280509%29-Affine Transform.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0511-실습1.cpp">
