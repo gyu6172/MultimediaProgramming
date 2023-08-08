@@ -97,9 +97,6 @@
     <Filter Include="소스 파일\MP08%280328%29 - Histogram Equalization">
       <UniqueIdentifier>{e75e67b2-fb39-47a8-90db-a68ca177071c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\MP10%280404%29">
-      <UniqueIdentifier>{2bab9823-fc5f-4301-8b1a-c06c0b51583f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\MP11%280406%29">
       <UniqueIdentifier>{6f6e9204-cdc4-4183-a77b-e149cc4594de}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,9 @@
     </Filter>
     <Filter Include="소스 파일\MP09%280330%29 - Neighborhood Processing">
       <UniqueIdentifier>{7193f356-10b9-42ac-95dc-afeb4a40fa38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\MP10%280404%29 - More Neighborhood Processing">
+      <UniqueIdentifier>{2bab9823-fc5f-4301-8b1a-c06c0b51583f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,12 +131,6 @@
     </ClCompile>
     <ClCompile Include="2차원배열.cpp">
       <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
-    <ClCompile Include="0404-실습1.cpp">
-      <Filter>소스 파일\MP10%280404%29</Filter>
-    </ClCompile>
-    <ClCompile Include="0404-실습2.cpp">
-      <Filter>소스 파일\MP10%280404%29</Filter>
     </ClCompile>
     <ClCompile Include="0406-실습1.cpp">
       <Filter>소스 파일\MP11%280406%29</Filter>
@@ -401,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="MP09%280330%29.cpp">
       <Filter>소스 파일\MP09%280330%29 - Neighborhood Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="MP10%280404%29-Median Filtering.cpp">
+      <Filter>소스 파일\MP10%280404%29 - More Neighborhood Processing</Filter>
+    </ClCompile>
+    <ClCompile Include="MP10%280404%29-Unsharp Masking.cpp">
+      <Filter>소스 파일\MP10%280404%29 - More Neighborhood Processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

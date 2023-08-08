@@ -193,10 +193,10 @@
     <ClCompile Include="MP09%280330%29.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0404-실습1.cpp">
+    <ClCompile Include="MP10%280404%29-Median Filtering.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="0404-실습2.cpp">
+    <ClCompile Include="MP10%280404%29-Unsharp Masking.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="0406-Bilateral.cpp">
