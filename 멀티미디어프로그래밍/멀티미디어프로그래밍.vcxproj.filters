@@ -120,12 +120,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="과제2-템플릿매칭.cpp">
-      <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
-    <ClCompile Include="2차원배열.cpp">
-      <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
     <ClCompile Include="예제1.cpp">
       <Filter>소스 파일\중간고사연습</Filter>
     </ClCompile>
@@ -387,14 +381,14 @@
     <ClCompile Include="그림판.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="과제2-Test.cpp">
-      <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
-    <ClCompile Include="과제2-코드%28제출물%29.cpp">
-      <Filter>소스 파일\과제2</Filter>
-    </ClCompile>
     <ClCompile Include="과제1-코드.cpp">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
+    </ClCompile>
+    <ClCompile Include="과제2 코드.cpp">
+      <Filter>소스 파일\과제2</Filter>
+    </ClCompile>
+    <ClCompile Include="과제2 템플릿매칭.cpp">
+      <Filter>소스 파일\과제2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +397,9 @@
     </None>
     <None Include="과제1-보고서.pdf">
       <Filter>소스 파일\과제1-OpenCV Practice</Filter>
+    </None>
+    <None Include="과제2 보고서.pdf">
+      <Filter>소스 파일\과제2</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
